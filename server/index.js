@@ -12,7 +12,8 @@ initModels(CLIENT_CONNECTION, models);
 
 // khai bao cac route
 const user = require('./modules/user/user.route');
-
+const auth = require('./modules/auth/auth.route');
+const post = require('./modules/post/post.route');
 
 var app = express();
 
@@ -24,6 +25,8 @@ app.use(
 app.use(bodyParser.json());
 
 app.use("/user", user);
+app.use("/auth", auth);
+app.use("/post", post);
 
 const port = process.env.PORT || 5000;
 
