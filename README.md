@@ -7,3 +7,8 @@
 
 **Chạy chương trình**
 * > npm run dev
+
+
+## Client
+**Cài đặt thư viện**
+* Vào thư mục client, bật terminal và chạy lệnh > npm install
