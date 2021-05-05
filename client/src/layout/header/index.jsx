@@ -1,36 +1,21 @@
 import React, { useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./style.scss";
-import { Layout, Button, Avatar, Drawer } from "antd";
-import { StarOutlined, BankOutlined } from "@ant-design/icons";
+import { Layout, Button, Avatar, Modal,  Form, Input } from "antd";
+import { BankOutlined } from "@ant-design/icons";
+
+import Login from '../../modules/auth/components/login';
 
 const { Header } = Layout;
 
 const Headers = () => {
-    // const { isAuthenticated = false, user } = useSelector(state => state.auth);
-    const isAuthenticated = false;
-    const user = {};
+    const { isAuthenticated = false, user } = useSelector(state => state.auth);
+
     const [state, setState] = useState({
-        visibleUser: false,
-        visibleModal: false
+        visibleLogin: false
     });
     
-    const showDrawerUser = () => {
-        setState({
-            ...state,
-            visibleUser: true
-        });
-    };
-
-    const onCloseUser = () => {
-        setState({
-            ...state,
-            visibleUser: false
-        });
-    };
-    
-
     return <Header className="header" style={{ lineHeight: "55px", height: "55px" }}>
         <div className="header-left">
             <Link to="/" >
@@ -69,12 +54,14 @@ const Headers = () => {
                 </div>
             ) : (
                 <Button
-                    onClick={() => {}}
+                    onClick={() => setState({...state, visibleLogin: true})}
                     type="primary"
                 >
                     Đăng nhập
                 </Button>
             )}
+            
+            <Login visibleLogin={state.visibleLogin} setState={ setState }/>
         </div>
     </Header>;
 };

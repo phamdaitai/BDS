@@ -2,6 +2,7 @@ const authService = require('./auth.service');
 const { LogInfo, LogError } = require('../../logs');
 
 exports.login = async (req, res) => {
+    console.log("BBB");
     try {
         let userLogin = await authService.login(req.body);
 
