@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 exports.login = async (data) => {
     let User = initConnection(data.portal).model("User");
+
     let user = await User.findOne({
         email: data.email
     });
@@ -21,6 +22,7 @@ exports.login = async (data) => {
         email: user.email,
         portal: data.portal ? data.portal : process.env.DB_NAME
     }
+    
     let token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: 99999999 });
 
     return {
