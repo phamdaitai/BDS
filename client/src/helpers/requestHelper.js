@@ -12,8 +12,6 @@ export async function sendRequest(options, showSuccessAlert = false, showFailAle
         headers: {"auth-token": getStorage("token")}
     };
 
-    console.log("requestOptions", requestOptions);
-
     return axios(requestOptions).then(res => {
         const messages = Array.isArray(res.data.messages) ? res.data.messages : [res.data.messages];
 
@@ -21,6 +19,7 @@ export async function sendRequest(options, showSuccessAlert = false, showFailAle
         return Promise.resolve(res);
     }).catch(err => {
         let messages;
+
         if (!err.response) {
             message.error(`Lỗi server`)
         } else {

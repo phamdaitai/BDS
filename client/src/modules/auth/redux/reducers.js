@@ -1,9 +1,11 @@
 import { AuthConstants } from "./constants";
+import { isEmpty } from "../../../helpers/isEmpty";
 
 var initState = {
     user: {},
     isLoading: false,
     error: null,
+    isAuth: false
 }
 
 export function auth(state = initState, action) {
@@ -25,8 +27,17 @@ export function auth(state = initState, action) {
             return {
                 ...state,
                 user: action.payload,
+                isAuth: true,
                 isLoading: false,
             }
+        
+        case AuthConstants.SET_CURRENT_USER:
+            return {
+                ...state,
+                isAuth: !isEmpty(action.payload),
+                user: { ...state.user, ...action.payload }
+            };
+          
 
         default:
             return {

@@ -12,6 +12,8 @@ const { Header } = Layout;
 const Headers = () => {
     const { isAuthenticated = false, user } = useSelector(state => state.auth);
 
+    console.log("user", user)
+
     const [state, setState] = useState({
         visibleLogin: false
     });

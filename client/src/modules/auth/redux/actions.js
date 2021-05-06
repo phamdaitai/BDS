@@ -3,7 +3,8 @@ import { AuthConstants } from "./constants";
 import { setStorage } from '../../../config';
 
 export const AuthActions = {
-    login
+    login,
+    setCurrentUser
 }
 
 function login(user) {
@@ -25,3 +26,10 @@ function login(user) {
             })
     }
 }
+
+function setCurrentUser (decoded) {
+    return {
+        type: AuthConstants.SET_CURRENT_USER,
+        payload: decoded
+    };
+};
