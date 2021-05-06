@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./style.scss";
-import { Layout, Button, Avatar, Modal,  Form, Input } from "antd";
-import { BankOutlined } from "@ant-design/icons";
+import { Layout, Button, Avatar } from "antd";
+import { BankOutlined, UserOutlined } from "@ant-design/icons";
 
 import Login from '../../modules/auth/components/login';
+import { AuthActions } from '../../modules/auth/redux/actions';
 
 const { Header } = Layout;
 
 const Headers = () => {
-    const { isAuthenticated = false, user } = useSelector(state => state.auth);
 
-    console.log("user", user)
+    const { isAuth = false, user } = useSelector(state => state.auth);
 
     const [state, setState] = useState({
         visibleLogin: false
     });
+
+    useEffect(
+        () => {
+            if (isAuth && state.visibleLogin) {
+                setState({visibleLogin: false})
+            }
+        }, [isAuth])
+
     
     return <Header className="header" style={{ lineHeight: "55px", height: "55px" }}>
         <div className="header-left">
@@ -45,14 +53,17 @@ const Headers = () => {
             </div>
          </div>
         <div className="header-right">
-            {isAuthenticated ? (
+            {isAuth ? (
                 <div>
                     <Avatar
-                        style={{ backgroundColor: "#87d068" }}
-                        icon="user"
-                        src={user.avatar}
+                        style={{
+                            backgroundColor: '#87d068',
+                        }}
+                        icon={<UserOutlined />}
+                        src={""}
                     />
-                    <span style={{ color: "white" }}>{" " + user.name}</span>
+                    <span style={{ color: "white", marginLeft: '0.25rem', fontWeight: "600" }}>{user.name}</span>
+                    <span style={{color: "#1890ff", cursor: "pointer"}} onClick={() => AuthActions.logOut()}> (đăng xuất)</span>
                 </div>
             ) : (
                 <Button

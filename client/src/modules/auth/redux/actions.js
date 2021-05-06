@@ -1,10 +1,12 @@
 import { AuthService } from "./services";
 import { AuthConstants } from "./constants";
-import { setStorage } from '../../../config';
+import { setStorage, clearStorage } from '../../../config';
+import store from '../../../redux/store';;
 
 export const AuthActions = {
     login,
-    setCurrentUser
+    setCurrentUser,
+    logOut
 }
 
 function login(user) {
@@ -33,3 +35,9 @@ function setCurrentUser (decoded) {
         payload: decoded
     };
 };
+
+function logOut () {
+    store.dispatch(setCurrentUser({}));
+    clearStorage();
+    window.location.href = "/";
+}

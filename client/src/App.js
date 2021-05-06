@@ -13,9 +13,10 @@ if (localStorage.token) {
   
   store.dispatch(AuthActions.setCurrentUser(decoded));
 
+  //Check session login
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    window.location.href = "/";
+    AuthActions.logOut();
   }
 }
 
