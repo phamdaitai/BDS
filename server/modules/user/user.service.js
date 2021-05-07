@@ -1,6 +1,6 @@
 const { initConnection } = require('../../helpers/dbHelpers');
 const bcrypt = require('bcryptjs');
-// const { sendEmailAboutCreatedAccount } = require('../../helpers/emailHelpers');
+const { sendEmailRegisterUser } = require('../../helpers/emailHelpers');
 
 exports.register = async (data, portal) => {
     let User = initConnection(portal).model("User");
@@ -10,18 +10,16 @@ exports.register = async (data, portal) => {
         email: email
     });
     if (account) {
-        throw Error('Account existed')
+        throw Error('account_existed')
     }
 
     var salt = bcrypt.genSaltSync(10);
     var hashPassword = bcrypt.hashSync(password, salt);
 
     let user = await User.create({
-        email: email,
-        password: hashPassword,
-        name: name
+        ...data, password: hashPassword
     });
 
-    // await sendEmailAboutCreatedAccount(email);
+    await sendEmailRegisterUser(email, name);
     return { user }
 }

@@ -6,6 +6,7 @@ import { Layout, Button, Avatar } from "antd";
 import { BankOutlined, UserOutlined } from "@ant-design/icons";
 
 import Login from '../../modules/auth/components/login';
+import Register from '../../modules/user/components/register';
 import { AuthActions } from '../../modules/auth/redux/actions';
 
 const { Header } = Layout;
@@ -15,7 +16,8 @@ const Headers = () => {
     const { isAuth = false, user } = useSelector(state => state.auth);
 
     const [state, setState] = useState({
-        visibleLogin: false
+        visibleLogin: false,
+        visibleRegister: false,
     });
 
     useEffect(
@@ -23,7 +25,7 @@ const Headers = () => {
             if (isAuth && state.visibleLogin) {
                 setState({visibleLogin: false})
             }
-        }, [isAuth])
+        }, [isAuth, state])
 
     
     return <Header className="header" style={{ lineHeight: "55px", height: "55px" }}>
@@ -66,15 +68,29 @@ const Headers = () => {
                     <span style={{color: "#1890ff", cursor: "pointer"}} onClick={() => AuthActions.logOut()}> (đăng xuất)</span>
                 </div>
             ) : (
-                <Button
-                    onClick={() => setState({...state, visibleLogin: true})}
-                    type="primary"
-                >
-                    Đăng nhập
-                </Button>
+                <React.Fragment>
+                    <Button
+                        onClick={() => setState({...state, visibleRegister: true})}
+                        type="primary"
+                        
+                    >
+                        Đăng ký
+                    </Button>
+                        
+                    <Button
+                        onClick={() => setState({...state, visibleLogin: true})}
+                        type="primary"
+                        style={{
+                            marginLeft: '0.5rem',
+                            }}
+                    >
+                        Đăng nhập
+                    </Button>
+                </React.Fragment>
             )}
             
-            <Login visibleLogin={state.visibleLogin} setState={ setState }/>
+            <Login visibleLogin={state.visibleLogin} setState={setState} />
+            <Register visibleRegister={state.visibleRegister} setState={setState}/>
         </div>
     </Header>;
 };

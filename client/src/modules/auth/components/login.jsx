@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
 import { AuthActions } from '../redux/actions';
 import { Button, Modal, Form, Input } from "antd";
+import Loading from '../../../components/loading';
 
 const layout = {
     labelCol: {
@@ -21,18 +22,13 @@ const tailLayout = {
 
 const Login = (props) => {
 
-    const { visibleLogin, setState } = props;
-
-    const [loading, setLoading] = useState(false);
+    const { visibleLogin, setState, auth } = props;
 
     const submitLogin = async (values) => {
-        await setLoading(true)
-
         //Call api
         await props.login(values);
-        await setLoading(false);
     };
-    
+
     return <Modal
         title="Đăng nhập"
         visible={visibleLogin}
@@ -74,7 +70,7 @@ const Login = (props) => {
             </Form.Item>
 
             <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button type="primary" htmlType="submit" loading={auth.isLoading}>
                 Đăng nhập
                 </Button>
             </Form.Item>

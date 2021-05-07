@@ -3,9 +3,12 @@ import { clearStorage } from '../config';
 import { combineReducers } from 'redux';
 
 import { auth } from '../modules/auth/redux/reducers';
+import { user } from '../modules/user/redux/reducers';
 
 const appReducer = combineReducers({
     auth,
+    user,
+
     Intl
 });
 

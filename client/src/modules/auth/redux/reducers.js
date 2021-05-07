@@ -16,7 +16,7 @@ export function auth(state = initState, action) {
                 isLoading: true,
             };
         
-        case AuthConstants.LOGIN_FAILE:
+        case AuthConstants.LOGIN_FAIL:
             return {
                 ...state,
                 isLoading: false,

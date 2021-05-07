@@ -1,7 +1,7 @@
 import { AuthService } from "./services";
 import { AuthConstants } from "./constants";
 import { setStorage, clearStorage } from '../../../config';
-import store from '../../../redux/store';;
+import store from '../../../redux/store';
 
 export const AuthActions = {
     login,
@@ -24,7 +24,7 @@ function login(user) {
                 })
             })
             .catch(err => {
-                dispatch({ type: AuthConstants.LOGIN_FAILE, payload: err?.response?.data?.messages?.[0] });
+                dispatch({ type: AuthConstants.LOGIN_FAIL, payload: err?.response?.data?.messages?.[0] });
             })
     }
 }

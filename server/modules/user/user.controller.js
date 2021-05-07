@@ -9,15 +9,19 @@ exports.createUser = async (req, res) => {
         await LogInfo(req.body.email, "CREATED_USER", portal)
         res.status(201).json({
             success: true,
-            messages: ["CREATED_USER_SUCCESSFULLY"],
+            messages: ["Tạo tài khoản thành công"],
             content: user
         })
     } catch (error) {
         await LogError(req.body.email, "CREATED_USER", req.body.portal)
 
+        console.log("error.message", error.message);
+
         res.status(400).json({
             success: false,
-            messages: ["CREATED_USER_FAILED"],
+            messages: error.message === "account_existed" ?
+                ["Tài khoản đã tồn tại"] :
+                ["Tạo tài khoản không thành công"],
             content: error.message
         })
     }
