@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { AuthActions } from '../redux/actions';
 import { Button, Modal, Form, Input } from "antd";
-import Loading from '../../../components/loading';
 
 const layout = {
     labelCol: {

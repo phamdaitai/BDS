@@ -14,7 +14,8 @@ const { Header } = Layout;
 const Headers = () => {
 
     const { isAuth = false, user } = useSelector(state => state.auth);
-
+    const { isnewRegister = false } = useSelector(state => state.user)
+ 
     const [state, setState] = useState({
         visibleLogin: false,
         visibleRegister: false,
@@ -26,6 +27,13 @@ const Headers = () => {
                 setState({visibleLogin: false})
             }
         }, [isAuth, state])
+    
+    useEffect(
+        () => {
+            if (isnewRegister && state.visibleRegister) {
+                setState({visibleRegister: false})
+            }
+        }, [isnewRegister])
 
     
     return <Header className="header" style={{ lineHeight: "55px", height: "55px" }}>

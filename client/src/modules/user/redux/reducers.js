@@ -4,7 +4,7 @@ var initState = {
     profile: {},
     isLoading: false,
     error: null,
-    isAuth: false,
+    isnewRegister: false,
 }
 
 export function user(state = initState, action) {
@@ -26,6 +26,7 @@ export function user(state = initState, action) {
             return {
                 ...state,
                 isLoading: false,
+                isnewRegister: true,
                 profile: action.payload
             }
 

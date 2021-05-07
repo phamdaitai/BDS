@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { connect, useSelector } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
 import { UserActions } from '../redux/actions';
 import { Button, Modal, Form, Input } from "antd";
 
@@ -123,7 +123,7 @@ const Register = (props) => {
             </Form.Item>
 
             <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit" loading={user.loading}>
+                <Button type="primary" htmlType="submit" loading={user.isLoading}>
                 Đăng ký
                 </Button>
             </Form.Item>
