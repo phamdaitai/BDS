@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { isAuth } = useSelector(state => state.auth);
 
   return (
     <Route
       {...rest}
       render={props =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/?requiredLogin=true" />
+        isAuth ? <Component {...props} /> : <Redirect to="/?requiredLogin=true" />
       }
     />
   );

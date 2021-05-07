@@ -6,12 +6,19 @@ import "./styles.scss";
 import PrivateRoute from "./privateRoute";
 
 const Home = loadable(() => import('../modules/home/components'));
+const PostAddition = loadable(() => import('../modules/post/components/add'));
 
 export const routes = [
   {
     path: "/",
     exact: true,
     component: ({ match }) => <Home match={match} />
+  },
+  {
+    path: "/post-addition",
+    isPrivate: true,
+    exact: true,
+    component: ({ match }) => <PostAddition match={match} />
   },
   {
     path: "*",
