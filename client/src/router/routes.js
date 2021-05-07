@@ -5,17 +5,14 @@ import { Switch, Route } from "react-router-dom";
 import "./styles.scss";
 import PrivateRoute from "./privateRoute";
 
+const Home = loadable(() => import('../modules/home/components'));
+
 export const routes = [
-//   {
-//     path: "/",
-//     exact: true,
-//     component: ({ match }) => <HomePage match={match} />
-//   },
-//   {
-//     path: "/mc",
-//     exact: true,
-//     component: () => <MC />
-//   },
+  {
+    path: "/",
+    exact: true,
+    component: ({ match }) => <Home match={match} />
+  },
   {
     path: "*",
     component: class NotFound extends React.PureComponent {
