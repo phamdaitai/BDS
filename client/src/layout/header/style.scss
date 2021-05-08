@@ -5,6 +5,7 @@
     grid-template-columns: repeat(12, 1fr);
     grid-gap: 10px;
     width: 100%;
+    position: fixed;
 }
 
 .ant-layout-header {
