@@ -56,7 +56,7 @@ const Headers = () => {
                 <Link to="/">
                     <div className="header-center-item">Đăng tin nhà đất</div>
                 </Link>
-                <Link to="/post-addition">
+                <Link to="/post-project-add">
                     <div className="header-center-item">Đăng tin dự án</div>
                 </Link>
             </div>

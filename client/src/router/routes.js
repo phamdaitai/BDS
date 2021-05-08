@@ -18,7 +18,7 @@ export const routes = [
     component: ({ match }) => <Home match={match} />
   },
   {
-    path: "/post-addition",
+    path: "/post-project-add",
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <PostAddition match={match} />
