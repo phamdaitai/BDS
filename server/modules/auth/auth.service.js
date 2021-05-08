@@ -20,7 +20,9 @@ exports.login = async (data) => {
     let payload = {
         name: user.name,
         email: user.email,
-        portal: data.portal ? data.portal : process.env.DB_NAME
+        portal: data.portal ? data.portal : process.env.DB_NAME,
+        isActived: user.isActived,
+        isAdmin: user.isAdmin
     }
     
     let token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: 99999999 });
@@ -30,7 +32,9 @@ exports.login = async (data) => {
         user: {
             _id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            isActived: user.isActived,
+            isAdmin: user.isAdmin
         }
     }
 }

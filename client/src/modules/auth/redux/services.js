@@ -11,5 +11,5 @@ async function login(data) {
         url: `${ process.env.REACT_APP_SERVER }/auth/login`,
         method: 'POST',
         data
-    }, true, true)
+    }, false, true)
 }

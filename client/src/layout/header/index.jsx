@@ -34,7 +34,6 @@ const Headers = () => {
                 setState({visibleRegister: false})
             }
         }, [isnewRegister])
-
     
     return <Header className="header" style={{ lineHeight: "55px", height: "55px" }}>
         <div className="header-left">
@@ -57,7 +56,7 @@ const Headers = () => {
                 <Link to="/">
                     <div className="header-center-item">Đăng tin nhà đất</div>
                 </Link>
-                <Link to="/">
+                <Link to="/post-addition">
                     <div className="header-center-item">Đăng tin dự án</div>
                 </Link>
             </div>

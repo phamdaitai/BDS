@@ -17,6 +17,14 @@ const UserSchema = new Schema({
     phone: {
         type: String,
         required: true
+    },
+    isActived: {
+        type: Boolean,
+        default: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     }
 });
 

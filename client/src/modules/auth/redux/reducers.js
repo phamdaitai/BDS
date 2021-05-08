@@ -5,7 +5,9 @@ var initState = {
     user: {},
     isLoading: false,
     error: null,
-    isAuth: false
+    isAuth: false,
+    isActived: false,
+    isAdmin: false
 }
 
 export function auth(state = initState, action) {
@@ -28,6 +30,8 @@ export function auth(state = initState, action) {
                 ...state,
                 user: action.payload,
                 isAuth: true,
+                isActived: action.payload?.isActived,
+                isAdmin: action.payload?.isAdmin,
                 isLoading: false,
             }
         
@@ -35,6 +39,8 @@ export function auth(state = initState, action) {
             return {
                 ...state,
                 isAuth: !isEmpty(action.payload),
+                isAdmin: action.payload.isAdmin,
+                isActived: action.payload.isActived,
                 user: { ...state.user, ...action.payload }
             };
           

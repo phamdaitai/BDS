@@ -16,7 +16,7 @@ function login(user) {
             .then(res => {
                 setStorage('token', res.data?.content?.token);
                 setStorage('userId', res.data?.content?.user?._id);
-                setStorage('portal', res.data?.content?.user?.portal);
+                // setStorage('portal', res.data?.content?.user?.portal);
 
                 dispatch({
                     type: AuthConstants.LOGIN_SUCCESS,
@@ -39,5 +39,5 @@ function setCurrentUser (decoded) {
 function logOut () {
     store.dispatch(setCurrentUser({}));
     clearStorage();
-    window.location.href = "/";
+    // window.location.href = "/";
 }

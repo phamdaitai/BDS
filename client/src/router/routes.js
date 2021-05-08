@@ -16,8 +16,9 @@ export const routes = [
   },
   {
     path: "/post-addition",
-    isPrivate: true,
     exact: true,
+    isPrivate: true,
+    isActived: true,
     component: ({ match }) => <PostAddition match={match} />
   },
   {
@@ -50,13 +51,15 @@ export const routes = [
 export default () => (
   <Switch>
     {routes.map(
-      ({ path, exact = false, isPrivate = false, component }, index) => {
+      ({ path, exact = false, isPrivate = false, isActived = false, isAdmin = false, component }, index) => {
         if (isPrivate) {
           return (
             <PrivateRoute
               key={index}
               exact={exact}
               path={path}
+              isActivedRule={isActived}
+              isAdminRule={isAdmin}
               component={component}
             />
           );
