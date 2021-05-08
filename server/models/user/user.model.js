@@ -18,13 +18,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    isActived: {
-        type: Boolean,
-        default: true
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false
+    role: {//Role: 1. new user none actived, 2. user actived, 3: admin
+        type: Number,
+        enum: [1, 2, 3],
+        default: 2 //actived
     }
 });
 

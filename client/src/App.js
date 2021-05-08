@@ -1,4 +1,4 @@
-import './app.css';
+import './app.scss';
 import { Layout } from "antd";
 import "antd/dist/antd.css";
 import jwt_decode from "jwt-decode";  

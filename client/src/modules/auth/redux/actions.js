@@ -32,7 +32,7 @@ function login(user) {
 function setCurrentUser (decoded) {
     return {
         type: AuthConstants.SET_CURRENT_USER,
-        payload: decoded
+        payload: decoded,
     };
 };
 

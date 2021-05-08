@@ -8,6 +8,9 @@ import PrivateRoute from "./privateRoute";
 const Home = loadable(() => import('../modules/home/components'));
 const PostAddition = loadable(() => import('../modules/post/components/add'));
 
+//Roles in routes
+// 1. guest, 2. user, 3. admin
+
 export const routes = [
   {
     path: "/",
@@ -17,8 +20,7 @@ export const routes = [
   {
     path: "/post-addition",
     exact: true,
-    isPrivate: true,
-    isActived: true,
+    roles: [2, 3],
     component: ({ match }) => <PostAddition match={match} />
   },
   {
@@ -51,15 +53,14 @@ export const routes = [
 export default () => (
   <Switch>
     {routes.map(
-      ({ path, exact = false, isPrivate = false, isActived = false, isAdmin = false, component }, index) => {
-        if (isPrivate) {
+      ({ path, exact = false, roles = false, component }, index) => {
+        if (roles) {
           return (
             <PrivateRoute
               key={index}
               exact={exact}
               path={path}
-              isActivedRule={isActived}
-              isAdminRule={isAdmin}
+              roles={roles}
               component={component}
             />
           );

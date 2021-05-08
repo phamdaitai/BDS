@@ -3,14 +3,19 @@ import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-const PrivateRoute = ({ component: Component, isActivedRule, isAdminRule, ...rest }) => {
-  const { isAuth, isAdmin, isActived } = useSelector(state => state.auth);
+const PrivateRoute = ({ component: Component, roles,...rest }) => {
+  const { isAuth, currentRole } = useSelector(state => state.auth);
 
+  //kiem tra quyen truy cap trang cua nguoi dung
+  const checkRoleAccess = () => {
+    return roles.find(role => role === currentRole);
+  }
+  
   return (
     <Route
       {...rest}
       render={props =>
-        (isAuth && (isActivedRule ? isActived : true) && (isAdminRule ? isAdmin : true)) ?
+        (isAuth && checkRoleAccess()) ?
           <Component {...props} /> :
           <Redirect to="/?requiredLogin=true" />
       }

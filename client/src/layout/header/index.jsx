@@ -13,7 +13,7 @@ const { Header } = Layout;
 
 const Headers = () => {
 
-    const { isAuth = false, user } = useSelector(state => state.auth);
+    const { isAuth = false, user, currentRole } = useSelector(state => state.auth);
     const { isnewRegister = false } = useSelector(state => state.user)
  
     const [state, setState] = useState({

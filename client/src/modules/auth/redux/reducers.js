@@ -6,8 +6,7 @@ var initState = {
     isLoading: false,
     error: null,
     isAuth: false,
-    isActived: false,
-    isAdmin: false
+    currentRole: null
 }
 
 export function auth(state = initState, action) {
@@ -28,10 +27,9 @@ export function auth(state = initState, action) {
         case AuthConstants.LOGIN_SUCCESS:
             return {
                 ...state,
-                user: action.payload,
                 isAuth: true,
-                isActived: action.payload?.isActived,
-                isAdmin: action.payload?.isAdmin,
+                user: action.payload,
+                currentRole: action.payload?.role,
                 isLoading: false,
             }
         
@@ -39,9 +37,8 @@ export function auth(state = initState, action) {
             return {
                 ...state,
                 isAuth: !isEmpty(action.payload),
-                isAdmin: action.payload.isAdmin,
-                isActived: action.payload.isActived,
-                user: { ...state.user, ...action.payload }
+                user: { ...state.user, ...action.payload },
+                currentRole: action.payload.role
             };
           
 
