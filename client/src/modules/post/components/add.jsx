@@ -5,9 +5,12 @@ import Card from '../../../components/card';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CountryActions } from '../../country/redux/actions';
-import { Form, Input } from 'antd';
+import { Form, Input, Select, Col } from 'antd';
+
+const { Option } = Select;
 
 const PostAddition = (props) => {
+    const { provincesData, districtsData, wardsData } = props.country;
     
     useEffect(() => {
         if (!props.country.provincesData.length) {
@@ -35,7 +38,8 @@ const PostAddition = (props) => {
                             <Input />
                         </Form.Item>
                     </Form>
-
+                
+                    <p style={{marginBottom: "0.5rem"}}>Nội dung</p>
                     <CKEditor
                         editor={ ClassicEditor }
                         data=""
@@ -43,7 +47,119 @@ const PostAddition = (props) => {
                             const data = editor.getData();
                             console.log( { event, editor, data } );
                         } }
-                    /> 
+                    />
+
+                    <Col
+                        span={24}
+                        style={{
+                            textAlign: 'right',
+                        }}
+                    >
+                        <Col span={8}>
+                            <Form.Item
+                                name="provinceId"
+                                label="Tỉnh / thành phố"
+                                rules={[
+                                {
+                                    required: true,
+                                    message: 'Vui lòng chọn tỉnh / thành phố',
+                                },
+                                ]}
+                            >
+                                <Select
+                                    showSearch
+                                    // style={{ width: 200 }}
+                                    placeholder="Chọn tỉnh / thành phố"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    filterSort={(optionA, optionB) =>
+                                        optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                                    }
+                                >
+                                    {provincesData && provincesData.length && 
+                                        provincesData.map(p => <Option value={p.id}>
+                                        {p.name}
+                                    </Option>)}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Col>
+                    
+                    {/* <Container>
+                        <Container.Col colSpan={4}>
+                            <Form.Item
+                                name="provinceId"
+                                label="Tỉnh / thành phố"
+                                rules={[
+                                    {
+                                    required: true,
+                                    },
+                                ]}
+                            >
+                                
+                            </Form.Item>
+                        </Container.Col>
+                        <Container.Col colSpan={4}>
+                            <Form.Item
+                                name="districtId"
+                                label="Quận / huyện"
+                                rules={[
+                                    {
+                                    required: true,
+                                    },
+                                ]}
+                            >
+                                <Select
+                                    showSearch
+                                    style={{ width: '100%' }}
+                                    placeholder="Chọn quận / huyện"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    filterSort={(optionA, optionB) =>
+                                    optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                                    }
+                                >
+                                    {provincesData && provincesData.length && 
+                                        provincesData.map(p => <Option value={p.id}>
+                                        {p.name}
+                                    </Option>)}
+                                </Select>
+                            </Form.Item>
+                        </Container.Col>
+                        <Container.Col colSpan={4}>
+                            <Form.Item
+                                name="wardId"
+                                label="Xã / phường"
+                                rules={[
+                                    {
+                                    required: true,
+                                    },
+                                ]}
+                            >
+                                <Select
+                                    showSearch
+                                    style={{ width: '100%' }}
+                                    placeholder="Chọn xã / phường"
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) =>
+                                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                    filterSort={(optionA, optionB) =>
+                                      optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                                    }
+                                >
+                                    {provincesData && provincesData.length && 
+                                        provincesData.map(p => <Option value={p.id}>
+                                        {p.name}
+                                    </Option>)}
+                                </Select>
+                            </Form.Item>
+                        </Container.Col>
+                    </Container> */}
                 </Card.Body>
             <Card.Footer>Lưu thông tin</Card.Footer>
         </ Card>
