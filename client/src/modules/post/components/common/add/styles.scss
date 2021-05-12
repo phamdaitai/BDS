@@ -1,0 +1,9 @@
+.post-select-add-address {
+    margin-top: 1.5rem;
+    display: flex;
+    .ant-col-8{
+            &:nth-child(1), &:nth-child(2) {
+            padding-right: 0.5rem;
+        }
+    }
+}

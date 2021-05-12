@@ -6,7 +6,7 @@ import "./styles.scss";
 import PrivateRoute from "./privateRoute";
 
 const Home = loadable(() => import('../modules/home/components'));
-const PostAddition = loadable(() => import('../modules/post/components/add'));
+const ProjectPostAdd = loadable(() => import('../modules/post/components/project/add'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin
@@ -21,7 +21,7 @@ export const routes = [
     path: "/post-project-add",
     exact: true,
     roles: [2, 3],
-    component: ({ match }) => <PostAddition match={match} />
+    component: ({ match }) => <ProjectPostAdd match={match} />
   },
   {
     path: "*",
