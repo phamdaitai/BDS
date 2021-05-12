@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { Form, Select, Col, Row } from 'antd';
+import { Form, Select, Col, Row, Input } from 'antd';
 import { CountryActions } from '../../../../country/redux/actions';
 import { connect } from "react-redux";      
 import './styles.scss';
@@ -7,6 +7,11 @@ import './styles.scss';
 const { Option } = Select;
 
 const Info = (props) => {
+    const [form] = Form.useForm();
+
+    useEffect(() => {
+        // form.setFieldsValue(data);
+    }, [form]);
 
     const { provincesData, districtsData, wardsData } = props.country;
     
@@ -16,111 +21,176 @@ const Info = (props) => {
         }
     })
 
-    console.log("provincesData", provincesData);
+    console.log("districtsData", districtsData);
 
     return <React.Fragment>
-    <Row >
-        <Col
-            span={24}
-            style={{
-                textAlign: 'right',
-            }}
-            className="post-select-add-address"
-        >
-            <Col span={8}>
-                <Form.Item
-                    name="provinceId"
-                    label="Tỉnh / thành phố"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Vui lòng chọn tỉnh / thành phố',
-                    },
-                    ]}
-                >
-                    <Select
-                        showSearch
-                        // style={{ width: 200 }}
-                        placeholder="Chọn tỉnh / thành phố"
-                        optionFilterProp="children"
-                        filterOption={(input, option) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                        filterSort={(optionA, optionB) =>
-                            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                        }
-                    >
-                        {provincesData && provincesData.length && 
-                            provincesData.map(p => <Option value={p.id}>
-                            {p.name}
-                        </Option>)}
-                    </Select>
-                </Form.Item>
-                </Col>
-                
+        {/* Phần chọn khu vực */}
+        <Row >
+            <Col
+                span={24}
+                style={{
+                    textAlign: 'right',
+                    marginTop: '1.5rem'
+                }}
+                className="post-select-add-address"
+            >
                 <Col span={8}>
-                <Form.Item
-                    name="provinceId"
-                    label="Tỉnh / thành phố"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Vui lòng chọn tỉnh / thành phố',
-                    },
-                    ]}
-                >
-                    <Select
-                        showSearch
-                        // style={{ width: 200 }}
-                        placeholder="Chọn tỉnh / thành phố"
-                        optionFilterProp="children"
-                        filterOption={(input, option) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                        filterSort={(optionA, optionB) =>
-                            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                        }
+                    <Form.Item
+                        name="provinceId"
+                        label="Tỉnh / thành phố"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Vui lòng chọn tỉnh / thành phố',
+                        },
+                        ]}
                     >
-                        {provincesData && provincesData.length && 
-                            provincesData.map(p => <Option value={p.id}>
-                            {p.name}
-                        </Option>)}
-                    </Select>
-                </Form.Item>
+                        <Select
+                            showSearch
+                            placeholder="Chọn tỉnh / thành phố"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            filterSort={(optionA, optionB) =>
+                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                            }
+                                onChange={(value) => props.getDistricts({ provinceId: value })}
+                        >
+                            {provincesData && provincesData.length && 
+                                provincesData.map(p => <Option value={p.id}>
+                                {p.name}
+                            </Option>)}
+                        </Select>
+                    </Form.Item>
+                    </Col>
+                    
+                    <Col span={8}>
+                    <Form.Item
+                        name="districtId"
+                        label="Quận / huyện"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Vui lòng chọn quận / huyện',
+                        },
+                        ]}
+                    >
+                        <Select
+                            showSearch
+                            placeholder="Chọn quận / huyện"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            filterSort={(optionA, optionB) =>
+                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                            }
+                                onChange={(value) => props.getWards({ districtId: value })}
+                        >
+                            {districtsData && districtsData.length && 
+                                districtsData.map(d => <Option value={d.id}>
+                                {d.name}
+                            </Option>)}
+                        </Select>
+                    </Form.Item>
+                    </Col>
+                    
+                    <Col span={8}>
+                    <Form.Item
+                        name="wardId"
+                        label="Xã / phường"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Vui lòng chọn xã / phường',
+                        },
+                        ]}
+                    >
+                        <Select
+                            showSearch
+                            placeholder="Chọn xã / phường"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            filterSort={(optionA, optionB) =>
+                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                            }
+                        >
+                            {wardsData && wardsData.length && 
+                                wardsData.map(w => <Option value={w.id}>
+                                {w.name}
+                            </Option>)}
+                        </Select>
+                    </Form.Item>
                 </Col>
-                
-                <Col span={8}>
-                <Form.Item
-                    name="provinceId"
-                    label="Tỉnh / thành phố"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Vui lòng chọn tỉnh / thành phố',
-                    },
-                    ]}
-                >
-                    <Select
-                        showSearch
-                        // style={{ width: 200 }}
-                        placeholder="Chọn tỉnh / thành phố"
-                        optionFilterProp="children"
-                        filterOption={(input, option) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                        }
-                        filterSort={(optionA, optionB) =>
-                            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
-                        }
-                    >
-                        {provincesData && provincesData.length && 
-                            provincesData.map(p => <Option value={p.id}>
-                            {p.name}
-                        </Option>)}
-                    </Select>
-                </Form.Item>
             </Col>
-        </Col>
-    </Row>
+        </Row>
+
+        {/* Phần địa chỉ */}
+        <Form.Item
+            name="address"
+            label="Địa chỉ nhà"
+        >
+            <Input placeholder="Ví dụ: Số 10, Trường Chinh" />
+        </Form.Item>
+        
+        {/* Phần diện tích, giá */}
+        <Row >
+            <Col
+                span={24}
+                style={{
+                    textAlign: 'right',
+                }}
+                className="post-select-add-address"
+            >
+                <Col span={8}>
+                    <Form.Item
+                        name="projectName"
+                        label="Tên dự án"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Vui lòng nhập tên dự án',
+                        },
+                        ]}
+                    >
+                        <Input placeholder="Nhập tên dự án..."/>
+                    </Form.Item>
+                    </Col>
+                    
+                    <Col span={8}>
+                    <Form.Item
+                        name="acreage"
+                        label="Diện tích (m2)"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Vui lòng nhập diện tích',
+                        },
+                        ]}
+                    >
+                        <Input placeholder="Nhập diện tích..." type="number"/>
+                    </Form.Item>
+                    </Col>
+                    
+                    <Col span={8}>
+                    <Form.Item
+                        name="price"
+                        label="Giá"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Vui lòng nhập giá',
+                        },
+                        ]}
+                    >
+                        <Input placeholder="Nhập giá..." type="number"/>
+                    </Form.Item>
+                </Col>
+            </Col>
+        </Row>
     </React.Fragment>
 }
 

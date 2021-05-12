@@ -1,25 +1,15 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { connect } from "react-redux";
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CountryActions } from '../../../country/redux/actions';
-import { Form, Input, Select, Col, Row, Button } from 'antd';
-// import Detail from './add/detail';
+import { Form, Button } from 'antd';
+
 import Detail from '../common/add/detailWithEditor';
 import Info from '../common/add/info';
-
-const { Option } = Select;
+import OtherInfo from '../common/add/otherInfo';
+import Map from '../common/add/map';
 
 const PostAddition = (props) => {
-    const { provincesData, districtsData, wardsData } = props.country;
-    
-    useEffect(() => {
-        if (!props.country.provincesData.length) {
-            props.getProvinces()
-        }
-    })
 
     const onSubmit = async (values) => {
         console.log(values)
@@ -38,6 +28,10 @@ const PostAddition = (props) => {
                         <Detail />
                         
                         <Info />
+
+                        <OtherInfo />
+
+                        <Map />
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
@@ -64,14 +58,9 @@ const PostAddition = (props) => {
 };
 
 const mapStateToProps = state => {
-    const { country } = state
-    return { country };
 }
 
 const mapDispatchToProps = {
-    getProvinces: CountryActions.getProvinces,
-    getDistricts: CountryActions.getDistricts,
-    getWards: CountryActions.getWards
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostAddition);

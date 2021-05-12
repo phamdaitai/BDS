@@ -1,25 +1,18 @@
-import React, {useEffect} from "react";
-import { Form, Select, Col, Row, Input } from 'antd';
-import { CountryActions } from '../../../../country/redux/actions';
+import React from "react";
+import { Form, Input } from 'antd';
 import { connect } from "react-redux";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-const { Option } = Select;
+import './styles.scss';
 
 const Detail = (props) => {
 
-    const { provincesData, districtsData, wardsData } = props.country;
-    
-    useEffect(() => {
-        if (!props.country.provincesData.length) {
-            props.getProvinces()
-        }
-    })
-
-    console.log("provincesData", provincesData);
-
     return <React.Fragment>
+        <div className="post-add-item-header">
+            <span>Thông tin bắt buộc</span>
+        </div>
+
         <Form.Item
             name="title"
             label="Tiêu đề"
@@ -29,9 +22,9 @@ const Detail = (props) => {
                 },
             ]}
             className="ant-advanced-search-form"
-            >
-                <Input />
-            </Form.Item>
+        >
+            <Input placeholder="Nhập tiêu đề..."/>
+        </Form.Item>
 
         <p style={{marginBottom: "0.5rem"}}>Nội dung</p>
         <CKEditor
@@ -46,14 +39,10 @@ const Detail = (props) => {
 }
 
 const mapStateToProps = state => {
-    const { country } = state
-    return { country };
+    return state;
 }
 
 const mapDispatchToProps = {
-    getProvinces: CountryActions.getProvinces,
-    getDistricts: CountryActions.getDistricts,
-    getWards: CountryActions.getWards
 }
 
 
