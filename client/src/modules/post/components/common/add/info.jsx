@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Form, Select, Col, Row, Input } from 'antd';
 import { CountryActions } from '../../../../country/redux/actions';
 import { connect } from "react-redux";      
@@ -9,19 +9,20 @@ const { Option } = Select;
 const Info = (props) => {
     const [form] = Form.useForm();
 
-    useEffect(() => {
-        // form.setFieldsValue(data);
-    }, [form]);
+    const [loaded, setLoaded] = useState(false);
+
+    // useEffect(() => {
+    //     // form.setFieldsValue(data);
+    // }, [form]);
 
     const { provincesData, districtsData, wardsData } = props.country;
     
     useEffect(() => {
-        if (!props.country.provincesData.length) {
+        if (!loaded) {
+            setLoaded(true);
             props.getProvinces()
         }
     })
-
-    console.log("districtsData", districtsData);
 
     return <React.Fragment>
         {/* Phần chọn khu vực */}
