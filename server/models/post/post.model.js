@@ -28,7 +28,7 @@ const PostSchema = new Schema({
     },
     type: {
         type: Number,
-        enum: [1, 2, 3, 4] //1. Bán, 2. Cho thuê, 3. Cần thuê, 4. Mua
+        enum: [1, 2, 3, 4, 5] //1. Bán, 2. Cho thuê, 3. Cần thuê, 4. Mua, 5. Dự án
     },
     price: {
         type: Number
