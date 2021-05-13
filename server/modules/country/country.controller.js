@@ -10,7 +10,7 @@ exports.getProvinces = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: ["Lấy danh sách tỉnh / thành phố thành công"],
+            messages: ["Lấy danh sách tỉnh / thành phố thành công"],
             content: provinces
         });
     } catch (error) {
@@ -18,7 +18,7 @@ exports.getProvinces = async (req, res) => {
 
         res.status(400).json({
             success: false,
-            message: ["Lấy danh sách tỉnh / thành phố không thành công"],
+            messages: ["Lấy danh sách tỉnh / thành phố không thành công"],
             content: error.message
         });
     }

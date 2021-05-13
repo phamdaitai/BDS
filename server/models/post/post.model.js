@@ -8,7 +8,6 @@ const PostSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
     },
     address: {
         type: String

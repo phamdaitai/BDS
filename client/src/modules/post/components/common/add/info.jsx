@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Form, Select, Col, Row, Input } from 'antd';
+import { Form, Select, Col, Row, Input, InputNumber } from 'antd';
 import { CountryActions } from '../../../../country/redux/actions';
 import { connect } from "react-redux";      
 import './styles.scss';
@@ -172,14 +172,17 @@ const Info = (props) => {
                         },
                         ]}
                     >
-                        <Input placeholder="Nhập diện tích..." type="number"/>
+                        <InputNumber
+                            placeholder="Nhập diện tích..."
+                            style={{width: "100%"}}
+                        />
                     </Form.Item>
                     </Col>
                     
                     <Col span={8}>
                     <Form.Item
                         name="price"
-                        label="Giá"
+                        label="Giá (k = 1.000 vnđ)"
                         rules={[
                         {
                             required: true,
@@ -187,7 +190,12 @@ const Info = (props) => {
                         },
                         ]}
                     >
-                        <Input placeholder="Nhập giá..." type="number"/>
+                        <InputNumber
+                            placeholder="Ví dụ: 1.000k"
+                            style={{ width: "100%" }}
+                            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                        />
                     </Form.Item>
                 </Col>
             </Col>

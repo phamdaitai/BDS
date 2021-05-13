@@ -18,7 +18,8 @@ const Detail = (props) => {
             label="Tiêu đề"
             rules={[
                 {
-                required: true,
+                    required: true,
+                    message: 'Vui lòng nhập tiêu đề',
                 },
             ]}
             className="ant-advanced-search-form"

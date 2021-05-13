@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Row, Col, Select } from 'antd';
+import { Form, Input, Row, Col, Select, InputNumber } from 'antd';
 import { connect } from "react-redux";
 
 import './styles.scss';
@@ -26,7 +26,10 @@ const OtherInfo = (props) => {
                         name="width"
                         label="Chiều ngang (m)"
                     >
-                        <Input type="number"/>
+                        <InputNumber
+                            placeholder="Nhập chiều ngang..."
+                            style={{width: "100%"}}
+                        />
                     </Form.Item>
                 </Col>
                     
@@ -35,7 +38,10 @@ const OtherInfo = (props) => {
                         name="length"
                         label="Chiều dài (m)"
                     >
-                        <Input placeholder="Nhập diện tích..." type="number"/>
+                        <InputNumber
+                            placeholder="Nhập chiều dài..."
+                            style={{width: "100%"}}
+                        />
                     </Form.Item>
                 </Col>
                     
@@ -81,7 +87,9 @@ const OtherInfo = (props) => {
                         name="floorNumber"
                         label="Số lầu"
                     >
-                        <Input type="number"/>
+                        <InputNumber
+                            style={{width: "100%"}}
+                        />
                     </Form.Item>
                     </Col>
                     
@@ -90,7 +98,9 @@ const OtherInfo = (props) => {
                         name="bedroomNumber"
                         label="Số phòng ngủ"
                     >
-                         <Input type="number"/>
+                         <InputNumber
+                            style={{width: "100%"}}
+                        />
                     </Form.Item>
                 </Col>
             </Col>

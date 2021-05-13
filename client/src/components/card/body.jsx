@@ -4,7 +4,7 @@ const Body = (props) => {
     const { styles } = props;
 
     return (
-        <div className="card-item card-body" styles={styles}>
+        <div className="card-item card-body" style={styles}>
             {props.children}
         </div>
     );

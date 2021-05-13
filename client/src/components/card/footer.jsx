@@ -4,7 +4,7 @@ const Footer = (props) => {
     const { styles } = props;
 
     return (
-        <div className="card-item card-footer" styles={styles}>
+        <div className="card-item card-footer" style={styles}>
             {props.children}
         </div>
     );
