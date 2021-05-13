@@ -4,3 +4,8 @@
     margin: 0;
     overflow: hidden;
 }
+
+.ck-editor__editable {
+    min-height: 200px !important;
+    max-height: 500px !important;
+ }
