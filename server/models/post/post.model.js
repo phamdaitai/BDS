@@ -6,6 +6,11 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
+    //Mô tả ngắn
+    metaDescription: {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
     },

@@ -6,6 +6,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import './styles.scss';
 
+const { TextArea } = Input;
+
 const Detail = (props) => {
 
     return <React.Fragment>
@@ -25,6 +27,19 @@ const Detail = (props) => {
             className="ant-advanced-search-form"
         >
             <Input placeholder="Nhập tiêu đề..."/>
+        </Form.Item>
+
+        <Form.Item
+            name="metaDescription"
+            label="Mô tả ngắn về dự án"
+            rules={[
+                {
+                    required: true,
+                    message: 'Vui lòng nhập mô tả ngắn về dự án',
+                },
+            ]}
+        >
+            <TextArea placeholder="Nhập mô tả..." rows={4}/>
         </Form.Item>
 
         <p style={{marginBottom: "0.5rem"}}>Nội dung</p>
