@@ -9,6 +9,7 @@ import './styles.scss';
 const { TextArea } = Input;
 
 const Detail = (props) => {
+    const { onChangeDescription, description } = props;
 
     return <React.Fragment>
         <div className="post-add-item-header">
@@ -45,10 +46,10 @@ const Detail = (props) => {
         <p style={{marginBottom: "0.5rem"}}>Nội dung</p>
         <CKEditor
             editor={ ClassicEditor }
-            data=""
+            data={description}
             onChange={ ( event, editor ) => {
                 const data = editor.getData();
-                console.log( { event, editor, data } );
+                onChangeDescription(data)
             } }
         />
     </React.Fragment>

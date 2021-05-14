@@ -69,6 +69,15 @@ const PostSchema = new Schema({
     legal: {//1. Sổ đỏ/sổ hồng, 2. Giấy tờ hợp lệ, 3. giấy phép xây dựng,  4. Giấy phép kinh doanh
         type: Number,
         enum: [1, 2, 3, 4]
+    },
+    //Toa do google map
+    location: {
+        lat: {
+            type: Number
+        },
+        lng: {
+            type: Number
+        }
     }
 });
 

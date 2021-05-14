@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
@@ -14,8 +14,14 @@ import Map from '../common/add/map';
 const PostAddition = (props) => {
 
     const { post } = props;
+
+    const [location, setLocation] = useState(null);
+
+    const [description, setDescription] = useState("");
     
     const onSubmit = async (values) => {
+        values.location = location;
+        values.description = description;
         console.log("v", values)
         props.createPost(values);
     };
@@ -31,13 +37,19 @@ const PostAddition = (props) => {
                 onFinish={onSubmit}
             >
                 <Card.Body>
-                    <Detail />
+                    <Detail
+                        onChangeDescription={setDescription}
+                        description={description}
+                    />
                     
                     <Info />
 
                     <OtherInfo />
 
-                    <Map />
+                    <Map
+                        onChangeLocation={setLocation}
+                        location={location}
+                    />
 
                 </Card.Body>
                 <Card.Footer styles={{textAlign: "right"}}>
