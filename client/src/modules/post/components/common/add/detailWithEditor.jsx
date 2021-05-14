@@ -3,6 +3,7 @@ import { Form, Input } from 'antd';
 import { connect } from "react-redux";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import editorConfig from '../../../../../helpers/editorConfig';
 
 import './styles.scss';
 
@@ -47,6 +48,7 @@ const Detail = (props) => {
         <CKEditor
             editor={ ClassicEditor }
             data={description}
+            config={editorConfig}
             onChange={ ( event, editor ) => {
                 const data = editor.getData();
                 onChangeDescription(data)

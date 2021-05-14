@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^27.1.0",
+    "@ckeditor/ckeditor5-easy-image": "^27.1.0",
     "@ckeditor/ckeditor5-react": "^3.0.2",
     "@loadable/component": "^5.14.1",
     "@testing-library/jest-dom": "^5.11.4",
