@@ -78,7 +78,13 @@ const PostSchema = new Schema({
         lng: {
             type: Number
         }
-    }
+    },
+    avatar: {
+        type: String
+    },
+    images: [{
+        type: String
+    }]
 });
 
 module.exports = Post = mongoose.model('Post', PostSchema);

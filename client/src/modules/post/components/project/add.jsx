@@ -10,6 +10,8 @@ import Detail from '../common/add/detailWithEditor';
 import Info from '../common/add/info';
 import OtherInfo from '../common/add/otherInfo';
 import Map from '../common/add/map';
+import AvatarUpload from '../common/add/avatarUpload';
+import ImageUpload from '../common/add/imagesUpload';
 
 const PostAddition = (props) => {
 
@@ -65,8 +67,10 @@ const PostAddition = (props) => {
     <Container.Col colSpan={3}>
         <Card >
             <Card.Header style={{backgroundColor: "#0090b5", color: "white"}}>Thêm ảnh dự án</Card.Header>
-            <Card.Body>Ảnh dự án</Card.Body>
-            <Card.Footer>footer</Card.Footer>
+            <Card.Body>
+                <AvatarUpload />
+                <ImageUpload />    
+            </Card.Body>
         </ Card>
     </Container.Col>
 </Container>
