@@ -1,23 +1,14 @@
-import React, {useState} from "react";
-import {  Upload, Button, message } from 'antd';
+import React from "react";
+import {  Upload } from 'antd';
 import { connect } from "react-redux";
-import { UploadOutlined } from '@ant-design/icons';
 
 import './styles.scss';
 
 const ImageUpload = (props) => {
-
-    const [fileList, setFileList] = useState([
-        {
-          uid: '-1',
-          name: 'image.png',
-          status: 'done',
-          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-    ]);
+    const { images, setImages } = props;
     
     const onChange = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
+        setImages(newFileList);
     };
     
     const onPreview = async file => {
@@ -42,11 +33,12 @@ const ImageUpload = (props) => {
 
         <Upload
             listType="picture-card"
-            fileList={fileList}
+            fileList={images}
             onChange={onChange}
             onPreview={onPreview}
+            accept="image/*"
         >
-            {fileList.length < 6 && '+ Chọn ảnh'}
+            {images.length < 6 && '+ Chọn ảnh'}
         </Upload>
     </React.Fragment>
 }

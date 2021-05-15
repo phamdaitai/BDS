@@ -9,6 +9,7 @@ var initState = {
 export function post(state = initState, action) {
     switch (action.type) {
         case PostConstants.POST_ADD_REQUEST:
+        case PostConstants.UPLOAD_AVATAR_AND_IMAGE_REQUEST:
             return {
                 ...state,
                 isLoading: true,
@@ -27,7 +28,7 @@ export function post(state = initState, action) {
                 postDetail: action.payload,
                 isLoading: false,
             }
-          
+        
         default:
             return {
                 ...state

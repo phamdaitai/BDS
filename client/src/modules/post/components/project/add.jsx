@@ -19,14 +19,68 @@ const PostAddition = (props) => {
 
     const [location, setLocation] = useState(null);
 
+    const [avatar, setAvatar] = useState([
+        // {
+        //   uid: '-1',
+        //   status: 'done',
+        //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        // }
+    ]);
+
+    const [images, setImages] = useState([]);
+
     const [description, setDescription] = useState("");
     
     const onSubmit = async (values) => {
+        let imagesUploaded = await uploadImage();
+        if (imagesUploaded?.avatar?.length) {
+            values.avatar = imagesUploaded.avatar[0];
+        }
+
+        if (imagesUploaded?.images?.length) {
+            values.images = imagesUploaded.images;
+        }
+            
         values.location = location;
         values.description = description;
+
         console.log("v", values)
         props.createPost(values);
     };
+
+    const uploadImage = async (values) => {
+        let avatarUpload = new FormData();
+        let imagesUpload = new FormData();
+        let hasUpload = false;
+
+        if (images?.length) {
+            images.forEach((e) => {
+                if (e.originFileObj) {
+                    imagesUpload.append("file", e.originFileObj);
+                    imagesUpload.folder = "images";
+
+                    if (!hasUpload) hasUpload = true;
+                }
+            })
+        }
+
+        if (avatar?.length) {
+            if (avatar[0].originFileObj) {
+                avatarUpload.append("file", avatar[0].originFileObj);
+                avatarUpload.folder = "avatar";
+
+                if (!hasUpload) hasUpload = true;
+            }
+        }
+
+        if (hasUpload) {
+            await props.requestUploading()
+            const data = await PostActions.uploadAvatarAndImage(avatarUpload, imagesUpload);
+            return data;
+        }
+
+        return undefined;
+    }
     
     return <Container>
     <Container.Col colSpan={9}>
@@ -68,8 +122,17 @@ const PostAddition = (props) => {
         <Card >
             <Card.Header style={{backgroundColor: "#0090b5", color: "white"}}>Thêm ảnh dự án</Card.Header>
             <Card.Body>
-                <AvatarUpload />
-                <ImageUpload />    
+                    
+                <AvatarUpload
+                    avatar={avatar}
+                    setAvatar={setAvatar}
+                />
+                    
+                <ImageUpload
+                    images={images}
+                    setImages={setImages}
+                />
+                    
             </Card.Body>
         </ Card>
     </Container.Col>
@@ -82,7 +145,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    createPost: PostActions.createPost
+    createPost: PostActions.createPost,
+    requestUploading: PostActions.requestUploading
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostAddition);

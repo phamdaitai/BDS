@@ -1,24 +1,14 @@
-import React, {useState} from "react";
-import {  Upload, Button, message } from 'antd';
+import React from "react";
+import {  Upload } from 'antd';
 import { connect } from "react-redux";
-import { UploadOutlined } from '@ant-design/icons';
 
 import './styles.scss';
 
 const AvatarUpload = (props) => {
-
-    const [fileList, setFileList] = useState([
-        {
-          uid: '-1',
-          name: 'image.png',
-          status: 'done',
-          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-    ]);
+    const { avatar, setAvatar } = props;
     
     const onChange = ({ fileList: newFileList }) => {
-        console.log("newFileList", newFileList);
-        setFileList(newFileList);
+        setAvatar(newFileList);
     };
     
     const onPreview = async file => {
@@ -42,14 +32,13 @@ const AvatarUpload = (props) => {
         </div>
 
         <Upload
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             listType="picture-card"
-            fileList={fileList}
+            fileList={avatar}
             onChange={onChange}
             onPreview={onPreview}
             accept="image/*"
         >
-            {fileList.length < 1 && '+ Chọn ảnh'}
+            {avatar.length < 1 && '+ Chọn ảnh'}
         </Upload>
     </React.Fragment>
 }
