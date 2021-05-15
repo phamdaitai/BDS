@@ -89,6 +89,8 @@ const PostSchema = new Schema({
     images: [{
         type: String
     }]
+},{
+    timestamps: true,
 });
 
 PostSchema.plugin(mongoosePaginate);

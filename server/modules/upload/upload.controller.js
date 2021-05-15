@@ -5,12 +5,7 @@ exports.uploadMultiImages = async (req, res) => {
     try {
         let portal = req.body.portal;
         let files = req.files;
-        // let folder = req.folder;
-
-        // let files = req.body.files;
         let folder = req.body.folder;
-
-        console.log("req", files);
 
         let imageLinks = await UploadService.uploadMultiImages(files, folder, portal);
 

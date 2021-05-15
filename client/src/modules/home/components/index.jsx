@@ -22,7 +22,7 @@ const Home = (props) => {
             props.getAllPosts(queryData);
             props.getPostDetail("609f88a5064f143a8839ebd4")
         }
-    })
+    })  
 
     console.log("post", post);
     
