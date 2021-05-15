@@ -7,13 +7,8 @@ import './styles.scss';
 const { Option } = Select;
 
 const Info = (props) => {
-    const [form] = Form.useForm();
 
     const [loaded, setLoaded] = useState(false);
-
-    // useEffect(() => {
-    //     // form.setFieldsValue(data);
-    // }, [form]);
 
     const { provincesData, districtsData, wardsData } = props.country;
     

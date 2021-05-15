@@ -30,7 +30,6 @@ exports.getAllPosts = async (query, portal) => {
 }
 
 exports.getDetailPost = async (id, portal) => {
-    console.log("ID", id);
     let Post = initConnection(portal).model("Post");
 
     let post = await Post

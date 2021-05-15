@@ -13,9 +13,15 @@ const Home = (props) => {
         page: 1
     })
 
+    const [loaded, setLoaded] = useState(false);
+
     useEffect(() => {
-        props.getAllPosts(queryData);
-        props.getPostDetail("609f88a5064f143a8839ebd4")
+        if (!loaded) {
+            setLoaded(true);
+            
+            props.getAllPosts(queryData);
+            props.getPostDetail("609f88a5064f143a8839ebd4")
+        }
     })
 
     console.log("post", post);

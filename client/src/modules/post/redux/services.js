@@ -27,6 +27,6 @@ async function getAllPosts(queryData) {
 async function getPostDetail(id) {
     return sendRequest({
         url: `${ process.env.REACT_APP_SERVER }/post/${id}`,
-        method: 'POST'
-    }, true, true)
+        method: 'GET'
+    }, false, true)
 }
