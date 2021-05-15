@@ -1,5 +1,6 @@
 import React from 'react';
 import { Rate } from 'antd';
+import {EnvironmentOutlined} from '@ant-design/icons'
 
 import noImage from '../../assets/images/bds-no-image.png';
 
@@ -7,6 +8,8 @@ import './styles.scss';
 
 const SaleItem = (props) => {
     const { postItem } = props;
+
+    const dataDirection = ["", "Đông", "Tây", "Nam", "Bắc", "Đông Nam", "Đông Bắc", "Tây Nam", "Tây Bắc"]
 
     return (
         <div className="sale-item">
@@ -29,15 +32,19 @@ const SaleItem = (props) => {
                 </div>
                 
                 <div className="sale-item-content">
-                    <div>
-                    PHÒNG ĐẦY ĐỦ NỘI THẤT, TỰ DO GIỜ GIẤC, RỘNG VÀ SANG, AN NINH TUYỆT ĐỐI - Phòng mới xây dạng nhà trọ cao cấp nên thiết kế rất thoáng mát, nhằm đáp ứng cho mọi người có môi trường sống an ninh, thoải mái không bị cảm giác, thoải mái không bị cảm giác
-                    </div>
+                    <div>{ postItem.metaDescription }</div>
                     
-                    <div>
+                    <div className="sale-item-other-info">
+                        <div><span>Diện tích:</span> &ensp; {postItem.acreage} (m<sup>2</sup>)</div>
+                        <div><span>Kích thước:</span> &ensp;
+                            {(postItem.width && postItem.length) ? `${postItem.width} x ${postItem.length} (m)` : "--"}</div>
+                        <div><span>Hướng:</span> &ensp; {postItem.direction ? dataDirection[postItem.direction] : "--"}</div>
+                        <div><span>Giá:</span> &ensp; {postItem.price}</div>
+                        <div><EnvironmentOutlined /> &ensp; </div>
+                        {postItem.floorNumber && <div><span>Số lầu:</span> &ensp; {postItem.floorNumber}</div>}
+                        {postItem.bedroomNumber && <div><span>Số phòng ngủ:</span> &ensp; {postItem.bedroomNumber}</div>}
+                        {postItem.roadAhead && <div><span>Đường trước nhà:</span> &ensp; {postItem.roadAhead} (m)</div>}
                     </div>
-
-                    <div>
-                    </div>    
                 </div>
             </div>
         </div>

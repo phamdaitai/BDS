@@ -21,7 +21,7 @@ async function getAllPosts(queryData) {
         url: `${ process.env.REACT_APP_SERVER }/post`,
         method: 'GET',
         params: queryData
-    }, false, true)
+    }, false, false)
 }
 
 async function getPostDetail(id) {
