@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
+import { Pagination } from 'antd';
 
 import Container from '../../../components/container';
 import Card from '../../../components/card';
@@ -25,9 +26,13 @@ const Home = (props) => {
             props.getAllPosts(queryData);
             // props.getPostDetail("609f88a5064f143a8839ebd4")
         }
-    })  
+    })
+    
+    useEffect(() => {
+        props.getAllPosts(queryData);
+    }, [queryData.limit, queryData.page])
 
-    console.log("post", post);
+    console.log("queryData", queryData);
     
     return <Container>
         {post.isLoading && <Loading />}
@@ -42,7 +47,21 @@ const Home = (props) => {
                         />
                     )}
                 </Card.Body>
-                <Card.Footer>Phân trang</Card.Footer>
+                <Card.Footer styles={{textAlign: "right"}}>
+                    <Pagination
+                        total={post.totalDocs}
+                        current={queryData.page}
+                        pageSize={queryData.limit}
+                        onChange={(page, pageSize) => {
+                            setQueryData({ ...queryData, page, limit: pageSize })
+                            console.log("page, pageSize", page, pageSize );
+                        }}
+                        showSizeChanger
+                        showQuickJumper
+                        pageSizeOptions={[5, 10, 15, 20, 50]}
+                        showTotal={total => `Tổng ${total} mục`}
+                    />
+                </Card.Footer>
             </ Card>
         </Container.Col>
         <Container.Col colSpan={3}>

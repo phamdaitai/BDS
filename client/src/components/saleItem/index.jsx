@@ -1,6 +1,6 @@
 import React from 'react';
 import { Rate } from 'antd';
-import {EnvironmentOutlined} from '@ant-design/icons'
+import { EnvironmentOutlined } from '@ant-design/icons'
 
 import noImage from '../../assets/images/bds-no-image.png';
 
