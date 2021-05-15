@@ -1,10 +1,24 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import Container from '../../../components/container';
 import Card from '../../../components/card';
+import { PostActions } from '../../post/redux/actions';
 
 
 const Home = (props) => {
+    const { post } = props;
+
+    const [queryData, setQueryData] = useState({
+        limit: 5,
+        page: 1
+    })
+
+    useEffect(() => {
+        props.getAllPosts(queryData);
+        props.getPostDetail("609f88a5064f143a8839ebd4")
+    })
+
+    console.log("post", post);
     
     return <Container>
         <Container.Col colSpan={9}>
@@ -25,10 +39,13 @@ const Home = (props) => {
 };
 
 const mapStateToProps = state => {
-    return state;
+    const { post } = state;
+    return { post };
 }
 
 const mapDispatchToProps = {
+    getAllPosts: PostActions.getAllPosts,
+    getPostDetail: PostActions.getPostDetail
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

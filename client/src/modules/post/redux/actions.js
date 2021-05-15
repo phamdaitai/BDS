@@ -5,7 +5,9 @@ import { UploadActions } from "../../upload/redux/actions";
 export const PostActions = {
     createPost,
     uploadAvatarAndImage,
-    requestUploading
+    requestUploading,
+    getAllPosts,
+    getPostDetail
 }
 
 function createPost(data) {
@@ -21,6 +23,51 @@ function createPost(data) {
             .catch(err => {
                 dispatch({ type: PostConstants.POST_ADD_FAIL, payload: err?.response?.data?.messages?.[0] });
             })
+    }
+}
+
+
+function getAllPosts (queryData) {
+    return (dispatch) => {
+        dispatch({
+            type: PostConstants.GET_ALL_POST_REQUEST
+        })
+
+        PostServices.getAllPosts(queryData)
+        .then((res) => {
+            dispatch({
+                type: PostConstants.GET_ALL_POST_SUCCESS,
+                payload: res.data.content
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: PostConstants.GET_ALL_POST_FAIL,
+                error
+            })
+        })
+    }
+}
+
+function getPostDetail(id){
+    return (dispatch) => {
+        dispatch({
+            type: PostConstants.GET_POST_DETAIL_REQUEST
+        })
+
+        PostServices.getPostDetail(id)
+        .then((res) => {
+            dispatch({
+                type: PostConstants.GET_POST_DETAIL_SUCCESS,
+                payload: res.data.content
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: PostConstants.GET_POST_DETAIL_FAIL,
+                error
+            })
+        })
     }
 }
 
