@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Container from '../../../components/container';
 import Card from '../../../components/card';
 import { PostActions } from '../../post/redux/actions';
-
+import Loading from '../../../components/loading';
 
 const Home = (props) => {
     const { post } = props;
@@ -27,6 +27,7 @@ const Home = (props) => {
     console.log("post", post);
     
     return <Container>
+        {post.isLoading && <Loading />}
         <Container.Col colSpan={9}>
             <Card >
                 <Card.Header>Thông tin nhà đất</Card.Header>

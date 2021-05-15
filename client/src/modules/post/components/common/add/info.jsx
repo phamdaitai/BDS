@@ -177,7 +177,7 @@ const Info = (props) => {
                     <Col span={8}>
                     <Form.Item
                         name="price"
-                        label="Giá (k = 1.000 vnđ)"
+                        label="Giá (vnđ)"
                         rules={[
                         {
                             required: true,
