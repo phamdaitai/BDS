@@ -37,7 +37,7 @@ const Info = (props) => {
             >
                 <Col span={8}>
                     <Form.Item
-                        name="provinceId"
+                        name="province"
                         label="Tỉnh / thành phố"
                         rules={[
                         {
@@ -68,7 +68,7 @@ const Info = (props) => {
                     
                     <Col span={8}>
                     <Form.Item
-                        name="districtId"
+                        name="district"
                         label="Quận / huyện"
                         rules={[
                         {
@@ -99,7 +99,7 @@ const Info = (props) => {
                     
                     <Col span={8}>
                     <Form.Item
-                        name="wardId"
+                        name="ward"
                         label="Xã / phường"
                         rules={[
                         {

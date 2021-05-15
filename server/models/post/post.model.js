@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const PostSchema = new Schema({
     title: {
@@ -18,13 +19,16 @@ const PostSchema = new Schema({
         type: String
     },
     ward: {
-        type: String
+        type: Number,
+        ref: 'Ward',
     },
     district: {
-        type: String
+        type: Number,
+        ref: 'District',
     },
     province: {
-        type: String
+        type: Number,
+        ref: 'Province',
     },
     type: {
         type: Number,
@@ -86,5 +90,7 @@ const PostSchema = new Schema({
         type: String
     }]
 });
+
+PostSchema.plugin(mongoosePaginate);
 
 module.exports = Post = mongoose.model('Post', PostSchema);
