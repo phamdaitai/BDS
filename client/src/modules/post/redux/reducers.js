@@ -2,6 +2,7 @@ import { PostConstants } from "./constants";
 
 var initState = {
     postDetail: {},
+    listPosts: [],
     isLoading: false,
     error: null,
 }
@@ -37,7 +38,7 @@ export function post(state = initState, action) {
             return {
                 ...state,
                 isLoading: false,
-                listTaxs: action.payload.allPosts.docs,
+                listPosts: action.payload.allPosts.docs,
                 totalDocs: action.payload.allPosts.totalDocs,
                 limit: action.payload.allPosts.limit,
                 totalPages: action.payload.allPosts.totalPages,

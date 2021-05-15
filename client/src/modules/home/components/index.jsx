@@ -9,7 +9,7 @@ const Home = (props) => {
     const { post } = props;
 
     const [queryData, setQueryData] = useState({
-        limit: 5,
+        limit: 10,
         page: 1
     })
 
