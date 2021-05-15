@@ -2,3 +2,4 @@
 /logs/history
 .env
 package-lock.json
+/uploadBuffer

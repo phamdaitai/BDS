@@ -16,6 +16,7 @@ const user = require('./modules/user/user.route');
 const auth = require('./modules/auth/auth.route');
 const post = require('./modules/post/post.route');
 const country = require('./modules/country/country.route');
+const upload = require('./modules/upload/upload.route');
 
 var app = express();
 
@@ -32,7 +33,8 @@ app.use(bodyParser.json());
 app.use("/user", user);
 app.use("/auth", auth);
 app.use("/post", post);
-app.use("/country", country)
+app.use("/country", country);
+app.use("/upload", upload);
 
 const port = process.env.PORT || 5000;
 
