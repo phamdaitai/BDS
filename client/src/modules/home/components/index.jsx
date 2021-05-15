@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
+
 import Container from '../../../components/container';
 import Card from '../../../components/card';
-import { PostActions } from '../../post/redux/actions';
 import Loading from '../../../components/loading';
+import SaleItem from '../../../components/saleItem';
+
+import { PostActions } from '../../post/redux/actions';
 
 const Home = (props) => {
     const { post } = props;
@@ -31,7 +34,14 @@ const Home = (props) => {
         <Container.Col colSpan={9}>
             <Card >
                 <Card.Header>Thông tin nhà đất</Card.Header>
-                <Card.Body>Nội dung mua bán nhà đất</Card.Body>
+                <Card.Body>
+                    {post?.listPosts?.length !== 0 && post?.listPosts?.map((item) => 
+                        <SaleItem
+                            postItem={item}
+                            key={item._id}
+                        />
+                    )}
+                </Card.Body>
                 <Card.Footer>Phân trang</Card.Footer>
             </ Card>
         </Container.Col>
