@@ -1,6 +1,8 @@
 import React from 'react';
 import { Rate } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+
 import 'moment/locale/vi';
 import moment from 'moment';
 
@@ -21,7 +23,7 @@ const SaleItem = (props) => {
         <div className="sale-item">
             <div className="sale-item-title">
                 <div>
-                    <span>{ postItem.title }</span>
+                    <Link to="/">{ postItem.title }</Link>
                 </div>
                 <div>
                     <span>{moment(postItem.createdAt).fromNow()}</span>

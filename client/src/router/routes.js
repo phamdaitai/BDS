@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import loadable from "@loadable/component";
 import { Switch, Route } from "react-router-dom";
+import { Result } from 'antd';
 import "./styles.scss";
 import PrivateRoute from "./privateRoute";
 
@@ -40,9 +41,10 @@ export const routes = [
 
       render() {
         return (
-          <div className="not-found">
-            <b style={{ color: "black" }}>Lỗi 404|Trang không tồn tại!</b>
-          </div>
+          <Result
+            status="404"
+            title="Lỗi 404 | Trang không tồn tại!"
+          />
         );
       }
     }

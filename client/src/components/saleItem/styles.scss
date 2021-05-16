@@ -8,10 +8,17 @@
 .sale-item-title {
     display: flex;
     div:nth-child(1) {
-        color: #bb2c2c;
         font-weight: 600;
         width: 80%;
         text-transform: uppercase;
+
+        a {
+            color: #bb2c2c !important;
+        }
+    }
+
+    div:nth-child(1):hover {
+        text-decoration: underline;
     }
 
     div:nth-child(2) {
