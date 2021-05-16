@@ -31,8 +31,6 @@ const Home = (props) => {
     useEffect(() => {
         props.getAllPosts(queryData);
     }, [queryData.limit, queryData.page])
-
-    console.log("post", post);
     
     return <Container>
         {post.isLoading && <Loading />}
