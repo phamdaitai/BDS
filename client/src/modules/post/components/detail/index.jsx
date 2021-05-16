@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
-import ImagesList from './ImagesList';
+
+import ImagesList from './imagesList';
+import Info from './info';
 
 import { PostActions } from '../../redux/actions';
 
@@ -40,7 +42,15 @@ const DetailPost = (props) => {
                     style={{overflowY: "auto", maxHeight: "100vh", marginBottom: "1rem"}}
                 />
                 <hr />
-                {postDetail.images && postDetail.images.length && postDetail.images.length !== 0 && <ImagesList images={postDetail.images}/>}
+                
+                    <Info postDetail={postDetail}/>
+
+                {postDetail.images && postDetail.images.length && postDetail.images.length !== 0 &&
+                    <React.Fragment>
+                        <hr/>
+                        <ImagesList images={postDetail.images} />
+                    </React.Fragment>
+                }
             </Card.Body>
         </ Card>
     </Container.Col>

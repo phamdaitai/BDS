@@ -46,7 +46,7 @@ const SaleItem = (props) => {
                     <div className="sale-item-other-info">
                         <div>
                             <span>Diện tích:</span> &ensp;
-                            <span style={{}}>{postItem.acreage} m<sup>2</sup></span>
+                            <span >{postItem.acreage} m<sup>2</sup></span>
                         </div>
 
                         <div>

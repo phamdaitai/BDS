@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 const ImagesList = (props) => {
     const { images } = props;
 
-    const [currentImage, setCurrentImage] = useState(images[0])
-
-    console.log("images", images);
+    const [currentImage, setCurrentImage] = useState(images[0]);
     
     return <React.Fragment>
         <h3 style={{color: "#0f78da"}}>Hình ảnh chi tiết</h3>
