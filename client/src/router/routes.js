@@ -10,6 +10,8 @@ const Home = loadable(() => import('../modules/home/components'));
 const ProjectPostAdd = loadable(() => import('../modules/post/components/project/add'));
 const DetailPost = loadable(() => import('../modules/post/components/detail'));
 const Profile = loadable(() => import('../modules/user/components/profile'));
+const Password = loadable(() => import('../modules/user/components/password'));
+const PostOfUser = loadable(() => import('../modules/post/components/postOfUser'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin
@@ -34,7 +36,20 @@ export const routes = [
   {
     path: "/profile/:id",
     exact: true,
+    roles: [2, 3],
     component: ({ match }) => <Profile match={match} />
+  },
+  {
+    path: "/password/:id",
+    exact: true,
+    roles: [2, 3],
+    component: ({ match }) => <Password match={match} />
+  },
+  {
+    path: "/post/:id",
+    exact: true,
+    roles: [2, 3],
+    component: ({ match }) => <PostOfUser match={match} />
   },
   {
     path: "*",

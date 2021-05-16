@@ -5,11 +5,9 @@ import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
 
-import Category from '../common/category';
+import Category from '../../../user/components/common/category';
 
-import './styles.scss';
-
-const Profile = (props) => {
+const PostOfUser = (props) => {
     const { id } = props.match.params;
 
     console.log("id", id);
@@ -25,7 +23,7 @@ const Profile = (props) => {
     return <Container>
     <Container.Col colSpan={9}>
         <Card >
-            <Card.Header>Thông tin cá nhân</Card.Header>
+            <Card.Header>Quản lý bài đăng</Card.Header>
                 
             <Card.Body>
             </Card.Body>
@@ -42,4 +40,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(PostOfUser);

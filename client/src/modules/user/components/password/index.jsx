@@ -9,7 +9,7 @@ import Category from '../common/category';
 
 import './styles.scss';
 
-const Profile = (props) => {
+const Password = (props) => {
     const { id } = props.match.params;
 
     console.log("id", id);
@@ -25,7 +25,7 @@ const Profile = (props) => {
     return <Container>
     <Container.Col colSpan={9}>
         <Card >
-            <Card.Header>Thông tin cá nhân</Card.Header>
+            <Card.Header>Thay đổi mật khẩu</Card.Header>
                 
             <Card.Body>
             </Card.Body>
@@ -42,4 +42,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Password);
