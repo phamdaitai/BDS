@@ -25,7 +25,10 @@ const UserSchema = new Schema({
     },
     post: [{
         type: Schema.Types.ObjectId
-    }]
+    }],
+    avatar: {
+        type: String
+    }
 },{
     timestamps: true,
 });
