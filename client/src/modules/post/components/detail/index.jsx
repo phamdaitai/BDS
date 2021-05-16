@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
+import { UserOutlined, PhoneOutlined } from '@ant-design/icons';
+
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
@@ -36,6 +38,11 @@ const DetailPost = (props) => {
             <Card.Header>{postDetail?.title}</Card.Header>
                 
             <Card.Body>
+                {/* Không có bài viết mới hiện thị mô tả ngắn */}
+                {!postDetail.description && <div>
+                    {postDetail.metaDescription}
+                </div>}
+
                 <div
                     dangerouslySetInnerHTML={{ __html: postDetail.description }}
                     className="scroll-thin"
@@ -43,7 +50,7 @@ const DetailPost = (props) => {
                 />
                 <hr />
                 
-                    <Info postDetail={postDetail}/>
+                <Info postDetail={postDetail}/>
 
                 {postDetail.images && postDetail.images.length && postDetail.images.length !== 0 &&
                     <React.Fragment>
@@ -56,9 +63,23 @@ const DetailPost = (props) => {
     </Container.Col>
     <Container.Col colSpan={3}>
         <Card >
-            <Card.Header style={{backgroundColor: "#0090b5", color: "white"}}>Danh mục</Card.Header>
+            <Card.Header style={{backgroundColor: "#0090b5", color: "white"}}>Thông tin liên hệ</Card.Header>
             <Card.Body>
-                    
+                <div className="post-detail-item-header">
+                    <span>Thông tin người đăng</span>
+                </div>
+                
+                <div className="post-detail-user-contact">
+                    <div>
+                        <UserOutlined /> &ensp;
+                        <span>{postDetail?.userName}</span>
+                    </div>
+                        
+                    <div>
+                        <PhoneOutlined /> &ensp;
+                        <span>{postDetail?.userPhone}</span>    
+                    </div>
+                </div>
             </Card.Body>
         </ Card>
     </Container.Col>

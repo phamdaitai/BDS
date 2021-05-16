@@ -98,3 +98,38 @@
         }
     }
 }
+
+.post-detail-item-header {
+    height: 1rem;
+    color: white;
+    font-weight: 600;
+    background-color: #069ed2;
+    padding: 1rem 0.5rem;
+    line-height: 0rem;
+    margin-bottom: 1.5rem;
+}
+
+.post-detail-user-contact {
+    div {
+        display: flex;
+        font-size: 1.05rem;
+        align-items: center;
+        font-weight: 600;
+    }
+
+    div:nth-child(1){
+        span:nth-child(1) {
+            color: rgb(3, 135, 243);
+        }
+    }
+
+    div:nth-child(2){
+        span:nth-child(1) {
+            color: green;
+        }
+
+        span:nth-child(2) {
+            color: red;
+        }
+    }
+}
