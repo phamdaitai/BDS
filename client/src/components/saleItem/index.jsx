@@ -9,6 +9,7 @@ import moment from 'moment';
 import noImage from '../../assets/images/bds-no-image.png';
 import { FormatMoney } from '../../helpers/formatCurrency';
 import { getFullAddress } from '../../helpers/formatAddress';
+import { slug } from '../../helpers/slug';
 
 import './styles.scss';
 
@@ -23,7 +24,7 @@ const SaleItem = (props) => {
         <div className="sale-item">
             <div className="sale-item-title">
                 <div>
-                    <Link to="/">{ postItem.title }</Link>
+                    <Link to={`/${slug(postItem.title)}-${postItem._id}.html`}>{ postItem.title }</Link>
                 </div>
                 <div>
                     <span>{moment(postItem.createdAt).fromNow()}</span>
