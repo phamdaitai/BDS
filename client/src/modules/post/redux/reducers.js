@@ -30,7 +30,7 @@ export function post(state = initState, action) {
         case PostConstants.POST_ADD_SUCCESS:
             return {
                 ...state,
-                postDetail: action.payload,
+                postDetail: action.payload.post,
                 isLoading: false,
             }
         
@@ -53,7 +53,7 @@ export function post(state = initState, action) {
         case PostConstants.GET_POST_DETAIL_SUCCESS:
             return {
                 ...state,
-                postDetail: action.payload,
+                postDetail: action.payload.post,
                 isLoading: false,
             }
         

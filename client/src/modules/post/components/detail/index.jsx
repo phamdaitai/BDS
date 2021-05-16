@@ -1,13 +1,29 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
+import Loading from '../../../../components/loading';
+
+import { PostActions } from '../../redux/actions';
 
 const DetailPost = (props) => {
+    const { post } = props;
 
-    console.log("props.match.params.id", props.match.params.id)
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        if (!loaded) {
+            setLoaded(true);
+
+            const { id } = props.match.params;
+            props.getPostDetail(id);
+        }
+    })
+
+    console.log("postDetail", post.postDetail);
     
     return <Container>
+    {post.isLoading && <Loading />}
     <Container.Col colSpan={9}>
         <Card >
             <Card.Header>Chi tiết</Card.Header>
@@ -28,10 +44,12 @@ const DetailPost = (props) => {
 };
 
 const mapStateToProps = state => {
-    return state;
+    const { post } = state;
+    return {post};
 }
 
 const mapDispatchToProps = {
+    getPostDetail: PostActions.getPostDetail
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailPost);

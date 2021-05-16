@@ -61,29 +61,20 @@ exports.getDetailPost = async (id, portal) => {
     let Post = initConnection(portal).model("Post");
 
     let post = await Post
-    .findById(id)
-
+        .findById(id)
+        .populate([{
+            path: "province"
+        },
+        {
+            path: "district"
+        },
+        {
+            path: "ward"
+        }])
+    
+    console.log("post", post);
     if (!post) {
         throw Error("Post is not existing")
-    }
-
-    if (post.province) {
-        let Province = initConnection(portal).model("Province");
-        province = await Province.findOne({ id: post.province });
-        console.log("province", province);
-        if (province) post.province = province;
-    }
-
-    if (post.district) {
-        let Disctrict = initConnection(portal).model("District");
-        district = await Disctrict.findOne({ id: post.district });
-        if (district) post.district = district;
-    }
-
-    if (post.ward) {
-        let Ward = initConnection(portal).model("Ward");
-        ward = await Ward.findOne({ id: post.ward });
-        if (ward) post.ward = ward;
     }
 
     return { post }
