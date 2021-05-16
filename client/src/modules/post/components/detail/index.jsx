@@ -6,8 +6,11 @@ import Loading from '../../../../components/loading';
 
 import { PostActions } from '../../redux/actions';
 
+import '../../../../common-css/scroll.scss';
+
 const DetailPost = (props) => {
     const { post } = props;
+    const { postDetail } = post;
 
     const [loaded, setLoaded] = useState(false);
 
@@ -20,15 +23,20 @@ const DetailPost = (props) => {
         }
     })
 
-    console.log("postDetail", post.postDetail);
+    console.log("postDetail", postDetail);
     
     return <Container>
     {post.isLoading && <Loading />}
     <Container.Col colSpan={9}>
         <Card >
-            <Card.Header>Chi tiết</Card.Header>
+            <Card.Header>{postDetail?.title}</Card.Header>
                 
             <Card.Body>
+                <div
+                    dangerouslySetInnerHTML={{ __html: postDetail.description }}
+                    className="scroll-thin"
+                    style={{overflowY: "auto", maxHeight: "100vh"}}
+                />
             </Card.Body>
         </ Card>
     </Container.Col>
