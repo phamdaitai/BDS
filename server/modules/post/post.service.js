@@ -34,6 +34,7 @@ exports.getAllPosts = async (query, portal) => {
             {
                 path: "ward"
             }])
+            .sort({createdAt: 'desc' })
         
         return {allPosts}
     } else {
@@ -48,10 +49,9 @@ exports.getAllPosts = async (query, portal) => {
             },
             {
                 path: "ward"
-            }]
+            }],
+            sort: { 'createdAt': 'desc' }
         })
-
-        console.log("allPosts", allPosts);
 
         return {allPosts}
     }

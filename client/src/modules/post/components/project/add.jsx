@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import { Form, Button } from 'antd';
@@ -45,7 +46,9 @@ const PostAddition = (props) => {
         values.description = description;
 
         console.log("v", values)
-        props.createPost(values);
+        await props.createPost(values);
+
+        if (post.postDetail._id) props.history.push("/");
     };
 
     const uploadImage = async (values) => {
@@ -149,4 +152,4 @@ const mapDispatchToProps = {
     requestUploading: PostActions.requestUploading
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostAddition);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostAddition));

@@ -1,12 +1,15 @@
 import React from 'react';
 import { Rate } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons'
+import moment from 'moment';
 
 import noImage from '../../assets/images/bds-no-image.png';
 import { FormatMoney } from '../../helpers/formatCurrency';
 import { getFullAddress } from '../../helpers/formatAddress';
 
 import './styles.scss';
+
+moment.locale('fr');
 
 const SaleItem = (props) => {
     const { postItem } = props;
@@ -20,7 +23,7 @@ const SaleItem = (props) => {
                     <span>{ postItem.title }</span>
                 </div>
                 <div>
-                    <span>Hôm nay</span>
+                    <span>{moment.locale('fr') && moment(postItem.createdAt).fromNow()}</span>
                 </div>
             </div>
             
