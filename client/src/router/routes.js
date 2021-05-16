@@ -9,6 +9,7 @@ import PrivateRoute from "./privateRoute";
 const Home = loadable(() => import('../modules/home/components'));
 const ProjectPostAdd = loadable(() => import('../modules/post/components/project/add'));
 const DetailPost = loadable(() => import('../modules/post/components/detail'));
+const Profile = loadable(() => import('../modules/user/components/profile'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin
@@ -29,6 +30,11 @@ export const routes = [
     path: "/detail/:slug.:id.html",
     exact: true,
     component: ({ match }) => <DetailPost match={match} />
+  },
+  {
+    path: "/profile/:id",
+    exact: true,
+    component: ({ match }) => <Profile match={match} />
   },
   {
     path: "*",

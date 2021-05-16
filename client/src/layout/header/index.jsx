@@ -71,7 +71,7 @@ const Headers = () => {
                         icon={<UserOutlined />}
                         src={""}
                     />
-                    <span style={{ color: "white", marginLeft: '0.25rem', fontWeight: "600" }}>{user.name}</span>
+                    <Link to={`/profile/${user._id}`} style={{ color: "white", marginLeft: '0.25rem', fontWeight: "600", cursor: "pointer" }}>{user.name}</Link>
                     <span style={{color: "#1890ff", cursor: "pointer"}} onClick={() => AuthActions.logOut()}> (đăng xuất)</span>
                 </div>
             ) : (
