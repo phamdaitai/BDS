@@ -24,7 +24,7 @@ const SaleItem = (props) => {
         <div className="sale-item">
             <div className="sale-item-title">
                 <div>
-                    <Link to={`/${slug(postItem.title)}-${postItem._id}.html`}>{ postItem.title }</Link>
+                    <Link to={`/detail/${slug(postItem.title)}.${postItem._id}.html`}>{ postItem.title }</Link>
                 </div>
                 <div>
                     <span>{moment(postItem.createdAt).fromNow()}</span>
