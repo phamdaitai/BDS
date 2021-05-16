@@ -8,6 +8,7 @@ import Loading from '../../../../components/loading';
 
 import ImagesList from './imagesList';
 import Info from './info';
+import Map from './map';
 
 import { PostActions } from '../../redux/actions';
 
@@ -58,6 +59,12 @@ const DetailPost = (props) => {
                         <ImagesList images={postDetail.images} />
                     </React.Fragment>
                 }
+                    
+                {postDetail?.location?.lat &&
+                    <React.Fragment>
+                        <hr/>
+                        <Map location={postDetail.location} />
+                    </React.Fragment>}
             </Card.Body>
         </ Card>
     </Container.Col>
