@@ -1,0 +1,31 @@
+.post-image-detail-show {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+    img {
+        max-width: 100% !important;
+    }
+}
+
+.post-image-detail-list{
+    display: flex;
+    justify-content: center;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    
+    div {
+        height: 60px;
+        width: 60px;
+        cursor: pointer;
+        border: 2px solid #fff;
+        box-shadow: 0 0 5px #746e6e;
+        margin: 0px 5px;
+        overflow: hidden;
+        
+        img {
+            height: 60px;
+        }
+    }
+}

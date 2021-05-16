@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
+import ImagesList from './ImagesList';
 
 import { PostActions } from '../../redux/actions';
 
 import '../../../../common-css/scroll.scss';
+import './styles.scss';
 
 const DetailPost = (props) => {
     const { post } = props;
@@ -35,8 +37,10 @@ const DetailPost = (props) => {
                 <div
                     dangerouslySetInnerHTML={{ __html: postDetail.description }}
                     className="scroll-thin"
-                    style={{overflowY: "auto", maxHeight: "100vh"}}
+                    style={{overflowY: "auto", maxHeight: "100vh", marginBottom: "1rem"}}
                 />
+                <hr />
+                {postDetail.images && postDetail.images.length && postDetail.images.length !== 0 && <ImagesList images={postDetail.images}/>}
             </Card.Body>
         </ Card>
     </Container.Col>
