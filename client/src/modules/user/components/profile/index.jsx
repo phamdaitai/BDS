@@ -21,17 +21,10 @@ const Profile = (props) => {
     })
     
     return <Container>
-    <Container.Col colSpan={9}>
+    <Container.Col colSpan={12}>
         <Card >
-            <Card.Header></Card.Header>
+            <Card.Header>Thông tin cá nhân</Card.Header>
                 
-            <Card.Body>
-            </Card.Body>
-        </ Card>
-    </Container.Col>
-    <Container.Col colSpan={3}>
-        <Card >
-            <Card.Header style={{backgroundColor: "#0090b5", color: "white"}}>Thay đổi mật khẩu</Card.Header>
             <Card.Body>
             </Card.Body>
         </ Card>
