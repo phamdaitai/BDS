@@ -72,7 +72,6 @@ exports.getDetailPost = async (id, portal) => {
             path: "ward"
         }])
     
-    console.log("post", post);
     if (!post) {
         throw Error("Post is not existing")
     }
