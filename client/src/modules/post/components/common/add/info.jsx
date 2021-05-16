@@ -19,6 +19,16 @@ const Info = (props) => {
         }
     })
 
+    const _getDistricts = async (value) => {
+        let provinceInfo = await provincesData.find(p => p._id === value);
+        if (provinceInfo) await props.getDistricts({ provinceId: provinceInfo.id });
+    }
+
+    const _getWards = (value) => {
+        let districtInfo = districtsData.find(d => d._id === value);
+        if (districtInfo) props.getWards({ districtId: districtInfo.id })
+    }
+
     return <React.Fragment>
         {/* Phần chọn khu vực */}
         <Row >
@@ -51,10 +61,10 @@ const Info = (props) => {
                             filterSort={(optionA, optionB) =>
                                 optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
                             }
-                                onChange={(value) => props.getDistricts({ provinceId: value })}
+                                onChange={(value) => _getDistricts(value)}
                         >
                             {provincesData && provincesData.length && 
-                                provincesData.map(p => <Option value={p.id}>
+                                provincesData.map(p => <Option value={p._id}>
                                 {p.name}
                             </Option>)}
                         </Select>
@@ -82,10 +92,10 @@ const Info = (props) => {
                             filterSort={(optionA, optionB) =>
                                 optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
                             }
-                                onChange={(value) => props.getWards({ districtId: value })}
+                                onChange={(value) => _getWards(value)}
                         >
                             {districtsData && districtsData.length && 
-                                districtsData.map(d => <Option value={d.id}>
+                                districtsData.map(d => <Option value={d._id}>
                                 {d.name}
                             </Option>)}
                         </Select>
@@ -115,7 +125,7 @@ const Info = (props) => {
                             }
                         >
                             {wardsData && wardsData.length && 
-                                wardsData.map(w => <Option value={w.id}>
+                                wardsData.map(w => <Option value={w._id}>
                                 {w.name}
                             </Option>)}
                         </Select>

@@ -1,23 +1,14 @@
-import * as numeral from "numeral";
-const localeCurrency = "VND";
 
-export const FormatMoney = (value, format) => {
-    switch (localeCurrency) {
-        case "VND":
-            if (format) {
-                numeral.locale("vi");
-                return numeral(value).format(format);
-            } else {
-                numeral.locale("vi");
-                format = "0,0 $";
-                return numeral(value).format(format);
-            }
-        default:
-            if (format) {
-                return numeral(value).format(format);
-            } else {
-                format = "$ 0,0";
-                return numeral(value).format(format);
-            }
-    }
+export const FormatMoney = (value) => {
+    if (!value) return null;
+
+    if (typeof value === "string" || "String") value = parseInt(value);
+
+    if (value < 1000) return value + " đồng";
+
+    if (value < 1000000) return (value/1000).toFixed(2) + " nghìn";
+
+    if (value < 1000000000) return (value/1000000).toFixed(2) + " triệu";
+
+    return (value/1000000000).toFixed(2) + " tỷ";
 };

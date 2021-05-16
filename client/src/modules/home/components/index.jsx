@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
-import { Pagination } from 'antd';
+import { Pagination, Empty } from 'antd';
 
 import Container from '../../../components/container';
 import Card from '../../../components/card';
@@ -32,7 +32,7 @@ const Home = (props) => {
         props.getAllPosts(queryData);
     }, [queryData.limit, queryData.page])
 
-    console.log("queryData", queryData);
+    console.log("post", post);
     
     return <Container>
         {post.isLoading && <Loading />}
@@ -40,12 +40,15 @@ const Home = (props) => {
             <Card >
                 <Card.Header>Thông tin nhà đất</Card.Header>
                 <Card.Body>
-                    {post?.listPosts?.length !== 0 && post?.listPosts?.map((item) => 
+                    {post?.listPosts?.length !== 0 ?
+                        post?.listPosts?.map((item) =>
                         <SaleItem
                             postItem={item}
                             key={item._id}
                         />
-                    )}
+                        ) :
+                        <Empty description="Không có dữ liệu"/>
+                    }
                 </Card.Body>
                 <Card.Footer styles={{textAlign: "right"}}>
                     <Pagination

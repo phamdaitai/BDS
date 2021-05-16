@@ -18,6 +18,8 @@ exports.login = async (data) => {
         throw Error("Password is invalid");
     }
     let payload = {
+        _id: user._id,
+        phone: user.phone,
         name: user.name,
         email: user.email,
         portal: data.portal ? data.portal : process.env.DB_NAME,

@@ -22,7 +22,10 @@ const UserSchema = new Schema({
         type: Number,
         enum: [1, 2, 3],
         default: 2 //actived
-    }
+    },
+    post: [{
+        type: Schema.Types.ObjectId
+    }]
 },{
     timestamps: true,
 });

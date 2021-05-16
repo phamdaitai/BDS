@@ -5,7 +5,7 @@ exports.createNewPost = async (req, res) => {
     try {
         let data = req.body;
         let portal = req.user.portal;
-        let newPost = await postService.createPost(data, portal);
+        let newPost = await postService.createPost(data, req.user, portal);
 
         await LogInfo(req.user.email, "CREATED_POST", req.user.portal);
 

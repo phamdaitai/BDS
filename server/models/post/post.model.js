@@ -19,15 +19,15 @@ const PostSchema = new Schema({
         type: String
     },
     ward: {
-        type: Number,
+        type: Schema.Types.ObjectId,
         ref: 'Ward',
     },
     district: {
-        type: Number,
+        type: Schema.Types.ObjectId,
         ref: 'District',
     },
     province: {
-        type: Number,
+        type: Schema.Types.ObjectId,
         ref: 'Province',
     },
     type: {
@@ -88,7 +88,13 @@ const PostSchema = new Schema({
     },
     images: [{
         type: String
-    }]
+    }],
+    userName: {
+        type: String
+    },
+    userPhone: {
+        type: String
+    }
 },{
     timestamps: true,
 });

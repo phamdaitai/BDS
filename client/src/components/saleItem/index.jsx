@@ -3,6 +3,8 @@ import { Rate } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons'
 
 import noImage from '../../assets/images/bds-no-image.png';
+import { FormatMoney } from '../../helpers/formatCurrency';
+import { getFullAddress } from '../../helpers/formatAddress';
 
 import './styles.scss';
 
@@ -35,15 +37,48 @@ const SaleItem = (props) => {
                     <div>{ postItem.metaDescription }</div>
                     
                     <div className="sale-item-other-info">
-                        <div><span>Diện tích:</span> &ensp; {postItem.acreage} (m<sup>2</sup>)</div>
-                        <div><span>Kích thước:</span> &ensp;
-                            {(postItem.width && postItem.length) ? `${postItem.width} x ${postItem.length} (m)` : "--"}</div>
-                        <div><span>Hướng:</span> &ensp; {postItem.direction ? dataDirection[postItem.direction] : "--"}</div>
-                        <div><span>Giá:</span> &ensp; {postItem.price}</div>
-                        <div><EnvironmentOutlined /> &ensp; </div>
-                        {postItem.floorNumber && <div><span>Số lầu:</span> &ensp; {postItem.floorNumber}</div>}
-                        {postItem.bedroomNumber && <div><span>Số phòng ngủ:</span> &ensp; {postItem.bedroomNumber}</div>}
-                        {postItem.roadAhead && <div><span>Đường trước nhà:</span> &ensp; {postItem.roadAhead} (m)</div>}
+                        <div>
+                            <span>Diện tích:</span> &ensp;
+                            <span style={{}}>{postItem.acreage} m<sup>2</sup></span>
+                        </div>
+
+                        <div>
+                            <span>Kích thước:</span> &ensp;
+                            <span>
+                                {(postItem.width && postItem.length) ? `${postItem.width} x ${postItem.length} m` : "--"}
+                            </span>
+                        </div>
+                        
+                        <div>
+                            <span>Hướng:</span> &ensp;
+                            <span>{postItem.direction ? dataDirection[postItem.direction] : "--"}</span>
+                        </div>
+
+                        <div>
+                            <span>Giá:</span> &ensp;
+                            <span>{FormatMoney(postItem.price)}</span>
+                        </div>
+
+                        <div>
+                            <EnvironmentOutlined style={{color: "green"}}/> &ensp;
+                            <span style={{fontStyle: "italic"}}>{getFullAddress(postItem.address, postItem.ward, postItem.district, postItem.province)}</span>
+                        </div>
+
+                        {postItem.floorNumber && <div>
+                            <span>Số lầu:</span> &ensp;
+                            <span>{postItem.floorNumber}</span>
+                        </div>}
+                        
+                        {postItem.bedroomNumber && <div>
+                            <span>Số phòng ngủ:</span> &ensp;
+                            <span>{postItem.bedroomNumber}</span>
+                        </div>}
+
+                        {postItem.roadAhead && <div>
+                            <span>Đường trước nhà:</span> &ensp;
+                            <span>{postItem.roadAhead} m</span>
+                        </div>}
+
                     </div>
                 </div>
             </div>
