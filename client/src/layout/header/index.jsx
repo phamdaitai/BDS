@@ -69,7 +69,7 @@ const Headers = () => {
                             backgroundColor: '#87d068',
                         }}
                         icon={<UserOutlined />}
-                        src={""}
+                        src={user.avatar ? user.avatar : ""}
                     />
                     <Link to={`/profile`} style={{ color: "white", marginLeft: '0.25rem', fontWeight: "600", cursor: "pointer" }}>{user.name}</Link>
                     <span style={{color: "#1890ff", cursor: "pointer"}} onClick={() => AuthActions.logOut()}> (đăng xuất)</span>

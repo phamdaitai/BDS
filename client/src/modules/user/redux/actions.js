@@ -1,5 +1,6 @@
 import { UserService } from "./services";
 import { UserConstants } from "./constants";
+import { UploadActions } from "../../upload/redux/actions";
 
 export const UserActions = {
     register,
@@ -88,4 +89,3 @@ function changePassword(id, data) {
             })
     }
 }
-

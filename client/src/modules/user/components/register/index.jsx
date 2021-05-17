@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { UserActions } from '../redux/actions';
+import { UserActions } from '../../redux/actions';
 import { Button, Modal, Form, Input } from "antd";
 
 const layout = {
