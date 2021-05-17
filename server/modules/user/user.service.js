@@ -23,3 +23,52 @@ exports.register = async (data, portal) => {
     await sendEmailRegisterUser(email, name);
     return { user }
 }
+
+exports.getDetailUser = async (id, portal) => {
+    let User = initConnection(portal).model("User");
+
+    let user = User.findById(id);
+
+    if (!user) {
+        throw Error('user_is_not_existed');
+    }
+
+    return { user }
+}
+
+exports.updateUser = async (id, data, portal) => {
+    let User = initConnection(portal).model("User");
+
+    let user = User.findByIdAndUpdate(id, {
+        $set: data
+    }, { new: true })
+
+    return { user }
+}
+
+exports.changePassword = async (id, data, portal) => {
+    const { oldPassword, newPassword } = data;
+
+    let User = initConnection(portal).model("User");
+
+    let user = User.findById(id);
+
+    if (!user) {
+        throw Error('user_is_not_existed');
+    }
+    
+
+    let checkPassword = bcrypt.compareSync(oldPassword, user.password);
+
+    if (!checkPassword) {
+        throw Error("Password is invalid");
+    }
+
+    var salt = bcrypt.genSaltSync(10);
+    var hashPassword = bcrypt.hashSync(newPassword, salt);
+
+    user.password = hashPassword;
+    user.save();
+
+    return {user}
+}
