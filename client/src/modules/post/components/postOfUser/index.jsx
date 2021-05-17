@@ -8,9 +8,6 @@ import Loading from '../../../../components/loading';
 import Category from '../../../user/components/common/category';
 
 const PostOfUser = (props) => {
-    const { id } = props.match.params;
-
-    console.log("id", id);
 
     const [loaded, setLoaded] = useState(false);
 

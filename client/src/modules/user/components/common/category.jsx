@@ -19,11 +19,11 @@ const Category = (props) => {
                 </div>
 
                 <div className="profile-item-link">
-                    <Link to={`/profile/${user._id}`}>Thông tin cá nhân</Link>
+                    <Link to={`/profile`}>Thông tin cá nhân</Link>
                 </div>
 
                 <div className="profile-item-link">
-                    <Link to={`/password/${user._id}`}>Đổi mật khẩu</Link>
+                    <Link to={`/password`}>Đổi mật khẩu</Link>
                 </div>
                     
                 <div className="profile-item-header">
@@ -31,7 +31,7 @@ const Category = (props) => {
                 </div>
 
                 <div className="profile-item-link">
-                    <Link to={`/post/${user._id}`}>Bài đăng</Link>
+                    <Link to={`/user-post`}>Bài đăng</Link>
                 </div>
             </Card.Body>
         </ Card>

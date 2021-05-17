@@ -28,6 +28,15 @@
             height: 60px;
         }
     }
+
+    div:hover{
+        transform: scale(1.1);
+        // -webkit-transition: 0.4s;
+        img {
+            transform: scale(1.1);
+            // -webkit-transition: 0.4s;
+        }
+    }
 }
 
 .post-detail-info {

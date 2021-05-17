@@ -34,19 +34,19 @@ export const routes = [
     component: ({ match }) => <DetailPost match={match} />
   },
   {
-    path: "/profile/:id",
+    path: "/profile",
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <Profile match={match} />
   },
   {
-    path: "/password/:id",
+    path: "/password",
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <Password match={match} />
   },
   {
-    path: "/post/:id",
+    path: "/user-post",
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <PostOfUser match={match} />

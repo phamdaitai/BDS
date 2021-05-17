@@ -10,9 +10,6 @@ import Category from '../common/category';
 import './styles.scss';
 
 const Password = (props) => {
-    const { id } = props.match.params;
-
-    console.log("id", id);
 
     const [loaded, setLoaded] = useState(false);
 
