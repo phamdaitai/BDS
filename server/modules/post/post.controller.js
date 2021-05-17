@@ -31,7 +31,7 @@ exports.getAllPost = async (req, res) => {
 
         await LogInfo("", "GET_ALL_POSTS", "");
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             messages: ["Lấy danh sách bài đăng thành công!"],
             content: allPosts

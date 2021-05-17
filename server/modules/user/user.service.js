@@ -24,10 +24,35 @@ exports.register = async (data, portal) => {
     return { user }
 }
 
+exports.getAllUsers = async (query, portal) => {
+    let { page, limit } = query;
+    let option = {};
+
+    let User = initConnection(portal).model("User");
+
+    if (!page || !limit) {
+        let allUsers = await User
+            .find(option)
+            .sort({createdAt: 'desc' })
+        
+        return {allUsers}
+    } else {
+        let allUsers = await User.paginate(option, {
+            page,
+            limit,
+            sort: { 'createdAt': 'desc' }
+        })
+
+        console.log("page", page, limit);
+
+        return {allUsers}
+    }
+}
+
 exports.getDetailUser = async (id, portal) => {
     let User = initConnection(portal).model("User");
 
-    let user = User.findById(id);
+    let user = await User.findById(id);
 
     if (!user) {
         throw Error('user_is_not_existed');
@@ -39,7 +64,7 @@ exports.getDetailUser = async (id, portal) => {
 exports.updateUser = async (id, data, portal) => {
     let User = initConnection(portal).model("User");
 
-    let user = User.findByIdAndUpdate(id, {
+    let user = await User.findByIdAndUpdate(id, {
         $set: data
     }, { new: true })
 
@@ -51,7 +76,7 @@ exports.changePassword = async (id, data, portal) => {
 
     let User = initConnection(portal).model("User");
 
-    let user = User.findById(id);
+    let user = await User.findById(id);
 
     if (!user) {
         throw Error('user_is_not_existed');
