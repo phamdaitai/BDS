@@ -33,8 +33,11 @@ exports.login = async (data) => {
         token,
         user: {
             _id: user._id,
+            phone: user.phone,
             name: user.name,
             email: user.email,
+            avatar: user.avatar,
+            portal: data.portal ? data.portal : process.env.DB_NAME,
             role: user.role
         }
     }
