@@ -11,7 +11,7 @@ const ProjectPostAdd = loadable(() => import('../modules/post/components/project
 const DetailPost = loadable(() => import('../modules/post/components/detail'));
 const Profile = loadable(() => import('../modules/user/components/profile'));
 const Password = loadable(() => import('../modules/user/components/password'));
-const PostOfUser = loadable(() => import('../modules/post/components/postOfUser'));
+const PostOfUser = loadable(() => import('../modules/user/components/postOfUser'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin

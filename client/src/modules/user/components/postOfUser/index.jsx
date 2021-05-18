@@ -5,7 +5,7 @@ import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
 
-import Category from '../../../user/components/common/category';
+import Category from '../common/category';
 
 const PostOfUser = (props) => {
 

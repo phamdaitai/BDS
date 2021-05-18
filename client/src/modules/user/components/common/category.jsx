@@ -8,7 +8,6 @@ import Card from '../../../../components/card';
 import './styles.scss';
 
 const Category = (props) => {
-    const { user } = props.auth;
     
     return <Container.Col colSpan={3}>
         <Card >
@@ -39,8 +38,7 @@ const Category = (props) => {
 };
 
 const mapStateToProps = state => {
-    const { auth } = state;
-    return {auth};
+    return state;
 }
 
 const mapDispatchToProps = {
