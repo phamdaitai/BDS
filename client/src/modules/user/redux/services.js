@@ -7,7 +7,8 @@ export const UserService = {
     getAllUsers,
     getDetailUser,
     updateUser,
-    changePassword
+    changePassword,
+    getPostsOfUser
 };
 
 async function register(data) {
@@ -47,4 +48,12 @@ async function changePassword(id, data) {
         method: 'PATCH',
         data
     }, true, true)
+}
+
+async function getPostsOfUser(id, query) {
+    return sendRequest({
+        url: `${ process.env.REACT_APP_SERVER }/user/posts-of-user/${id}`,
+        method: 'GET',
+        params: query
+    }, false, true)
 }

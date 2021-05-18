@@ -24,8 +24,9 @@ const UserSchema = new Schema({
         enum: [1, 2, 3],
         default: 2 //actived
     },
-    post: [{
-        type: Schema.Types.ObjectId
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
     }],
     avatar: {
         type: String

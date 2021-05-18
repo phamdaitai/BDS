@@ -68,7 +68,7 @@ const SaleItem = (props) => {
 
                         <div>
                             <EnvironmentOutlined style={{color: "green"}}/> &ensp;
-                            <span style={{fontStyle: "italic"}}>{getFullAddress(postItem.address, postItem.ward, postItem.district, postItem.province)}</span>
+                            <span style={{fontStyle: "italic"}}>{getFullAddress(postItem?.address, postItem.ward, postItem.district, postItem.province)}</span>
                         </div>
 
                         {postItem.floorNumber && <div>

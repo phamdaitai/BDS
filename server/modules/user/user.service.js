@@ -73,7 +73,6 @@ exports.updateUser = async (id, data, portal) => {
 
 exports.changePassword = async (id, data, portal) => {
 
-    console.log("data", data);
     const { oldPassword, newPassword } = data;
 
     let User = initConnection(portal).model("User");
@@ -98,4 +97,51 @@ exports.changePassword = async (id, data, portal) => {
     user.save();
 
     return {user}
+}
+
+exports.getPostsOfUser = async (id, query, portal) => {
+    let { page, limit } = query;
+
+    
+    //pagination posts in user
+    let startIndex = limit * (page - 1);
+    let endIndex = limit * page;
+    
+    let User = initConnection(portal).model("User");
+
+    let user = await User
+        .findById(id, { posts: { $slice: [ startIndex , endIndex ] } })
+        .populate([{
+            path: "posts", 
+            select: "title status avatar createdAt price province district ward address",
+            populate: [{
+                path: "province",
+            }, {
+                path: "district",
+            }, {
+                path: "ward",
+            }]
+        }])
+
+    let {posts} = await User.findById(id);
+    
+    if (!user) {
+        throw Error('user_is_not_existed');
+    }
+    
+    if (!posts) {
+        throw Error('post_of_user_is_empty');
+    }
+    
+    let totalDocs = posts?.length;
+
+    let postsOfUser = {
+            docs: user.posts,
+            totalDocs,
+            totalPages: Math.ceil(totalDocs / limit),
+            limit,
+            page
+        }
+
+    return { postsOfUser }
 }

@@ -7,7 +7,8 @@ export const UserActions = {
     getAllUsers,
     getDetailUser,
     updateUser,
-    changePassword
+    changePassword,
+    getPostsOfUser
 }
 
 function register(user) {
@@ -89,6 +90,23 @@ function changePassword(id, data) {
             })
             .catch(err => {
                 dispatch({ type: UserConstants.CHANGE_PASSWORD_FAIL, payload: err?.response?.data?.messages?.[0] });
+            })
+    }
+}
+
+
+function getPostsOfUser(id, query) {
+    return dispatch => {
+        dispatch({ type: UserConstants.GET_POSTS_OF_USER_REQUEST });
+        UserService.getPostsOfUser(id, query)
+            .then(res => {
+                dispatch({
+                    type: UserConstants.GET_POSTS_OF_USER_SUCCESS,
+                    payload: res.data.content
+                })
+            })
+            .catch(err => {
+                dispatch({ type: UserConstants.GET_POSTS_OF_USER_FAIL, payload: err?.response?.data?.messages?.[0] });
             })
     }
 }

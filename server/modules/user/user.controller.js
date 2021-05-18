@@ -115,3 +115,26 @@ exports.changePassword = async (req, res) => {
     }
 }
 
+exports.getPostsOfUser = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let query = req.query;
+
+        let posts = await UserService.getPostsOfUser( id, query, req.portal);
+
+        await LogInfo(req.user.email, "GET_POSTS_OF_USER", req.portal);
+        res.status(200).json({
+            success: true,
+            messages: ["Lấy danh sách bài đăng thành công!"],
+            content: posts
+        });
+    } catch (error) {
+        await LogError(req.user.email, "GET_POSTS_OF_USER", req.portal);
+        res.status(400).json({
+            success: false,
+            messages: ["Bài đăng của bạn chưa được lấy"],
+            content: error.message
+        });
+    }
+}
+

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { FormatMoney } from '../../../../helpers/formatCurrency';
 import { getFullAddress } from '../../../../helpers/formatAddress';
@@ -26,7 +26,7 @@ const Info = (props) => {
 
             <div>
                 <span>Địa chỉ tài sản:</span> &ensp;
-                 <span>{getFullAddress(postDetail.address, postDetail.ward, postDetail.district, postDetail.province)}</span>
+                 <span>{getFullAddress(postDetail?.address, postDetail.ward, postDetail.district, postDetail.province)}</span>
             </div>
         </div>
 

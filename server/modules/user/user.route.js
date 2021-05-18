@@ -4,6 +4,7 @@ const userController = require('./user.controller');
 const { auth } = require('../../middleware');
 
 router.patch('/change-password/:id', auth, userController.changePassword);
+router.get('/posts-of-user/:id', auth, userController.getPostsOfUser);
 router.get('/:id', auth, userController.getDetailUser);
 router.patch('/:id', auth, userController.updateUser);
 router.post('/', userController.createUser);
