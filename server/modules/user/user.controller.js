@@ -102,7 +102,7 @@ exports.changePassword = async (req, res) => {
         await LogInfo(req.user.email, "CHANGE_PASSWORD", req.portal);
         res.status(200).json({
             success: true,
-            messages: ["Thay đổi mật khẩu thành công"],
+            messages: ["Mật khẩu đã được thay đổi, vui lòng đăng nhập lại!"],
             content: user
         });
     } catch (error) {

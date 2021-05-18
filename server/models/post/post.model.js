@@ -94,6 +94,11 @@ const PostSchema = new Schema({
     },
     userPhone: {
         type: String
+    },
+    //Trạng thái bài đăng
+    status: {
+        type: Number,
+        enum: [1, 2, 3] //1. Chờ duyệt, 2. Đã duyệt, 3. Đã hủy
     }
 },{
     timestamps: true,

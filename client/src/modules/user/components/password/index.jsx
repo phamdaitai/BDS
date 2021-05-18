@@ -1,35 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { connect } from "react-redux";
 
+import { UserActions } from '../../redux/actions';
+import Category from '../common/category';
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
-import Loading from '../../../../components/loading';
 
-import Category from '../common/category';
+import EditForm from './editForm';
 
 import './styles.scss';
 
 const Password = (props) => {
 
-    const [loaded, setLoaded] = useState(false);
-
-    useEffect(() => {
-        if (!loaded) {
-            setLoaded(true);
-        }
-    })
-    
     return <Container>
-    <Container.Col colSpan={9}>
-        <Card >
-            <Card.Header>Thay đổi mật khẩu</Card.Header>
-                
-            <Card.Body>
-            </Card.Body>
-        </ Card>
-    </Container.Col>
-    <Category />
-</Container>
+        <Container.Col colSpan={9}>
+            <Card >
+                <Card.Header>Thay đổi mật khẩu</Card.Header>
+                    
+                <Card.Body>
+                    <EditForm />
+                </Card.Body>
+            </ Card>
+        </Container.Col>
+        
+        <Category />
+    </Container>
 };
 
 const mapStateToProps = state => {
@@ -37,6 +32,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
+    changePassword: UserActions.changePassword
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Password);

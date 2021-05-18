@@ -44,7 +44,7 @@ async function updateUser(id, data) {
 async function changePassword(id, data) {
     return sendRequest({
         url: `${ process.env.REACT_APP_SERVER }/user/change-password/${id}`,
-        method: 'POST',
+        method: 'PATCH',
         data
     }, true, true)
 }

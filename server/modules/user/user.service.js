@@ -72,6 +72,8 @@ exports.updateUser = async (id, data, portal) => {
 }
 
 exports.changePassword = async (id, data, portal) => {
+
+    console.log("data", data);
     const { oldPassword, newPassword } = data;
 
     let User = initConnection(portal).model("User");

@@ -36,8 +36,6 @@ const EditForm = (props) => {
         }
     ] : []);
 
-    console.log("userDetail", userDetail);
-
     const updateUser = async (values) => {
         let avatarLink = await uploadImage();
         values.avatar = avatarLink;

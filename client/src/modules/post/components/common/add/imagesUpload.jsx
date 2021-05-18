@@ -39,7 +39,7 @@ const ImageUpload = (props) => {
             onPreview={onPreview}
             accept="image/*"
         >
-            {images.length < 6 && '+ Chọn ảnh'}
+            {images.length < 10 && '+ Chọn ảnh'}
         </Upload>
     </React.Fragment>
 }

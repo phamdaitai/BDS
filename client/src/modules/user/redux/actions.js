@@ -1,6 +1,6 @@
 import { UserService } from "./services";
 import { UserConstants } from "./constants";
-import { UploadActions } from "../../upload/redux/actions";
+// import { AuthActions } from '../../auth/redux/actions';
 
 export const UserActions = {
     register,
@@ -83,6 +83,9 @@ function changePassword(id, data) {
                     type: UserConstants.CHANGE_PASSWORD_SUCCESS,
                     payload: res.data.content
                 })
+
+                //Đăng xuất khi thay đổi mật khẩu
+                // AuthActions.logOut();
             })
             .catch(err => {
                 dispatch({ type: UserConstants.CHANGE_PASSWORD_FAIL, payload: err?.response?.data?.messages?.[0] });
