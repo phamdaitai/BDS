@@ -14,8 +14,9 @@ import PostItem from './postItem';
 import './styles.scss';
 
 const PostOfUser = (props) => {
-    const { user, auth } = props;
+    const { user, auth, post } = props;
     const { postsOfUser = [] } = user;
+    const { postDeleted } = post;
 
     const [loaded, setLoaded] = useState(false);
 
@@ -34,6 +35,11 @@ const PostOfUser = (props) => {
     useEffect(() => {
         props.getPostsOfUser(auth.user._id, queryData);
     }, [queryData.limit, queryData.page])
+
+    //Load lại danh sách khi xóa 1 bài đăng
+    useEffect(() => {
+        props.getPostsOfUser(auth.user._id, queryData);
+    }, [postDeleted])
 
     console.log("uSER", queryData.page, queryData.limit);
     
@@ -87,8 +93,8 @@ const PostOfUser = (props) => {
 };
 
 const mapStateToProps = state => {
-    const { user, auth } = state;
-    return { user, auth };
+    const { user, auth, post } = state;
+    return { user, auth, post };
 }
 
 const mapDispatchToProps = {

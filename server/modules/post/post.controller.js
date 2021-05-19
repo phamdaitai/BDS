@@ -117,8 +117,8 @@ exports.updatePost = async ( req, res ) => {
 
 exports.deletePost = async ( req, res ) => {
     try {
-        let id = req.params.id;
-        let post = await postService.deletePost( id, req.portal)
+        let postId = req.params.id;
+        let post = await postService.deletePost( postId, req.user._id, req.portal)
 
         await LogInfo(req.user.email, "DELETE_POST", req.portal);
         res.status(200).json({

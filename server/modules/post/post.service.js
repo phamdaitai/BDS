@@ -150,10 +150,20 @@ exports.updatePost = async (id, data, portal) => {
     return { post }
 }
 
-exports.deletePost = async (id, portal) => {
-    let Post = initConnection(portal).model("Post");
+exports.deletePost = async (postId, userId, portal) => {
 
-    let post = await Post.findByIdAndDelete(id);
+    console.log("postId", postId);
+    console.log("userId", userId);
+    let Post = initConnection(portal).model("Post");
+    let User = initConnection(portal).model("User");
+
+    let post = await Post.findByIdAndDelete(postId);
+
+    //Loại bỏ post khỏi user
+    let user = await User.findById(userId);
+    let posts = [...user.posts || []];
+    user.posts = posts.filter(p => p.toString() !== postId);
+    await user.save();
 
     return {post}
 }
