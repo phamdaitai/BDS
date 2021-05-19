@@ -71,7 +71,6 @@ exports.getDetailPost = async ( req, res ) => {
 exports.getPostForUpdate = async ( req, res ) => {
     try {
         let id = req.params.id;
-        console.log("user", req.user);
         let post = await postService.getPostForUpdate( id, req.user._id, req.portal)
 
         await LogInfo(req.user.email, "GET_POST_FOR_UPDATE", req.portal);

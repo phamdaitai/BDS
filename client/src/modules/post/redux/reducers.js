@@ -2,6 +2,8 @@ import { PostConstants } from "./constants";
 
 var initState = {
     postDetail: {},
+    postForUpdate: {},
+    postDeleted: {},
     listPosts: [],
     isLoading: false,
     error: null,
@@ -9,10 +11,13 @@ var initState = {
 
 export function post(state = initState, action) {
     switch (action.type) {
-        case PostConstants.POST_ADD_REQUEST:
         case PostConstants.UPLOAD_AVATAR_AND_IMAGE_REQUEST:
+        case PostConstants.POST_ADD_REQUEST:
         case PostConstants.GET_ALL_POST_REQUEST:
         case PostConstants.GET_POST_DETAIL_REQUEST:
+        case PostConstants.GET_POST_FOR_UPDATE_REQUEST:
+        case PostConstants.UPDATE_POST_REQUEST:
+        case PostConstants.DELETE_POST_REQUEST:
             return {
                 ...state,
                 isLoading: true,
@@ -21,6 +26,9 @@ export function post(state = initState, action) {
         case PostConstants.POST_ADD_FAIL:
         case PostConstants.GET_ALL_POST_FAIL:
         case PostConstants.GET_POST_DETAIL_FAIL:
+        case PostConstants.GET_POST_FOR_UPDATE_FAIL:
+        case PostConstants.UPDATE_POST_FAIL:
+        case PostConstants.DELETE_POST_FAIL:
             return {
                 ...state,
                 isLoading: false,
@@ -54,6 +62,27 @@ export function post(state = initState, action) {
             return {
                 ...state,
                 postDetail: action.payload.post,
+                isLoading: false,
+            }
+        
+        case PostConstants.GET_POST_FOR_UPDATE_SUCCESS:
+            return {
+                ...state,
+                postForUpdate: action.payload.post,
+                isLoading: false,
+            }
+        
+        case PostConstants.UPDATE_POST_SUCCESS:
+            return {
+                ...state,
+                postForUpdate: action.payload.post,
+                isLoading: false,
+            }
+        
+        case PostConstants.DELETE_POST_SUCCESS:
+            return {
+                ...state,
+                postDeleted: action.payload.post,
                 isLoading: false,
             }
         

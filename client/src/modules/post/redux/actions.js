@@ -7,7 +7,10 @@ export const PostActions = {
     uploadAvatarAndImage,
     requestUploading,
     getAllPosts,
-    getPostDetail
+    getPostDetail,
+    getPostForUpdate,
+    updatePost,
+    deletePost
 }
 
 function createPost(data) {
@@ -95,6 +98,72 @@ function requestUploading (){
     return dispatch => {
         dispatch({
             type: PostConstants.UPLOAD_AVATAR_AND_IMAGE_REQUEST,
+        })
+    }
+}
+
+function getPostForUpdate(id){
+    return (dispatch) => {
+        dispatch({
+            type: PostConstants.GET_POST_FOR_UPDATE_REQUEST
+        })
+
+        PostServices.getPostForUpdate(id)
+        .then((res) => {
+            dispatch({
+                type: PostConstants.GET_POST_FOR_UPDATE_SUCCESS,
+                payload: res.data.content
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: PostConstants.GET_POST_FOR_UPDATE_FAIL,
+                error
+            })
+        })
+    }
+}
+
+function updatePost(id, data){
+    return (dispatch) => {
+        dispatch({
+            type: PostConstants.UPDATE_POST_REQUEST
+        })
+
+        PostServices.updatePost(id, data)
+        .then((res) => {
+            dispatch({
+                type: PostConstants.UPDATE_POST_SUCCESS,
+                payload: res.data.content
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: PostConstants.UPDATE_POST_FAIL,
+                error
+            })
+        })
+    }
+}
+
+function deletePost(id){
+    return (dispatch) => {
+        dispatch({
+            type: PostConstants.DELETE_POST_REQUEST
+        })
+
+        PostServices.deletePost(id)
+        .then((res) => {
+            dispatch({
+                type: PostConstants.DELETE_POST_SUCCESS,
+                payload: res.data.content
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: PostConstants.DELETE_POST_FAIL,
+                error
+            })
         })
     }
 }
