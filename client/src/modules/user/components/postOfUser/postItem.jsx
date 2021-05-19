@@ -23,7 +23,7 @@ const PostItem = (props) => {
 
         <td>
             <div className="user-post-item-title">
-                <Link to={`/edit/${postItem._id}`}>{ postItem.title }</Link>
+                <Link to={`/post-edit/${postItem._id}`}>{ postItem.title }</Link>
             </div>
             <div>
                 <EnvironmentOutlined style={{color: "green"}}/> &ensp;

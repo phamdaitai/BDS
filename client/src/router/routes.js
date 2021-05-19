@@ -12,6 +12,7 @@ const DetailPost = loadable(() => import('../modules/post/components/detail'));
 const Profile = loadable(() => import('../modules/user/components/profile'));
 const Password = loadable(() => import('../modules/user/components/password'));
 const PostOfUser = loadable(() => import('../modules/user/components/postOfUser'));
+const EditPost = loadable(() => import('../modules/post/components/edit'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin
@@ -50,6 +51,12 @@ export const routes = [
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <PostOfUser match={match} />
+  },
+  {
+    path: "/post-edit/:id",
+    exact: true,
+    roles: [2, 3],
+    component: ({ match }) => <EditPost match={match} />
   },
   {
     path: "*",

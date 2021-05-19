@@ -99,15 +99,6 @@ exports.getPostForUpdate = async (postId, userId, portal) => {
 
     let post = await Post
         .findById(postId)
-        .populate([{
-            path: "province"
-        },
-        {
-            path: "district"
-        },
-        {
-            path: "ward"
-        }])
     
     if (!post) {
         throw Error("Post is not existing")
