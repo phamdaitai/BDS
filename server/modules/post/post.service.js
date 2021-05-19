@@ -78,3 +78,58 @@ exports.getDetailPost = async (id, portal) => {
 
     return { post }
 }
+
+//Chỉ người đăng mới được sửa, nên cần xác thực trước khi trả về data
+exports.getPostForUpdate = async (postId, userId, portal) => {
+    let Post = initConnection(portal).model("Post");
+    let User = initConnection(portal).model("User");
+
+    let user = await User.findById(userId);
+
+    if (!user) {
+        throw Error("User is not existing")
+    }
+
+    //Check post đó có phải của user này hay k
+    let isPostOfUser = user.posts.includes(postId);
+
+    if (!isPostOfUser) {
+        throw Error("you_can_not_access")
+    }
+
+    let post = await Post
+        .findById(postId)
+        .populate([{
+            path: "province"
+        },
+        {
+            path: "district"
+        },
+        {
+            path: "ward"
+        }])
+    
+    if (!post) {
+        throw Error("Post is not existing")
+    }
+
+    return { post }
+}
+
+exports.updatePost = async (id, data, portal) => {
+    let Post = initConnection(portal).model("Post");
+
+    let post = await Post.findByIdAndUpdate(id, {
+        $set: data
+    }, { new: true })
+
+    return { post }
+}
+
+exports.deletePost = async (id, portal) => {
+    let Post = initConnection(portal).model("Post");
+
+    let post = await Post.findByIdAndDelete(id);
+
+    return {post}
+}

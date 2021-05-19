@@ -4,10 +4,10 @@ const { LogInfo, LogError } = require('../../logs');
 exports.createNewPost = async (req, res) => {
     try {
         let data = req.body;
-        let portal = req.user.portal;
+        let portal = req.portal;
         let newPost = await postService.createPost(data, req.user, portal);
 
-        await LogInfo(req.user.email, "CREATED_POST", req.user.portal);
+        await LogInfo(req.user.email, "CREATED_POST", req.portal);
 
         res.status(201).json({
             success: true,
@@ -15,7 +15,7 @@ exports.createNewPost = async (req, res) => {
             content: newPost
         });
     } catch (error) {
-        await LogError(req.user.email, "CREATED_POST", req.user.portal);
+        await LogError(req.user.email, "CREATED_POST", req.portal);
         res.status(400).json({
             success: false,
             messages: ["Bài đăng chưa được thêm!"],
@@ -63,6 +63,76 @@ exports.getDetailPost = async ( req, res ) => {
         res.status(400).json({
             success: false,
             messages: ["Lấy dữ liệu bài đăng không thành công"],
+            content: error.message
+        });
+    }
+}
+
+exports.getPostForUpdate = async ( req, res ) => {
+    try {
+        let id = req.params.id;
+        console.log("user", req.user);
+        let post = await postService.getPostForUpdate( id, req.user._id, req.portal)
+
+        await LogInfo(req.user.email, "GET_POST_FOR_UPDATE", req.portal);
+        res.status(200).json({
+            success: true,
+            messages: ["Lấy dữ liệu bài đăng thành công"],
+            content: post
+        });
+    } catch (error) {
+        await LogError(req.user.email, "GET_POST_FOR_UPDATE", req.portal);
+
+        res.status(400).json({
+            success: false,
+            messages: error.message === "you_can_not_access" ?
+            ["Bạn không có quyền truy cập!"] :
+            ["Lấy dữ liệu bài đăng không thành công"],
+            content: error.message
+        });
+    }
+}
+
+exports.updatePost = async ( req, res ) => {
+    try {
+        let id = req.params.id;
+        let data = req.body;
+        let post = await postService.updatePost( id, data, req.portal)
+
+        await LogInfo(req.user.email, "UPDATE_POST", req.portal);
+        res.status(200).json({
+            success: true,
+            messages: ["Cập nhật bài đăng thành công"],
+            content: post
+        });
+    } catch (error) {
+        await LogError(req.user.email, "UPDATE_POST", req.portal);
+
+        res.status(400).json({
+            success: false,
+            messages: ["Cập nhật bài đăng không thành công"],
+            content: error.message
+        });
+    }
+}
+
+exports.deletePost = async ( req, res ) => {
+    try {
+        let id = req.params.id;
+        let post = await postService.deletePost( id, req.portal)
+
+        await LogInfo(req.user.email, "DELETE_POST", req.portal);
+        res.status(200).json({
+            success: true,
+            messages: ["Xóa bài đăng thành công"],
+            content: post
+        });
+    } catch (error) {
+        await LogError(req.user.email, "DELETE_POST", req.portal);
+
+        res.status(400).json({
+            success: false,
+            messages: ["Xóa bài đăng không thành công"],
             content: error.message
         });
     }

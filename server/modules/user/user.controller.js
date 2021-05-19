@@ -74,7 +74,7 @@ exports.getDetailUser = async ( req, res ) => {
 exports.updateUser = async (req, res) => {
     try {
         let id = req.params.id;
-        data = req.body;
+        let data = req.body;
         let user = await UserService.updateUser( id, data, req.portal);
 
         await LogInfo(req.user.email, "UPDATE_USER", req.portal);
