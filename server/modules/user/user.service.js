@@ -64,6 +64,10 @@ exports.getDetailUser = async (id, portal) => {
 exports.updateUser = async (id, data, portal) => {
     let User = initConnection(portal).model("User");
 
+    if (!data.avatar) {
+        data.avatar = undefined;
+    }
+
     let user = await User.findByIdAndUpdate(id, {
         $set: data
     }, { new: true })
