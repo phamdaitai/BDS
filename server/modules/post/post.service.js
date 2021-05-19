@@ -110,6 +110,39 @@ exports.getPostForUpdate = async (postId, userId, portal) => {
 exports.updatePost = async (id, data, portal) => {
     let Post = initConnection(portal).model("Post");
 
+    if (!data.avatar) {
+        data.avatar = undefined;
+    }
+
+    if (!data.address) {
+        data.address = undefined;
+    }
+
+    if (!data.description) {
+        data.description = undefined;
+    }
+
+    if (!data.width) {
+        data.width = undefined;
+    }
+
+    if (!data.length) {
+        data.length = undefined;
+    }
+
+    if (!data.roadAhead) {
+        data.roadAhead = undefined;
+    }
+
+    if (!data.floorNumber) {
+        data.floorNumber = undefined;
+    }
+
+    if (!data.bedroomNumber) {
+        data.bedroomNumber = undefined;
+    }
+
+
     let post = await Post.findByIdAndUpdate(id, {
         $set: data
     }, { new: true })

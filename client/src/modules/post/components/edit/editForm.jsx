@@ -63,19 +63,31 @@ const EditForm = (props) => {
         let imagesUploaded = await uploadImage();
         if (imagesUploaded?.avatar?.length) {
             values.avatar = imagesUploaded.avatar[0];
+        } else if (!avatar?.length) {
+            //Trong trường hợp ảnh bị xóa
+            values.avatar = undefined;
+        } else {
+            values.avatar = avatar[0].url;
         }
 
         if (imagesUploaded?.images?.length) {
-            values.images = imagesUploaded.images;
+            let imagesAdded = images.filter(i => !i.originFileObj) || [];
+            
+            values.images = imagesAdded.map(i => i.url).concat(imagesUploaded.images);
+        } else {
+            let imagesAdded = images.filter(i => !i.originFileObj) || [];
+
+            //Filter đi các hình ảnh bị xóa
+            values.images = imagesAdded.map(i => i.url);
         }
             
         values.location = location;
         values.description = description;
 
         console.log("v", values)
-        await props.createPost(values);
+        await props.updatePost( postForUpdate._id, values);
 
-        if (post.postDetail._id) props.history.push("/");
+        if (post.postForUpdate._id && !post.isLoading) props.history.push("/user-post");
     };
 
     const uploadImage = async (values) => {
@@ -142,7 +154,7 @@ const EditForm = (props) => {
                 <Card.Footer styles={{textAlign: "right"}}>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" loading={post.isLoading}>
-                            Đăng bài
+                            Lưu thay đổi
                         </Button>
                     </Form.Item>
                 </Card.Footer>
@@ -176,7 +188,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    createPost: PostActions.createPost,
+    updatePost: PostActions.updatePost,
     requestUploading: PostActions.requestUploading,
     getDistricts: CountryActions.getDistricts,
     getWards: CountryActions.getWards
