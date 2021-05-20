@@ -36,7 +36,7 @@ export function category(state = initState, action) {
         case CategoryConstants.CATEGORY_ADD_SUCCESS:
             return {
                 ...state,
-                categoryDetail: action.payload.category,
+                listCategories: [action.payload.category, ...state.listCategories],
                 isLoading: false,
             }
         
@@ -74,14 +74,9 @@ export function category(state = initState, action) {
             }
         
         case CategoryConstants.DELETE_CATEGORY_SUCCESS:
-            index = findIndex(state.listCategories, action.payload.category._id);
-
-            if (index !== -1) {
-                state.listCategories.splice(index, 1);
-            }
-
             return {
                 ...state,
+                listCategories: state.listCategories.filter(c => c._id !== action.payload.category._id),
                 isLoading: false,
             }
         

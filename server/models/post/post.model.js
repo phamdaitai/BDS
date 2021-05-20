@@ -30,9 +30,9 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Province',
     },
-    type: {
+    type: {//1. Nhà đất bán, 2. Nhà đất cho thuê, 3. Cần thuê nhà đất, 4. Cần mua nhà đất, 5. Dự án
         type: Number,
-        enum: [1, 2, 3, 4, 5] //1. Bán, 2. Cho thuê, 3. Cần thuê, 4. Mua, 5. Dự án
+        enum: [1, 2, 3, 4, 5] 
     },
     //Các danh mục trong type
     categories: [{

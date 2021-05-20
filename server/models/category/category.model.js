@@ -8,10 +8,12 @@ const CategorySchema = new Schema({
         required: true
     },
     //Loại, được quy ước ở bên thuộc tính type của model Post
-    type: {
+    type: {//1. Nhà đất bán, 2. Nhà đất cho thuê, 3. Cần thuê nhà đất, 4. Cần mua nhà đất, 5. Dự án
         type: Number,
         required: true
     }
+},{
+    timestamps: true,
 });
 
 CategorySchema.plugin(mongoosePaginate);
