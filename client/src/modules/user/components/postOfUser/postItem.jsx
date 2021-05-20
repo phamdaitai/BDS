@@ -32,7 +32,7 @@ const PostItem = (props) => {
             },
             onCancel() {},
         });
-      }
+    }
 
     return <tr>
         <td>{index}</td>
