@@ -103,7 +103,7 @@ const Category = (props) => {
 
     const showConfirmDelete = (cat) => {
         confirm({
-            title: `Bạn có chắc chắn muốn xóa danh mục ${cat.name} hay không?`,
+            title: `Bạn có chắc chắn muốn xóa danh mục "${cat.name}" hay không?`,
             icon: <ExclamationCircleOutlined />,
             content: 'Vui lòng xác nhận',
             okText: "Xóa",
