@@ -152,8 +152,6 @@ exports.updatePost = async (id, data, portal) => {
 
 exports.deletePost = async (postId, userId, portal) => {
 
-    console.log("postId", postId);
-    console.log("userId", userId);
     let Post = initConnection(portal).model("Post");
     let User = initConnection(portal).model("User");
 

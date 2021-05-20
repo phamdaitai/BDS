@@ -17,6 +17,7 @@ const auth = require('./modules/auth/auth.route');
 const post = require('./modules/post/post.route');
 const country = require('./modules/country/country.route');
 const upload = require('./modules/upload/upload.route');
+const category = require('./modules/category/category.route');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use("/auth", auth);
 app.use("/post", post);
 app.use("/country", country);
 app.use("/upload", upload);
+app.use("/category", category)
 
 const port = process.env.PORT || 5000;
 

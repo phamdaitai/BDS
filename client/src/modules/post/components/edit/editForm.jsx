@@ -127,7 +127,7 @@ const EditForm = (props) => {
     return <Container>
     <Container.Col colSpan={9}>
         <Card >
-            <Card.Header>Đăng tin dự án</Card.Header>
+            <Card.Header>Chỉnh sửa bài đăng</Card.Header>
                 
             <Form
                 layout="vertical"
@@ -163,7 +163,7 @@ const EditForm = (props) => {
     </Container.Col>
     <Container.Col colSpan={3}>
         <Card >
-            <Card.Header style={{backgroundColor: "#0090b5", color: "white"}}>Thêm ảnh dự án</Card.Header>
+            <Card.Header style={{backgroundColor: "#0090b5", color: "white"}}>Chỉnh sửa ảnh</Card.Header>
             <Card.Body>
                     
                 <AvatarUpload

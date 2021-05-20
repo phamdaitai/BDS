@@ -34,6 +34,11 @@ const PostSchema = new Schema({
         type: Number,
         enum: [1, 2, 3, 4, 5] //1. Bán, 2. Cho thuê, 3. Cần thuê, 4. Mua, 5. Dự án
     },
+    //Các danh mục trong type
+    categories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+    }],
     price: {
         type: Number
     },
