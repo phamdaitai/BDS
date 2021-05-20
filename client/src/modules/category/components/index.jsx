@@ -8,6 +8,7 @@ import Card from '../../../components/card';
 import Loading from '../../../components/loading';
 
 import AddForm from './addForm';
+import EditForm from './editForm';
 
 import { CategoryActions } from '../redux/actions';
 
@@ -29,6 +30,8 @@ const Category = (props) => {
         visibleAdd: false,
         visibleEdit: false,
     });
+
+    const [categoryEdit, setCategoryEdit] = useState({});
 
     useEffect(() => {
         if (!loaded) {
@@ -70,7 +73,7 @@ const Category = (props) => {
                         <Button
                             icon={<EditOutlined />}
                             size='small'
-                            onClick={() => (console.log("record", record))}
+                            onClick={() => { setCategoryEdit(record); setState({...state, visibleEdit: true}) }}
                             style={{marginRight: "10px"}}
                         >
                         </Button>
@@ -78,7 +81,7 @@ const Category = (props) => {
                             icon={<DeleteOutlined />}
                             danger
                             size='small'
-                            onClick={() => showConfirmDelete(record)}
+                            onClick={() => { showConfirmDelete(record) }}
                         >
                         </Button>
                     </div>
@@ -91,6 +94,12 @@ const Category = (props) => {
         await props.createCategory(values);
         setState({...state, visibleAdd: false })
     }
+
+    const submitEditForm = async (values) => {
+        await props.updateCategory(categoryEdit._id, values);
+        setState({...state, visibleEdit: false })
+    }
+
 
     const showConfirmDelete = (cat) => {
         confirm({
@@ -130,12 +139,18 @@ const Category = (props) => {
                         <Empty description="Không có dữ liệu"/>
                     }
 
-                    {/* ADD */}
                     < AddForm
                         state={state}
                         setState={setState}
                         submitAddForm={submitAddForm}
                     />
+
+                    {state.visibleEdit && <EditForm
+                        state={state}
+                        setState={setState}
+                        submitEditForm={submitEditForm}
+                        categoryEdit={categoryEdit}
+                    />}
 
                 </Card.Body>
                 <Card.Footer styles={{textAlign: "right"}}>
@@ -166,6 +181,7 @@ const mapDispatchToProps = {
     getAllCategories: CategoryActions.getAllCategories,
     createCategory: CategoryActions.createCategory,
     deleteCategory: CategoryActions.deleteCategory,
+    updateCategory: CategoryActions.updateCategory,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

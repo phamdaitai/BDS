@@ -59,7 +59,7 @@ function getDetailCategory(id) {
 
 function updateCategory(id, data) {
     return dispatch => {
-        dispatch({ type: CategoryConstants.UPDATE_CATEGORY_SUCCESS });
+        dispatch({ type: CategoryConstants.UPDATE_CATEGORY_REQUEST });
         CategoryServices.updateCategory(id, data)
             .then(res => {
                 dispatch({

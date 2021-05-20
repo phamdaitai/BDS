@@ -1,5 +1,4 @@
 import { CategoryConstants } from "./constants";
-import { findIndex } from '../../../helpers/findIndex';
 
 var initState = {
     categoryDetail: {},
@@ -9,7 +8,6 @@ var initState = {
 }
 
 export function category(state = initState, action) {
-    var index = -1;
 
     switch (action.type) {
         case CategoryConstants.CATEGORY_ADD_REQUEST:
@@ -64,12 +62,12 @@ export function category(state = initState, action) {
             }
         
         case CategoryConstants.UPDATE_CATEGORY_SUCCESS:
-            index = findIndex(state.listCategories, action.payload.category._id);
-            if(index !== -1){
-                state.listCategories[index] = action.payload.category
-            }
             return {
                 ...state,
+                listCategories: state.listCategories.map((c) => {
+                    if (action.payload.category._id !== c._id) return c;
+                    return action.payload.category;
+                }),
                 isLoading: false,
             }
         
