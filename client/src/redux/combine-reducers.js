@@ -6,12 +6,14 @@ import { auth } from '../modules/auth/redux/reducers';
 import { user } from '../modules/user/redux/reducers';
 import { country } from '../modules/country/redux/reducers';
 import { post } from '../modules/post/redux/reducers';
+import { category } from '../modules/category/redux/reducers';
 
 const appReducer = combineReducers({
     auth,
     user,
     country,
     post,
+    category,
 
     Intl
 });

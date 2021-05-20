@@ -59,6 +59,9 @@ const Headers = () => {
                 <Link to="/post-project-add">
                     <div className="header-center-item">Đăng tin dự án</div>
                 </Link>
+                <Link to="/category">
+                    <div className="header-center-item">Danh mục</div>
+                </Link>
             </div>
          </div>
         <div className="header-right">
