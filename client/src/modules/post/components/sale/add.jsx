@@ -23,6 +23,8 @@ const PostSaleAdd = (props) => {
     const [avatar, setAvatar] = useState([]);
 
     const [images, setImages] = useState([]);
+
+    const [type, setType] = useState(0);
     
     const onSubmit = async (values) => {
         let imagesUploaded = await uploadImage();
@@ -34,7 +36,6 @@ const PostSaleAdd = (props) => {
             values.images = imagesUploaded.images;
         }
         
-        values.type = 5;
         values.location = location;
 
         console.log("v", values)
@@ -88,7 +89,10 @@ const PostSaleAdd = (props) => {
                 onFinish={onSubmit}
             >
                 <Card.Body>
-                    <Detail/>
+                    <Detail
+                        type={type}
+                        setType={setType}
+                    />
                     
                     <Info />
 

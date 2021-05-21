@@ -8,7 +8,8 @@ import { Form, Button } from 'antd';
 import { CountryActions } from '../../../country/redux/actions';
 import { PostActions } from '../../redux/actions';
 
-import Detail from '../common/add/detailWithEditor';
+import DetailWithEditor from '../common/add/detailWithEditor';
+import Detail from '../common/add/detail';
 import Info from '../common/add/info';
 import OtherInfo from '../common/add/otherInfo';
 import Map from '../common/add/map';
@@ -19,7 +20,9 @@ const EditForm = (props) => {
 
     const { post, country } = props;
     const { postForUpdate = {} } = post;
-    const { provincesData = [], districtsData = []} = country;
+    const { provincesData = [], districtsData = [] } = country;
+    
+    const [type, setType] = useState(postForUpdate.type);
 
     const [location, setLocation] = useState(postForUpdate.location);
 
@@ -136,10 +139,18 @@ const EditForm = (props) => {
                 initialValues={postForUpdate}
             >
                 <Card.Body>
-                    <Detail
-                        onChangeDescription={setDescription}
-                        description={description}
-                    />
+                    {type === 5 ?
+                    (
+                        <DetailWithEditor
+                            onChangeDescription={setDescription}
+                            description={description}
+                        />
+                    ) : (
+                        <Detail
+                            type={type}
+                            setType={setType}
+                        />         
+                    )}
                     
                     <Info />
 

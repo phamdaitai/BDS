@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, Row, Col } from 'antd';
 import { connect } from "react-redux";
 import { CategoryActions } from '../../../../category/redux/actions';
 
@@ -10,6 +10,7 @@ const { TextArea } = Input;
 
 const Detail = (props) => {
     const { listCategoriesNoPagination = [] } = props.category;
+    const { type, setType } = props;
 
     const [loaded, setLoaded] = useState(false);
 
@@ -51,30 +52,61 @@ const Detail = (props) => {
         >
             <TextArea placeholder="Nhập mô tả..." rows={4}/>
         </Form.Item>
-        
-        <Form.Item
-            name="categories"
-            label="Danh mục"
-            rules={[
-                {
-                    required: true,
-                    message: 'Chọn ít nhất một danh mục',
-                },
-            ]}
-            style={{marginTop: "1.5rem"}}
-        >
-            <Select
-                mode="multiple"
-                allowClear
-                style={{ width: '100%' }}
-                placeholder="Chọn danh mục"
+
+        <Row >
+            <Col
+                span={24}
+                style={{
+                    textAlign: 'right',
+                }}
+                className="post-select-add-address"
             >
-                {listCategoriesNoPagination.filter(c => c.type === 5).map(c =>
-                    (<Option key={c._id} value={c._id}>{c.name}</Option>))}
-            </Select>
-        </Form.Item>
+                <Col span={8}>
+                    <Form.Item
+                        name="type"
+                        label="Loại tin"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Vui lòng chọn loại tin',
+                        },
+                        ]}
+                    >
+                        <Select
+                            placeholder="Chọn loại tin"
+                            onChange={(v) => setType(v)}
+                        >
+                            <Option value={1}>Nhà đất bán</Option>
+                            <Option value={2}>Nhà đất cho thuê</Option>
+                        </Select>
+                    </Form.Item>
+                </Col>
+                    
+                <Col span={16}>
+                    <Form.Item
+                        name="categories"
+                        label="Danh mục"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Chọn ít nhất 01 danh mục',
+                        },
+                        ]}
+                    >
+                        <Select
+                            mode="multiple"
+                            allowClear
+                            style={{ width: '100%' }}
+                            placeholder="Chọn danh mục"
+                        >
+                            {listCategoriesNoPagination.filter(c => c.type === type).map(c =>
+                                (<Option key={c._id} value={c._id}>{c.name}</Option>))}
+                        </Select>
+                    </Form.Item>
+                </Col>
 
-
+            </Col>
+        </Row>
     </React.Fragment>
 }
 
