@@ -14,7 +14,7 @@ import Map from '../common/add/map';
 import AvatarUpload from '../common/add/avatarUpload';
 import ImageUpload from '../common/add/imagesUpload';
 
-const PostAddition = (props) => {
+const PostProjectAdd = (props) => {
 
     const { post } = props;
 
@@ -149,4 +149,4 @@ const mapDispatchToProps = {
     requestUploading: PostActions.requestUploading
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostAddition));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostProjectAdd));

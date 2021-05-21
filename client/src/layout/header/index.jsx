@@ -72,7 +72,7 @@ const Headers = (props) => {
                     items={listCategoriesNoPagination.filter(c => c.type === 5)}
                 />
                 
-                <Link to="/">
+                <Link to="/post-sale-add">
                     <div className="header-center-item">Đăng tin nhà đất</div>
                 </Link>
                 <Link to="/post-project-add">

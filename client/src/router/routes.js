@@ -7,7 +7,8 @@ import "./styles.scss";
 import PrivateRoute from "./privateRoute";
 
 const Home = loadable(() => import('../modules/home/components'));
-const ProjectPostAdd = loadable(() => import('../modules/post/components/project/add'));
+const PostProjectAdd = loadable(() => import('../modules/post/components/project/add'));
+const PostSaleAdd = loadable(() => import('../modules/post/components/sale/add'));
 const DetailPost = loadable(() => import('../modules/post/components/detail'));
 const Profile = loadable(() => import('../modules/user/components/profile'));
 const Password = loadable(() => import('../modules/user/components/password'));
@@ -29,7 +30,13 @@ export const routes = [
     path: "/post-project-add",
     exact: true,
     roles: [2, 3],
-    component: ({ match }) => <ProjectPostAdd match={match} />
+    component: ({ match }) => <PostProjectAdd match={match} />
+  },
+  {
+    path: "/post-sale-add",
+    exact: true,
+    roles: [2, 3],
+    component: ({ match }) => <PostSaleAdd match={match} />
   },
   {
     path: "/detail/:slug.:id.html",
