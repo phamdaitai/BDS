@@ -142,3 +142,21 @@
         }
     }
 }
+
+.badge-info {
+    background-color: rgb(203, 235, 141);
+    border-radius: 1rem;
+    margin: 0rem 0.5rem 0.5rem 0rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-weight: 600;;
+}
+
+.badge-info > a {
+    color: black !important;
+}
+
+.badge-info:hover {
+    background-color: rgb(228, 243, 197);
+    transform: scale(1.1);
+}

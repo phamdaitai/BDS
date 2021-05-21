@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import { UserOutlined, PhoneOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
@@ -17,7 +18,7 @@ import './styles.scss';
 
 const DetailPost = (props) => {
     const { post } = props;
-    const { postDetail } = post;
+    const { postDetail = {} } = post;
 
     const [loaded, setLoaded] = useState(false);
 
@@ -65,6 +66,16 @@ const DetailPost = (props) => {
                         <hr/>
                         <Map location={postDetail.location} />
                     </React.Fragment>}
+                
+                <div style={{ marginTop: "1.5rem" }}>
+                    <hr />        
+                    <h3 style={{color: "#0f78da"}}>Danh mục</h3>
+                    {Array.isArray(postDetail.categories) && postDetail.categories.map(c => (
+                        <span className="badge-info">
+                            <Link to={`/post-cat/${c._id || ""}`}>{c.name}</Link>
+                        </span>
+                    ))}    
+                </div>
             </Card.Body>
         </ Card>
     </Container.Col>

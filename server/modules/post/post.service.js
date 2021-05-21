@@ -9,7 +9,7 @@ exports.createPost = async (data, user, portal) => {
 
     let userInfo = await User.findById(user._id);
     if (userInfo) {
-        userInfo.post.push(newPost._id);
+        userInfo.posts.push(newPost._id);
         userInfo.save();
     }
 
@@ -17,8 +17,12 @@ exports.createPost = async (data, user, portal) => {
 }
 
 exports.getAllPosts = async (query, portal) => {
-    let { page, limit } = query;
+    let { page, limit, categories } = query;
     let option = {};
+
+    if (categories) {
+        option.categories = categories;
+    }
 
     let Post = initConnection(portal).model("Post");
 
@@ -34,7 +38,7 @@ exports.getAllPosts = async (query, portal) => {
             {
                 path: "ward"
             }])
-            .sort({createdAt: 'desc' })
+            .sort({ createdAt: 'desc' })
         
         return {allPosts}
     } else {
@@ -70,6 +74,9 @@ exports.getDetailPost = async (id, portal) => {
         },
         {
             path: "ward"
+        },
+        {
+            path: "categories"
         }])
     
     if (!post) {

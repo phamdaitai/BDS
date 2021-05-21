@@ -36,7 +36,6 @@ const Info = (props) => {
                 span={24}
                 style={{
                     textAlign: 'right',
-                    marginTop: '1.5rem'
                 }}
                 className="post-select-add-address"
             >

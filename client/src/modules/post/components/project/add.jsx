@@ -20,13 +20,7 @@ const PostAddition = (props) => {
 
     const [location, setLocation] = useState(null);
 
-    const [avatar, setAvatar] = useState([
-        // {
-        //   uid: '-1',
-        //   status: 'done',
-        //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        // }
-    ]);
+    const [avatar, setAvatar] = useState([]);
 
     const [images, setImages] = useState([]);
 
@@ -41,12 +35,15 @@ const PostAddition = (props) => {
         if (imagesUploaded?.images?.length) {
             values.images = imagesUploaded.images;
         }
-            
+        
+        values.type = 5;
         values.location = location;
         values.description = description;
 
         console.log("v", values)
         await props.createPost(values);
+        
+        console.log("post.postDetail._id", post.postDetail);
 
         if (post.postDetail._id) props.history.push("/");
     };

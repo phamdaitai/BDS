@@ -25,7 +25,7 @@ const Headers = (props) => {
         visibleRegister: false,
     });
 
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         if (!loaded) {
@@ -47,8 +47,6 @@ const Headers = (props) => {
                 setState({visibleRegister: false})
             }
         }, [isnewRegister])
-    
-    console.log("listCategoriesNoPagination", listCategoriesNoPagination);
     
     return <Header className="header" style={{ lineHeight: "55px", height: "55px" }}>
         <div className="header-left">
