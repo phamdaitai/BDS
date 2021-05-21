@@ -6,7 +6,8 @@ export const CategoryActions = {
     getAllCategories,
     getDetailCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getAllCategoriesNoPagination
 }
 
 function createCategory(data) {
@@ -85,6 +86,22 @@ function deleteCategory(id) {
             })
             .catch(err => {
                 dispatch({ type: CategoryConstants.DELETE_CATEGORY_FAIL, payload: err?.response?.data?.messages?.[0] });
+            })
+    }
+}
+
+function getAllCategoriesNoPagination(queryData) {
+    return dispatch => {
+        dispatch({ type: CategoryConstants.GET_ALL_CATEGORIES_NO_PAGINATION_REQUEST });
+        CategoryServices.getAllCategories(queryData)
+            .then(res => {
+                dispatch({
+                    type: CategoryConstants.GET_ALL_CATEGORIES_NO_PAGINATION_SUCCESS,
+                    payload: res.data.content
+                })
+            })
+            .catch(err => {
+                dispatch({ type: CategoryConstants.GET_ALL_CATEGORIES_NO_PAGINATION_FAIL, payload: err?.response?.data?.messages?.[0] });
             })
     }
 }

@@ -8,18 +8,31 @@ import { BankOutlined, UserOutlined } from "@ant-design/icons";
 import Login from '../../modules/auth/components/login';
 import Register from '../../modules/user/components/register';
 import { AuthActions } from '../../modules/auth/redux/actions';
+import { CategoryActions } from '../../modules/category/redux/actions';
+
+import Dropdown from '../../components/dropdown';
 
 const { Header } = Layout;
 
-const Headers = () => {
+const Headers = (props) => {
+    const { listCategoriesNoPagination = [] } = props.category;
 
     const { isAuth = false, user } = useSelector(state => state.auth);
-    const { isnewRegister = false } = useSelector(state => state.user)
+    const { isnewRegister = false } = useSelector(state => state.user);
  
     const [state, setState] = useState({
         visibleLogin: false,
         visibleRegister: false,
     });
+
+    const [loaded, setLoaded] = useState(false)
+
+    useEffect(() => {
+        if (!loaded) {
+            setLoaded(true);
+            props.getAllCategoriesNoPagination()
+        }
+    })
 
     useEffect(
         () => {
@@ -35,6 +48,8 @@ const Headers = () => {
             }
         }, [isnewRegister])
     
+    console.log("listCategoriesNoPagination", listCategoriesNoPagination);
+    
     return <Header className="header" style={{ lineHeight: "55px", height: "55px" }}>
         <div className="header-left">
             <Link to="/" >
@@ -44,15 +59,21 @@ const Headers = () => {
         </div>
         <div className="header-center">
             <div className="header-center-menu">
-                <Link to="/">
-                    <div className="header-center-item">Nhà đất bán</div>
-                </Link>
-                <Link to="/">
-                    <div className="header-center-item">Nhà đất cho thuê</div>
-                </Link>
-                <Link to="/">
-                    <div className="header-center-item">Dự án</div>
-                </Link>
+                <Dropdown
+                    title="Nhà đất bán"
+                    items={listCategoriesNoPagination.filter(c => c.type === 1)}
+                />
+
+                <Dropdown
+                    title="Nhà đất cho thuê"
+                    items={listCategoriesNoPagination.filter(c => c.type === 2)}
+                />
+
+                <Dropdown
+                    title="Dự án"
+                    items={listCategoriesNoPagination.filter(c => c.type === 5)}
+                />
+                
                 <Link to="/">
                     <div className="header-center-item">Đăng tin nhà đất</div>
                 </Link>
@@ -105,4 +126,13 @@ const Headers = () => {
     </Header>;
 };
 
-export default connect()(Headers);
+const mapStateToProps = state => {
+    const { category } = state;
+    return { category };
+}
+
+const mapDispatchToProps = {
+    getAllCategoriesNoPagination: CategoryActions.getAllCategoriesNoPagination
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Headers);

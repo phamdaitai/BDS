@@ -3,6 +3,7 @@ import { CategoryConstants } from "./constants";
 var initState = {
     categoryDetail: {},
     listCategories: [],
+    listCategoriesNoPagination: [],
     isLoading: false,
     error: null,
 }
@@ -15,6 +16,7 @@ export function category(state = initState, action) {
         case CategoryConstants.GET_DETAIL_CATEGORY_REQUEST:
         case CategoryConstants.UPDATE_CATEGORY_REQUEST:
         case CategoryConstants.DELETE_CATEGORY_REQUEST:
+        case CategoryConstants.GET_ALL_CATEGORIES_NO_PAGINATION_REQUEST:
             return {
                 ...state,
                 isLoading: true,
@@ -25,6 +27,7 @@ export function category(state = initState, action) {
         case CategoryConstants.GET_DETAIL_CATEGORY_FAIL:
         case CategoryConstants.UPDATE_CATEGORY_FAIL:
         case CategoryConstants.DELETE_CATEGORY_FAIL:
+        case CategoryConstants.GET_ALL_CATEGORIES_NO_PAGINATION_FAIL:
             return {
                 ...state,
                 isLoading: false,
@@ -77,6 +80,14 @@ export function category(state = initState, action) {
                 listCategories: state.listCategories.filter(c => c._id !== action.payload.category._id),
                 isLoading: false,
             }
+        
+        case CategoryConstants.GET_ALL_CATEGORIES_NO_PAGINATION_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                listCategoriesNoPagination: action.payload.allCategories,
+            }
+            
         
         default:
             return {
