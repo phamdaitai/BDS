@@ -10,7 +10,6 @@ import Loading from '../../../../components/loading';
 
 import { UserActions } from '../../redux/actions';
 
-
 import './styles.scss';
 
 const { Option } = Select;
@@ -81,7 +80,7 @@ const UserListManage = (props) => {
             width: '15%',
             render: (data, record) => {
                 return (
-                    <Select defaultValue={data} className="select-user-role">
+                    <Select defaultValue={data} className="select-user-role" onChange={(value) => {props.updateUser(record._id, {role: value})}}>
                         <Option value={1}>
                             <badge className="badge-user-list badge-active">Chưa kích hoạt</badge>
                         </Option>
@@ -186,6 +185,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     getAllUsers: UserActions.getAllUsers,
+    updateUser: UserActions.updateUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserListManage);
