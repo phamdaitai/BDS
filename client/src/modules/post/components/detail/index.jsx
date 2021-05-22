@@ -32,8 +32,10 @@ const DetailPost = (props) => {
         }
     })
 
-    useEffect(() => { 
-        props.getPostDetail(postId);
+    useEffect(() => {
+        if (postId) {
+            props.getPostDetail(postId);
+        }
     }, [postId])
     
     return <Container>
