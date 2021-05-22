@@ -68,7 +68,7 @@ export const routes = [
     component: ({ match }) => <EditPost match={match} />
   },
   {
-    path: "/category",
+    path: "/manage-category",
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <Category match={match} />

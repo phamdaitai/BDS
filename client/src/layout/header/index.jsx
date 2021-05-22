@@ -14,6 +14,17 @@ import Dropdown from '../../components/dropdown';
 
 const { Header } = Layout;
 
+const dataManagerDropdown = [{
+    name: "quản lý người dùng",
+    path: "manage-user"
+},{
+    name: "quản lý danh mục",
+    path: "manage-category"
+},{
+    name: "quản lý bài đăng",
+    path: "manage-post"
+}]
+
 const Headers = (props) => {
     const { listCategoriesNoPagination = [] } = props.category;
 
@@ -78,9 +89,18 @@ const Headers = (props) => {
                 <Link to="/post-project-add">
                     <div className="header-center-item">Đăng tin dự án</div>
                 </Link>
-                <Link to="/category">
-                    <div className="header-center-item">Danh mục</div>
+                <Link to="/dashboard">
+                    <div className="header-center-item">Thống kê</div>
                 </Link>
+                <Dropdown
+                    title="Quản lý"
+                    items={dataManagerDropdown}
+                    columns={1}
+                    isManage
+                />
+                {/* <Link to="/category">
+                    <div className="header-center-item">Danh mục</div>
+                </Link> */}
             </div>
          </div>
         <div className="header-right">

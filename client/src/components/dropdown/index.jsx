@@ -4,7 +4,7 @@ import Item from './item';
 import './styles.scss';
 
 const Dropdown = (props) => {
-    const { columns = 3, title, items } = props;
+    const { columns = 3, title, items, isManage } = props;
 
     return (
         <div className="dropdown">
@@ -13,7 +13,7 @@ const Dropdown = (props) => {
             </div>
             
             <div className={`dropdown-${columns}-cols`}>
-                {Array.isArray(items) && items.map((item , index) => <Item itemData={item} key={index}/>)}
+                {Array.isArray(items) && items.map((item, index) => <Item itemData={item} key={index} isManage={isManage}/>)}
             </div>
         </div>
     );
