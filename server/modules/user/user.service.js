@@ -43,8 +43,6 @@ exports.getAllUsers = async (query, portal) => {
             sort: { 'createdAt': 'desc' }
         })
 
-        console.log("page", page, limit);
-
         return {allUsers}
     }
 }

@@ -19,7 +19,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    role: {//Role: 1. new user none actived, 2. user actived, 3: admin
+    role: {//Role: 1. Chưa kích hoạt, 2. Người dùng, 3: Admin
         type: Number,
         enum: [1, 2, 3],
         default: 2 //actived

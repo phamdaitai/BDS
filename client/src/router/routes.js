@@ -16,6 +16,7 @@ const PostOfUser = loadable(() => import('../modules/user/components/postOfUser'
 const EditPost = loadable(() => import('../modules/post/components/edit'));
 const Category = loadable(() => import('../modules/category/components'));
 const ListPostByCategory = loadable(() => import('../modules/post/components/list'));
+const UserListManage = loadable(() => import('../modules/user/components/list-manage'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin
@@ -77,6 +78,12 @@ export const routes = [
     path: "/post-cat/:catId",
     exact: true,
     component: ({ match }) => <ListPostByCategory match={match} />
+  },
+  {
+    path: "/manage-user",
+    exact: true,
+    roles: [2, 3],
+    component: ({ match }) => <UserListManage match={match} />
   },
   {
     path: "*",

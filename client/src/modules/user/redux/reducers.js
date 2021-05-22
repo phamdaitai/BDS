@@ -49,16 +49,16 @@ export function user(state = initState, action) {
             return {
                 ...state,
                 isLoading: false,
-                listUsers: action.payload.postsOfUser.docs,
-                totalDocs: action.payload.postsOfUser.totalDocs,
-                limit: action.payload.postsOfUser.limit,
-                totalPages: action.payload.postsOfUser.totalPages,
-                page: action.payload.postsOfUser.page,
-                pagingCounter: action.payload.postsOfUser.pagingCounter,
-                hasPrevPage: action.payload.postsOfUser.hasPrevPage,
-                hasNextPage: action.payload.postsOfUser.hasNextPage,
-                prevPage: action.payload.postsOfUser.prevPage,
-                nextPage: action.payload.postsOfUser.nextPage
+                listUsers: action.payload.allUsers.docs,
+                totalDocs: action.payload.allUsers.totalDocs,
+                limit: action.payload.allUsers.limit,
+                totalPages: action.payload.allUsers.totalPages,
+                page: action.payload.allUsers.page,
+                pagingCounter: action.payload.allUsers.pagingCounter,
+                hasPrevPage: action.payload.allUsers.hasPrevPage,
+                hasNextPage: action.payload.allUsers.hasNextPage,
+                prevPage: action.payload.allUsers.prevPage,
+                nextPage: action.payload.allUsers.nextPage
             }
         
         case UserConstants.GET_USER_DETAIL_SUCCESS:
