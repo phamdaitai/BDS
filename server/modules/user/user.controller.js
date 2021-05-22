@@ -138,3 +138,25 @@ exports.getPostsOfUser = async (req, res) => {
     }
 }
 
+exports.deleteUser = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let portal = req.portal;
+        let user = await UserService.deleteUser(id, portal);
+
+        await LogInfo(req.user.email, "DELETE_USER", req.portal);
+
+        res.status(201).json({
+            success: true,
+            messages: ["Xóa tài khoản thành công!"],
+            content: user
+        });
+    } catch (error) {
+        await LogError(req.user.email, "DELETE_USER", req.portal);
+        res.status(400).json({
+            success: false,
+            messages: ["Xóa tài khoản không thành công!"],
+            content: error.message
+        });
+    }
+}

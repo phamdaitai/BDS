@@ -20,6 +20,7 @@ export function user(state = initState, action) {
         case UserConstants.UPDATE_USER_REQUEST:
         case UserConstants.CHANGE_PASSWORD_REQUEST:
         case UserConstants.GET_POSTS_OF_USER_REQUEST:
+        case UserConstants.DELETE_USER_REQUEST:
             return {
                 ...state,
                 isLoading: true,
@@ -31,6 +32,7 @@ export function user(state = initState, action) {
         case UserConstants.UPDATE_USER_FAIL:
         case UserConstants.CHANGE_PASSWORD_FAIL:
         case UserConstants.GET_POSTS_OF_USER_FAIL:
+        case UserConstants.DELETE_USER_FAIL:
             return {
                 ...state,
                 isLoading: false,
@@ -99,6 +101,13 @@ export function user(state = initState, action) {
                 limit: action.payload.postsOfUser.limit,
             }
 
+        case UserConstants.DELETE_USER_SUCCESS:
+            return {
+                ...state,
+                listUsers: state.listUsers.filter(u => u._id !== action.payload.user._id),
+                isLoading: false,
+            }
+        
         default:
             return {
                 ...state

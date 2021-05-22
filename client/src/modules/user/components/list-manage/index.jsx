@@ -15,8 +15,6 @@ import './styles.scss';
 const { Option } = Select;
 const { confirm } = Modal;
 
-const dataTypes = ["", "Nhà đất bán", "Nhà đất cho thuê", "Cần thuê nhà đất", "Cần mua nhà đất", "Dự án"];
-
 const UserListManage = (props) => {
     const { user } = props;
     const { listUsers = [] } = user;
@@ -80,7 +78,7 @@ const UserListManage = (props) => {
             width: '15%',
             render: (data, record) => {
                 return (
-                    <Select defaultValue={data} className="select-user-role" onChange={(value) => {props.updateUser(record._id, {role: value})}}>
+                    <Select defaultValue={data} className="select-user-role" onChange={(value) => {props.updateUser(record._id, {...record, role: value})}}>
                         <Option value={1}>
                             <badge className="badge-user-list badge-active">Chưa kích hoạt</badge>
                         </Option>
@@ -135,7 +133,7 @@ const UserListManage = (props) => {
             cancelText: "Hủy",
             
             onOk() {
-                // props.deleteCategory(cat._id)
+                props.deleteUser(u._id)
             },
             onCancel() {},
         });
@@ -185,7 +183,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     getAllUsers: UserActions.getAllUsers,
-    updateUser: UserActions.updateUser
+    updateUser: UserActions.updateUser,
+    deleteUser: UserActions.deleteUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserListManage);

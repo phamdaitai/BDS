@@ -8,7 +8,8 @@ export const UserService = {
     getDetailUser,
     updateUser,
     changePassword,
-    getPostsOfUser
+    getPostsOfUser,
+    deleteUser
 };
 
 async function register(data) {
@@ -56,4 +57,11 @@ async function getPostsOfUser(id, query) {
         method: 'GET',
         params: query
     }, false, true)
+}
+
+async function deleteUser(id) {
+    return sendRequest({
+        url: `${ process.env.REACT_APP_SERVER }/user/${id}`,
+        method: 'DELETE',
+    }, true, true)
 }

@@ -147,3 +147,11 @@ exports.getPostsOfUser = async (id, query, portal) => {
 
     return { postsOfUser }
 }
+
+exports.deleteUser = async (id, portal) => {
+    let User = initConnection(portal).model("User");
+
+    let user = await User.findByIdAndDelete(id)
+
+    return { user }
+}

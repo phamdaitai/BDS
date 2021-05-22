@@ -8,7 +8,8 @@ export const UserActions = {
     getDetailUser,
     updateUser,
     changePassword,
-    getPostsOfUser
+    getPostsOfUser,
+    deleteUser
 }
 
 function register(user) {
@@ -107,6 +108,22 @@ function getPostsOfUser(id, query) {
             })
             .catch(err => {
                 dispatch({ type: UserConstants.GET_POSTS_OF_USER_FAIL, payload: err?.response?.data?.messages?.[0] });
+            })
+    }
+}
+
+function deleteUser(id) {
+    return dispatch => {
+        dispatch({ type: UserConstants.DELETE_USER_REQUEST });
+        UserService.deleteUser(id)
+            .then(res => {
+                dispatch({
+                    type: UserConstants.DELETE_USER_SUCCESS,
+                    payload: res.data.content
+                })
+            })
+            .catch(err => {
+                dispatch({ type: UserConstants.DELETE_USER_FAIL, payload: err?.response?.data?.messages?.[0] });
             })
     }
 }
