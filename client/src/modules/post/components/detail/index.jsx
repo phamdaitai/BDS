@@ -17,7 +17,7 @@ import '../../../../common-css/scroll.scss';
 import './styles.scss';
 
 const DetailPost = (props) => {
-    const { post } = props;
+    const { post, postId = "" } = props;
     const { postDetail = {} } = post;
 
     const [loaded, setLoaded] = useState(false);
@@ -26,12 +26,15 @@ const DetailPost = (props) => {
         if (!loaded) {
             setLoaded(true);
 
-            const { id } = props.match.params;
-            props.getPostDetail(id);
+            const id = props.match?.params?.id;
+                
+            props.getPostDetail(id || postId);
         }
     })
 
-    console.log("postDetail", postDetail);
+    useEffect(() => { 
+        props.getPostDetail(postId);
+    }, [postId])
     
     return <Container>
     {post.isLoading && <Loading />}

@@ -1,23 +1,26 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import { Pagination, Empty, Button, Table, Modal, Select } from 'antd';
-import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
+import DetailPost from '../detail';
 
 import { PostActions } from '../../redux/actions';
 
 import './styles.scss';
 
 const { Option } = Select;
-const { confirm } = Modal;
 
 const PostListManage = (props) => {
     const { post } = props;
     const { listPosts = [] } = post;
+
+    const [visibleModal, setVisibleModal] = useState(false);
+
+    const [currentPostId, setCurrentPostId] = useState("");
 
     const [queryData, setQueryData] = useState({
         limit: 10,
@@ -58,6 +61,9 @@ const PostListManage = (props) => {
             title: 'Tiêu đề',
             width: '46%',
             sorter: (a, b) => a.title.localeCompare(b.title),
+            render: (data, record) => {
+                return (<a href="##" onClick={() => { setVisibleModal(true); setCurrentPostId(record._id)}}>{data}</a>)
+            }
         },
         {
             key: 'userName',
@@ -108,6 +114,16 @@ const PostListManage = (props) => {
     return <Container>
         {post.isLoading && <Loading />}
         <Container.Col colSpan={12}>
+            <Modal
+                title="Xem trước"
+                visible={visibleModal}
+                footer={null}
+                onCancel={() => setVisibleModal(false)}
+                width={"100%"}
+            >
+                <DetailPost postId={currentPostId}/>
+            </Modal>
+            
             <Card >
                 <Card.Header>
                     Quản lý người dùng
