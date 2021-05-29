@@ -1,16 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
-import { Rate, Button } from 'antd';
+import { Rate, Button, Input, Avatar } from 'antd';
+import { UserOutlined, SendOutlined } from "@ant-design/icons";
 
 import { ratesAverage } from '../../../../../helpers/ratesAverage';
 import { PostActions } from '../../../redux/actions';
 
+import CommentItem from './commentItem';
+
 import './styles.scss';
+
+const { TextArea } = Input;
 
 const Interaction = (props) => {
     const { postDetail } = props;
     const { auth } = props;
     const { isAuth, user } = auth;
+
+    const [commentText, setCommentText] = useState("");
 
     const _interaction = async (data) => {
         let dataFormat = {
@@ -73,11 +80,38 @@ const Interaction = (props) => {
 
     return <div style={{ marginTop: "1.5rem" }}>
         <hr />
-        <h3 style={{color: "#0f78da"}}>Tương tác bài đăng</h3>
+        <h3 style={{ color: "#0f78da" }}>Tương tác bài đăng</h3>
+        
         <div className="post-rate-and-follow">
             <Rate className="sale-item-rate" onChange={changeRate} disabled={isDisableRate()} value={ratesAverage(postDetail?.rates)} />
             {isAuth && !hasFollow() && <Button type="dashed" onClick={followChange}>Theo dõi</Button>}
             {isAuth && hasFollow() && <Button type="primary" onClick={followChange}>Đang theo dõi</Button>}
+        </div>
+
+        <div className="post-comment">
+            {isAuth ?
+                (<div className="post-comment-input">
+                    <Avatar
+                        style={{
+                            backgroundColor: '#87d068',
+                        }}
+                        icon={<UserOutlined />}
+                        src={user.avatar ? user.avatar : ""}
+                        size={40}
+                    />
+                    <TextArea rows={2} value={commentText} placeholder="Viết bình luận..." />
+                    <div>
+                        <SendOutlined style={{ fontSize: "2rem", color: "green" }} />
+                    </div>
+                </div>)
+                :
+                (<p style={{ color: "red" }}>Đăng nhập để có thể bình luận</p>)}
+            
+            <div className="post-list-comment">
+                {Array.isArray(postDetail.comments) && postDetail.comments.map((c, index) => {
+                    return <CommentItem item={c} key={index}/>
+                })}
+            </div>
         </div>
     </div>
 }
