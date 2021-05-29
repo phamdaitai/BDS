@@ -11,7 +11,13 @@ exports.createPayment = async (data, user, portal) => {
 
     let payment = await Payment.create({ ...data, owner: user._id });
 
-    userInfo.balance += payment.transaction;
+    if (payment.type === 1) {
+        userInfo.balance += payment.transaction;
+    }
+
+    if (payment.type === 2) {
+        userInfo.balance -= payment.transaction;
+    }
 
     await userInfo.save();
 
@@ -19,11 +25,15 @@ exports.createPayment = async (data, user, portal) => {
 }
 
 exports.getAllPayments = async (query, user, portal) => {
-    let { limit, page } = query;
+    let { limit, page, type } = query;
     let option = {};
 
     if (user) {
         option.owner = user._id;
+    }
+
+    if (type) {
+        option.type = type;
     }
 
     let Payment = initConnection(portal).model("Payment");

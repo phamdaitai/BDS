@@ -24,6 +24,14 @@ const Category = (props) => {
                 <div className="profile-item-link">
                     <Link to={`/password`}>Đổi mật khẩu</Link>
                 </div>
+
+                <div className="profile-item-link">
+                    <Link to={`/recharge`}>Lịch sử nạp tiền</Link>
+                </div>
+
+                <div className="profile-item-link">
+                    <Link to={`/payment`}>Lịch sử thanh toán</Link>
+                </div>
                     
                 <div className="profile-item-header">
                     <span>Quản lý bài đăng</span>

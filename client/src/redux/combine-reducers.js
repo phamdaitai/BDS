@@ -7,6 +7,7 @@ import { user } from '../modules/user/redux/reducers';
 import { country } from '../modules/country/redux/reducers';
 import { post } from '../modules/post/redux/reducers';
 import { category } from '../modules/category/redux/reducers';
+import { payment } from '../modules/payment/redux/reducers';
 
 const appReducer = combineReducers({
     auth,
@@ -14,6 +15,7 @@ const appReducer = combineReducers({
     country,
     post,
     category,
+    payment,
 
     Intl
 });

@@ -9,7 +9,8 @@ const PaymentSchema = new Schema({
     },
     //Tiền giao dịch
     transaction: {
-        type: Number
+        type: Number,
+        default: 0
     },
     //Trong trường hợp nạp tiền, biết nạp từ số tài khoản nào
     bankName: {
