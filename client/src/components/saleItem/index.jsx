@@ -10,6 +10,7 @@ import noImage from '../../assets/images/bds-no-image.png';
 import { FormatMoney } from '../../helpers/formatCurrency';
 import { getFullAddress } from '../../helpers/formatAddress';
 import { slug } from '../../helpers/slug';
+import { ratesAverage } from '../../helpers/ratesAverage';
 
 import './styles.scss';
 
@@ -32,7 +33,7 @@ const SaleItem = (props) => {
             </div>
             
             <div>
-                <Rate className="sale-item-rate" allowHalf disabled defaultValue={2.5} />
+                <Rate className="sale-item-rate" allowHalf disabled value={ratesAverage(postItem?.rates)} />
             </div>
 
             <div className="sale-item-info">

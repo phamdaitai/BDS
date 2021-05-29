@@ -10,6 +10,7 @@ import Loading from '../../../../components/loading';
 import ImagesList from './imagesList';
 import Info from './info';
 import Map from './map';
+import Interaction from './interaction';
 
 import { PostActions } from '../../redux/actions';
 
@@ -81,6 +82,10 @@ const DetailPost = (props) => {
                         </span>
                     ))}    
                 </div>
+            
+                <Interaction
+                        postDetail={{ ...postDetail }}
+                />
             </Card.Body>
         </ Card>
     </Container.Col>
