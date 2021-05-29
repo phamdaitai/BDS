@@ -41,11 +41,23 @@ const Filter = (props) => {
     }
 
     const submitFilter = (values) => {
-        console.log("values", values);
+        //Format price value to query
+        if (values.price) {
+            let pricesSplit = values.price.split("-");
+            values.priceFrom = parseInt(pricesSplit[0]);
+            values.priceTo = parseInt(pricesSplit[1]);
+        }
+
+        //Format acreage value to query
+        if (values.acreage) {
+            let acreagesSplit = values.acreage.split("-");
+            values.acreageFrom = parseInt(acreagesSplit[0]);
+            values.acreageTo = parseInt(acreagesSplit[1]);
+        }
+
         setQueryData({...queryData, ...values})
     }
     
-    console.log("acreageOptions", acreageOptions);
     return <Card >
         <Form
             layout="vertical"
