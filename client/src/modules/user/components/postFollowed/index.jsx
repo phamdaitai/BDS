@@ -6,46 +6,46 @@ import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
 
-import { UserActions } from '../../redux/actions';
+import { PostActions } from '../../../post/redux/actions';
 
 import Category from '../common/category';
 import PostItem from './postItem';
 
 import './styles.scss';
 
-const PostOfUser = (props) => {
+const PostFollwed = (props) => {
     const { user, auth, post } = props;
-    const { postsOfUser = [] } = user;
-    const { postDeleted } = post;
-
-    const [loaded, setLoaded] = useState(false);
+    const { listPosts } = post;
 
     const [queryData, setQueryData] = useState({
         page: 1,
-        limit: 10
+        limit: 10,
+        follows: auth?.user?._id
     });
+
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         if (!loaded) {
             setLoaded(true);
-            props.getPostsOfUser(auth.user._id, queryData)
+            props.getAllPosts(queryData)
         }
     })
 
     useEffect(() => {
-        props.getPostsOfUser(auth.user._id, queryData);
-    }, [queryData.limit, queryData.page])
+        props.getAllPosts(queryData);
+    }, [queryData])
 
-    //Load lại danh sách khi xóa 1 bài đăng
-    useEffect(() => {
-        props.getPostsOfUser(auth.user._id, queryData);
-    }, [postDeleted])
+    //Load lại dữ liệu sau khi unfollow
+    const reLoadAfterUnFollow = () => {
+        props.getAllPosts(queryData);
+    }
     
     return <Container>
     {user.isLoading && <Loading />}
     <Container.Col colSpan={9}>
         <Card >
-            <Card.Header>Quản lý bài đăng</Card.Header>
+            <Card.Header>Bài đăng đang theo dõi</Card.Header>
                 
             <Card.Body>
                 <div style={{padding: "10px"}}>
@@ -58,12 +58,13 @@ const PostOfUser = (props) => {
                             <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
-                            {postsOfUser.length !== 0 ?
-                                postsOfUser.map((item, index) =>
+                            {listPosts.length !== 0 ?
+                                listPosts.map((item, index) =>
                                     <PostItem
                                         postItem={item}
                                         index={index + 1}
                                         key={index}
+                                        reLoadAfterUnFollow={reLoadAfterUnFollow}
                                     />) : 
                                 <Empty description="Không có dữ liệu" style={{marginTop: "10px"}}/>}
                     </table>
@@ -96,7 +97,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    getPostsOfUser: UserActions.getPostsOfUser
+    getAllPosts: PostActions.getAllPosts
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostOfUser);
+export default connect(mapStateToProps, mapDispatchToProps)(PostFollwed);

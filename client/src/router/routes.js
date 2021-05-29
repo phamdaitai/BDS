@@ -18,6 +18,7 @@ const Category = loadable(() => import('../modules/category/components'));
 const ListPostByCategory = loadable(() => import('../modules/post/components/list'));
 const UserListManage = loadable(() => import('../modules/user/components/list-manage'));
 const PostListManage = loadable(() => import('../modules/post/components/list-manage'));
+const PostFollowed = loadable(() => import('../modules/user/components/postFollowed'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin
@@ -91,6 +92,12 @@ export const routes = [
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <PostListManage match={match} />
+  },
+  {
+    path: "/post-followed",
+    exact: true,
+    roles: [2, 3],
+    component: ({ match }) => <PostFollowed match={match} />
   },
   {
     path: "*",

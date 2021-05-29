@@ -19,7 +19,7 @@ exports.createPost = async (data, user, portal) => {
 exports.getAllPosts = async (query, portal) => {
     let { page, limit, categories, address, province, district, ward,
         direction, priceFrom, priceTo, acreageFrom, acreageTo,
-        title, userName, userPhone, status} = query;
+        title, userName, userPhone, status, follows} = query;
     let option = {};
 
     //Set query option
@@ -35,6 +35,7 @@ exports.getAllPosts = async (query, portal) => {
     if (userName) option.userName = new RegExp(userName, "i");
     if (userPhone) option.userPhone = new RegExp(userPhone, "i");
     if (status) option.status = status;
+    if (follows) option.follows = follows;
 
     let Post = initConnection(portal).model("Post");
 
