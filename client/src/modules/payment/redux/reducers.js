@@ -31,6 +31,7 @@ export function payment(state = initState, action) {
             return {
                 ...state,
                 paymentDetail: action.payload.payment,
+                listPayments: [action.payload.payment, ...state.listPayments],
                 isLoading: false,
             }
         

@@ -6,17 +6,21 @@ import { Button, Table, Empty, Pagination } from 'antd';
 import { FormatMoney } from '../../../../helpers/formatCurrency';
 
 import { PaymentActions } from '../../redux/actions';
+import { UserActions } from '../../../user/redux/actions';
 
 import Category from '../../../user/components/common/category';
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
 
+import AddForm from './addForm';
+
 import './styles.scss';
 
 const ReCharge = (props) => {
-    const { payment } = props;
+    const { payment, auth, user } = props;
     const { listPayments = [] } = payment;
+    const { userDetail = {} } = user;
 
     const [queryData, setQueryData] = useState({
         page: 1,
@@ -25,6 +29,8 @@ const ReCharge = (props) => {
     })
 
     const [loaded, setLoaded] = useState(false);
+
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         if (!loaded) {
@@ -36,6 +42,10 @@ const ReCharge = (props) => {
     useEffect(() => {
         props.getAllPayments(queryData);
     }, [queryData])
+
+    useEffect(() => {
+        props.getDetailUser(auth?.user?._id)
+    }, [listPayments])
 
     const columns = [
         {
@@ -62,7 +72,7 @@ const ReCharge = (props) => {
         {
             key: 'bankAccount',
             dataIndex: 'bankAccount',
-            title: 'bankOwer',
+            title: 'Chủ tài khoản',
             width: '20%'
         },
         {
@@ -79,13 +89,32 @@ const ReCharge = (props) => {
         },
     ];
 
+    const submitAddForm = async (values) => {
+        values.type = 1;
+        await props.createPayment(values);
+        await setVisible(false);
+    }
+
     return <Container>
         {payment.isLoading && <Loading />}
         <Container.Col colSpan={9}>
             <Card >
-                <Card.Header>Lịch sử nạp tiền</Card.Header>
-                    
+                <Card.Header>
+                    Lịch sử nạp tiền
+                    <Button
+                        type="primary" style={{ float: "right" }}
+                        onClick={() => setVisible(true)}
+                    >
+                        Nạp tiền
+                    </Button>
+                </Card.Header>
                 <Card.Body>
+                    <div style={{ marginBottom: "10px" }}>
+                        <b>Số dư tài khoản: &ensp;
+                            <span style={{ color: "red" }}>{FormatMoney(userDetail.balance || 0)}</span>
+                        </b>
+                    </div>
+                    
                     {listPayments?.length !== 0 ?
                         <Table
                             columns={columns}
@@ -94,6 +123,12 @@ const ReCharge = (props) => {
                         /> :
                         <Empty description="Không có dữ liệu"/>
                     }
+
+                    < AddForm
+                        visible={visible}
+                        setVisible={setVisible}
+                        submitAddForm={submitAddForm}
+                    />
                 </Card.Body>
 
                 <Card.Footer styles={{textAlign: "right"}}>
@@ -118,12 +153,14 @@ const ReCharge = (props) => {
 };
 
 const mapStateToProps = state => {
-    const { payment } = state;
-    return { payment }
+    const { payment, auth, user } = state;
+    return { payment, auth, user }
 }
 
 const mapDispatchToProps = {
-    getAllPayments: PaymentActions.getAllPayments
+    getAllPayments: PaymentActions.getAllPayments,
+    createPayment: PaymentActions.createPayment,
+    getDetailUser: UserActions.getDetailUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReCharge);

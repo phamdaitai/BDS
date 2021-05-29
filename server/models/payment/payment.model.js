@@ -16,9 +16,11 @@ const PaymentSchema = new Schema({
     bankName: {
         type: String
     },
+    //Số tài khoản
     bankAccount: {
         type: String
     },
+    //Chủ tài khoản
     bankOwer: {
         type: String
     },
