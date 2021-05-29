@@ -6,6 +6,7 @@ import Container from '../../../../components/container';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
 import SaleItem from '../../../../components/saleItem';
+import Filter from '../common/filter';
 
 import { PostActions } from '../../../post/redux/actions';
 
@@ -30,7 +31,7 @@ const ListPostByCategory = (props) => {
     
     useEffect(() => {
         props.getAllPosts(queryData);
-    }, [queryData.limit, queryData.page])
+    }, [queryData])
     
     return <Container>
         {post.isLoading && <Loading />}
@@ -66,11 +67,10 @@ const ListPostByCategory = (props) => {
             </ Card>
         </Container.Col>
         <Container.Col colSpan={3}>
-            <Card >
-                <Card.Header style={{backgroundColor: "#0090b5", color: "white"}}>Danh mục nhà đất</Card.Header>
-                <Card.Body>Nội dung danh mục nhà đất</Card.Body>
-                <Card.Footer>footer</Card.Footer>
-            </ Card>
+            <Filter
+                queryData={queryData}
+                setQueryData={setQueryData}
+            />
         </Container.Col>
     </Container>
 };
