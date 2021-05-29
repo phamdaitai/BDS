@@ -126,7 +126,7 @@ const PostListManage = (props) => {
             
             <Card >
                 <Card.Header>
-                    Quản lý người dùng
+                    Quản lý bài đăng
                 </Card.Header>
                 <Card.Body>
                     {listPosts?.length !== 0 ?
