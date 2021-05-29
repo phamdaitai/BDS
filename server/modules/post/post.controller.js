@@ -136,3 +136,26 @@ exports.deletePost = async ( req, res ) => {
         });
     }
 }
+
+exports.interaction = async ( req, res ) => {
+    try {
+        let id = req.params.id;
+        let data = req.body;
+        let post = await postService.interaction( id, data, req.portal)
+
+        await LogInfo(req.user.email, "INTERACTION_POST", req.portal);
+        res.status(200).json({
+            success: true,
+            messages: ["Cập nhật bài đăng thành công"],
+            content: post
+        });
+    } catch (error) {
+        await LogError(req.user.email, "INTERACTION_POST", req.portal);
+        console.log("eee", error.message);
+        res.status(400).json({
+            success: false,
+            messages: ["Cập nhật bài đăng không thành công"],
+            content: error.message
+        });
+    }
+}

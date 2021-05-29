@@ -113,7 +113,8 @@ const PostSchema = new Schema({
     }],
     rates: [{
         rate: {
-            type: Number
+            type: Number,
+            enum:[1, 2, 3, 4, 5]
         },
         user: {
             type: Schema.Types.ObjectId,
@@ -122,7 +123,7 @@ const PostSchema = new Schema({
     }],
     comments: [{
         comment: {
-            type: Number
+            type: String
         },
         user: {
             type: Schema.Types.ObjectId,

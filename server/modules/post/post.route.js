@@ -4,6 +4,7 @@ const postController = require('./post.controller');
 const { auth } = require('../../middleware');
 
 router.get('/get-for-update/:id', auth, postController.getPostForUpdate);
+router.patch('/interaction/:id', auth, postController.interaction);
 router.get('/:id', postController.getDetailPost);
 router.patch('/:id', auth, postController.updatePost);
 router.delete('/:id', auth, postController.deletePost);

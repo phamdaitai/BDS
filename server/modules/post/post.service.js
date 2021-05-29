@@ -88,7 +88,10 @@ exports.getDetailPost = async (id, portal) => {
             path: "ward"
         },
         {
-            path: "categories"
+        path: "categories"
+        },
+        {
+            path: "comments.user", select: 'name avatar'
         }])
     
     if (!post) {
@@ -183,4 +186,42 @@ exports.deletePost = async (postId, userId, portal) => {
     await user.save();
 
     return {post}
+}
+
+//Comment, rate, follow
+exports.interaction = async (id, data, portal) => {
+    let Post = initConnection(portal).model("Post");
+    
+    const post = await Post.findById(id);
+    
+    if (!post) {
+        throw Error("Post is not existing!")
+    }
+
+
+    post.rates = data.rates;
+    post.comments = data.comments;
+    post.follows = data.follows;
+
+    await post.save();
+
+    let postDetail =  await Post
+    .findById(id)
+    .populate([{
+        path: "province"
+    },
+    {
+        path: "district"
+    },
+    {
+        path: "ward"
+    },
+    {
+        path: "categories"
+    },
+    {
+        path: "comments.user", select: 'name avatar'
+    }])
+
+    return { post: postDetail }
 }
