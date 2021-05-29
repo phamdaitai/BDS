@@ -105,7 +105,33 @@ const PostSchema = new Schema({
         type: Number,
         default: 1 , 
         enum: [1, 2, 3] //1. Đang chờ, 2. Đã duyệt, 3. Đã hủy,
-    }
+    },
+    //Người theo dõi
+    follows: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    rates: [{
+        rate: {
+            type: Number
+        },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    }],
+    comments: [{
+        comment: {
+            type: Number
+        },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        date: {
+            type: Date
+        }
+    }]
 },{
     timestamps: true,
 });
