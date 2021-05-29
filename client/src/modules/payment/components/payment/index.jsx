@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import moment from 'moment';
 import { Button, Table, Empty, Pagination } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { FormatMoney } from '../../../../helpers/formatCurrency';
+import { slug } from '../../../../helpers/slug';
 
 import { PaymentActions } from '../../redux/actions';
 
@@ -14,14 +16,14 @@ import Loading from '../../../../components/loading';
 
 import './styles.scss';
 
-const ReCharge = (props) => {
+const Payment = (props) => {
     const { payment } = props;
     const { listPayments = [] } = payment;
 
     const [queryData, setQueryData] = useState({
         page: 1,
         limit: 10,
-        type: 1
+        type: 2
     })
 
     const [loaded, setLoaded] = useState(false);
@@ -39,6 +41,15 @@ const ReCharge = (props) => {
 
     const columns = [
         {
+            key: 'post',
+            dataIndex: 'post',
+            title: 'Bài đăng được trả phí',
+            width: '60%',
+            render: (data) => {
+                return (<Link to={`/detail/${slug(data?.title)}.${data?._id}.html`}>{data?.title}</Link>)
+            }
+        },
+        {
             key: 'transaction',
             dataIndex: 'transaction',
             title: 'Tiền giao dịch',
@@ -46,24 +57,6 @@ const ReCharge = (props) => {
             render: (data) => {
                 return (<span>{FormatMoney(data)}</span>)
             }
-        },
-        {
-            key: 'bankName',
-            dataIndex: 'bankName',
-            title: 'Tên ngân hàng',
-            width: '20%'
-        },
-        {
-            key: 'bankAccount',
-            dataIndex: 'bankAccount',
-            title: 'Số tài khoản',
-            width: '20%'
-        },
-        {
-            key: 'bankAccount',
-            dataIndex: 'bankAccount',
-            title: 'bankOwer',
-            width: '20%'
         },
         {
             key: 'createdAt',
@@ -126,4 +119,4 @@ const mapDispatchToProps = {
     getAllPayments: PaymentActions.getAllPayments
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReCharge);
+export default connect(mapStateToProps, mapDispatchToProps)(Payment);

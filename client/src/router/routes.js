@@ -20,6 +20,7 @@ const UserListManage = loadable(() => import('../modules/user/components/list-ma
 const PostListManage = loadable(() => import('../modules/post/components/list-manage'));
 const PostFollowed = loadable(() => import('../modules/user/components/postFollowed'));
 const Recharge = loadable(() => import('../modules/payment/components/recharge'));
+const Payment = loadable(() => import('../modules/payment/components/payment'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin
@@ -105,6 +106,12 @@ export const routes = [
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <Recharge match={match} />
+  },
+  {
+    path: "/payment",
+    exact: true,
+    roles: [2, 3],
+    component: ({ match }) => <Payment match={match} />
   },
   {
     path: "*",
