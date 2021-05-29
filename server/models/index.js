@@ -5,6 +5,7 @@ const District = require('./country/district.model');
 const Ward = require('./country/ward.model');
 const Category = require('./category/category.model');
 const Payment = require('./payment/payment.model');
+const Fee = require('./fee/fee.model');
 
 module.exports = {
     User,
@@ -13,5 +14,6 @@ module.exports = {
     District,
     Ward,
     Category,
-    Payment
+    Payment,
+    Fee
 }

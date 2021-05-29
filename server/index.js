@@ -19,6 +19,7 @@ const country = require('./modules/country/country.route');
 const upload = require('./modules/upload/upload.route');
 const category = require('./modules/category/category.route');
 const payment = require('./modules/payment/payment.route');
+const fee = require('./modules/fee/fee.route');
 
 var app = express();
 
@@ -39,6 +40,7 @@ app.use("/country", country);
 app.use("/upload", upload);
 app.use("/category", category);
 app.use("/payment", payment);
+app.use("/fee", fee);
 
 const port = process.env.PORT || 5000;
 
