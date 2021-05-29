@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
-import { Pagination, Empty, Button, Table, Modal, Select } from 'antd';
+import { Pagination, Empty, Button, Table, Modal, Select, Form, Input } from 'antd';
 import moment from 'moment';
 
 import Container from '../../../../components/container';
@@ -17,6 +17,8 @@ const { Option } = Select;
 const PostListManage = (props) => {
     const { post } = props;
     const { listPosts = [] } = post;
+
+    const [form] = Form.useForm();
 
     const [visibleModal, setVisibleModal] = useState(false);
 
@@ -39,7 +41,7 @@ const PostListManage = (props) => {
 
     useEffect(() => {
         props.getAllPosts(queryData);
-    }, [queryData.page, queryData.limit])
+    }, [queryData])
 
     const columns = [
         {
@@ -112,6 +114,10 @@ const PostListManage = (props) => {
         }
     ];
 
+    const submitFilter = (values) => {
+        setQueryData({...queryData, ...values})
+    }
+
     return <Container>
         {post.isLoading && <Loading />}
         <Container.Col colSpan={12}>
@@ -130,7 +136,50 @@ const PostListManage = (props) => {
                     Quản lý bài đăng
                 </Card.Header>
                 <Card.Body>
-                    {listPosts?.length !== 0 ?
+                     {/* Filter */}
+                     <Form
+                        layout="vertical"
+                        name="category-filter"
+                        form={form}
+                        onFinish={submitFilter}
+                        className="filter-table"
+                    >
+                        <Form.Item
+                            name="title"
+                        >
+                            <Input placeholder="Tiêu đề" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="userName"
+                        >
+                            <Input placeholder="Người đăng" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="userPhone"
+                        >
+                            <Input placeholder="Số điện thoại" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="status"
+                        >
+                            <Select placeholder="Trạng thái">
+                                <Option value={1}>Đang chờ</Option>
+                                <Option value={2}>Đã duyệt</Option>
+                                <Option value={3}>Đã hủy</Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">
+                                Tìm kiếm
+                            </Button>
+                        </Form.Item>
+                    </Form>
+
+                    {listPosts?.length !== 0 && !post.isLoading ?
                         <Table
                             columns={columns}
                             dataSource={listPosts}

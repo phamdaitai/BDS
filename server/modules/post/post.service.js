@@ -18,7 +18,8 @@ exports.createPost = async (data, user, portal) => {
 
 exports.getAllPosts = async (query, portal) => {
     let { page, limit, categories, address, province, district, ward,
-        direction, priceFrom, priceTo, acreageFrom, acreageTo } = query;
+        direction, priceFrom, priceTo, acreageFrom, acreageTo,
+        title, userName, userPhone, status} = query;
     let option = {};
 
     //Set query option
@@ -30,6 +31,10 @@ exports.getAllPosts = async (query, portal) => {
     if (direction) option.direction = direction;
     if (priceFrom && priceTo) option.price = { $gte: priceFrom, $lte: priceTo }
     if (acreageFrom && acreageTo) option.acreage = { $gte: acreageFrom, $lte: acreageTo }
+    if (title) option.title = new RegExp(title, "i");
+    if (userName) option.userName = new RegExp(userName, "i");
+    if (userPhone) option.userPhone = new RegExp(userPhone, "i");
+    if (status) option.status = status;
 
     let Post = initConnection(portal).model("Post");
 
