@@ -28,11 +28,7 @@ const CommentItem = (props) => {
             </div>
 
             <div className="post-comment-item-content">
-                <p>Nói đi cũng phải nói lại thì mới có công bằng .Như mọi người đều
-                biết, học sinh ở Trung Tâm Giáo Dục Thường Xuyên thuộc thành
-                phần quậy phá , đàn đúm ăn nhậu , thậm chí tập đua xe ,
-                hư (với cha mẹ , thầy cô giáo...) Có lẽ thầy giáo này còn trẻ,
-                    chưa có kinh nghiệm và nóng tính nên mới bị sập bẫy học trò của lớp mình </p>
+                <p>{item.comment}</p>
             </div>
         </div>
     );

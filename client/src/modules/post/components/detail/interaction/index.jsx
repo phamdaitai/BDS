@@ -78,6 +78,28 @@ const Interaction = (props) => {
         _interaction(data)
     }
 
+    const addComment = () => {
+        if (!commentText.length) return;
+        const newComment = {
+            comment: commentText,
+            user: { _id: user._id },
+            date: new Date()
+        };
+        
+        let data = {
+            rates: postDetail.rates,
+            follows: postDetail.follows,
+            comments: [...[newComment], ...postDetail.comments]
+        }
+        console.log("data", data);
+        _interaction(data)
+    }
+
+    const onChangeCommnent = (e) => {
+        const { value } = e.target;
+        setCommentText(value);
+    }
+
     return <div style={{ marginTop: "1.5rem" }}>
         <hr />
         <h3 style={{ color: "#0f78da" }}>Tương tác bài đăng</h3>
@@ -99,8 +121,8 @@ const Interaction = (props) => {
                         src={user.avatar ? user.avatar : ""}
                         size={40}
                     />
-                    <TextArea rows={2} value={commentText} placeholder="Viết bình luận..." />
-                    <div>
+                    <TextArea rows={2} value={commentText} onChange={onChangeCommnent} placeholder="Viết bình luận..." />
+                    <div onClick={addComment}>
                         <SendOutlined style={{ fontSize: "2rem", color: "green" }} />
                     </div>
                 </div>)
