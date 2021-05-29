@@ -118,8 +118,6 @@ const PostListManage = (props) => {
         setQueryData({...queryData, ...values})
     }
 
-    console.log("listPosts", listPosts);
-
     return <Container>
         {post.isLoading && <Loading />}
         <Container.Col colSpan={12}>

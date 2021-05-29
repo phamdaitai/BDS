@@ -34,7 +34,7 @@ const Category = (props) => {
                 </div>
 
                 <div className="profile-item-link">
-                    <Link to={`/post-followed`}>Bài đăng đã theo dõi</Link>
+                    <Link to={`/post-followed`}>Bài đăng đang theo dõi</Link>
                 </div>
             </Card.Body>
         </ Card>
