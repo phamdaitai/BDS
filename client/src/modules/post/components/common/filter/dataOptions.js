@@ -63,7 +63,7 @@ export const priceOptions = [
         label: "5 - 10 triệu"
     },
     {
-        value: "100000000-20000000",
+        value: "10000000-20000000",
         label: "10 - 20 triệu"
     },
     {

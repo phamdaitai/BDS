@@ -17,12 +17,20 @@ exports.createPost = async (data, user, portal) => {
 }
 
 exports.getAllPosts = async (query, portal) => {
-    let { page, limit, categories } = query;
+    console.log("query", query);
+    let { page, limit, categories, address, province, district, ward,
+        direction, priceFrom, priceTo, acreageFrom, acreageTo } = query;
     let option = {};
 
-    if (categories) {
-        option.categories = categories;
-    }
+    //Set query option
+    if (categories) option.categories = categories;
+    if (address) option.address = new RegExp(address, "i");
+    if (province) option.province = province;
+    if (district) option.district = district;
+    if (ward) option.ward = ward;
+    if (direction) option.direction = direction;
+    if (priceFrom && priceTo) option.price = { $gte: priceFrom, $lte: priceTo }
+    if (acreageFrom && acreageTo) option.acreage = { $gte: acreageFrom, $lte: acreageTo }
 
     let Post = initConnection(portal).model("Post");
 
