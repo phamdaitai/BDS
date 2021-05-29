@@ -1,5 +1,4 @@
 import { PaymentConstants } from "./constants";
-import { findIndex } from '../../../helpers/findIndex';
 
 var initState = {
     paymentDetail: {},
@@ -9,8 +8,6 @@ var initState = {
 }
 
 export function payment(state = initState, action) {
-    let index = -1;
-
     switch (action.type) {
         case PaymentConstants.CREATE_PAYMENT_REQUEST:
         case PaymentConstants.GET_ALL_PAYMENTS_REQUEST:
