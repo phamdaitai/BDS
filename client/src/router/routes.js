@@ -22,6 +22,7 @@ const PostFollowed = loadable(() => import('../modules/user/components/postFollo
 const Recharge = loadable(() => import('../modules/payment/components/recharge'));
 const Payment = loadable(() => import('../modules/payment/components/payment'));
 const Fee = loadable(() => import('../modules/fee/components'));
+const Dashboard = loadable(() => import('../modules/dashboard/components'));
 
 //Roles in routes
 // 1. guest, 2. user, 3. admin
@@ -119,6 +120,11 @@ export const routes = [
     exact: true,
     roles: [2, 3],
     component: ({ match }) => <Fee match={match} />
+  },
+  {
+    path: "/dashboard",
+    exact: true,
+    component: ({ match }) => <Dashboard match={match} />
   },
   {
     path: "*",
