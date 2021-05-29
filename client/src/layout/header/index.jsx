@@ -23,6 +23,9 @@ const dataManagerDropdown = [{
 },{
     name: "quản lý bài đăng",
     path: "manage-post"
+}, {
+    name: "quản lý phí VIP",
+    path: "manage-fee"
 }]
 
 const Headers = (props) => {

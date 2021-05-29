@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import moment from 'moment';
-import { Button, Table, Empty, Pagination } from 'antd';
+import { Table, Empty, Pagination } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { FormatMoney } from '../../../../helpers/formatCurrency';

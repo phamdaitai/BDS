@@ -2,7 +2,7 @@ import {  } from "./services";
 import { FeeConstants } from "./constants";
 import { FeeServices } from "./services";
 
-export const PaymentActions = {
+export const FeeActions = {
     createFee,
     getAllFees
 }
