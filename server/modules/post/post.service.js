@@ -17,7 +17,6 @@ exports.createPost = async (data, user, portal) => {
 }
 
 exports.getAllPosts = async (query, portal) => {
-    console.log("query", query);
     let { page, limit, categories, address, province, district, ward,
         direction, priceFrom, priceTo, acreageFrom, acreageTo } = query;
     let option = {};

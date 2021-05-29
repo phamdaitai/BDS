@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
-import { Pagination, Empty, Button, Table, Modal, Select } from 'antd';
+import { Pagination, Empty, Button, Table, Modal, Select, Form, Input } from 'antd';
 import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
@@ -19,6 +19,8 @@ const UserListManage = (props) => {
     const { user } = props;
     const { listUsers = [] } = user;
 
+    const [form] = Form.useForm();
+
     const [queryData, setQueryData] = useState({
         limit: 10,
         page: 1
@@ -36,7 +38,7 @@ const UserListManage = (props) => {
 
     useEffect(() => {
         props.getAllUsers(queryData);
-    }, [queryData.page, queryData.limit])
+    }, [queryData])
 
     const columns = [
         {
@@ -97,6 +99,7 @@ const UserListManage = (props) => {
             dataIndex: 'createdAt',
             title: 'Ngày đăng ký',
             width: '15%',
+            sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
             render: (data, record) => {
                 return (
                     <span>{moment(new Date(data)).format("hh:mm - DD/MM/YYYY")}</span>
@@ -139,6 +142,10 @@ const UserListManage = (props) => {
         });
     }
 
+    const submitFilter = (values) => {
+        setQueryData({...queryData, ...values})
+    }
+
     return <Container>
         {user.isLoading && <Loading />}
         <Container.Col colSpan={12}>
@@ -147,7 +154,51 @@ const UserListManage = (props) => {
                     Quản lý người dùng
                 </Card.Header>
                 <Card.Body>
-                    {listUsers?.length !== 0 ?
+
+                {/* Filter */}
+                <Form
+                        layout="vertical"
+                        name="user-filter"
+                        form={form}
+                        onFinish={submitFilter}
+                        className="filter-table"
+                    >
+                        <Form.Item
+                            name="name"
+                        >
+                            <Input placeholder="Tên người dùng" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="email"
+                        >
+                            <Input placeholder="Email" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="phone"
+                        >
+                            <Input placeholder="Số điện thoại" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="role"
+                        >
+                            <Select placeholder="Quyền">
+                                <Option value={1}>Chưa kích hoạt</Option>
+                                <Option value={2}>Người dùng</Option>
+                                <Option value={3}>Admin</Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">
+                                Tìm kiếm
+                            </Button>
+                        </Form.Item>
+                    </Form>
+
+                    {listUsers?.length !== 0 && !user.isLoading ?
                         <Table
                             columns={columns}
                             dataSource={listUsers}

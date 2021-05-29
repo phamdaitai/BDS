@@ -14,13 +14,9 @@ exports.getAllCategories = async (query, portal) => {
 
     let option = {};
 
-    if(name) {
-        option.name = new RegExp(name, "i")
-    }
-
-    if(type) {
-        option.type = type
-    }
+    //Set query data
+    if(name)  option.name = new RegExp(name, "i")
+    if(type) option.type = type
 
     let Category = initConnection(portal).model("Category");
 

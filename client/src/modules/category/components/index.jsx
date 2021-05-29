@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
-import { Pagination, Empty, Button, Table, Modal } from 'antd';
+import { Pagination, Empty, Button, Table, Modal, Form, Input, Select } from 'antd';
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import Container from '../../../components/container';
@@ -14,10 +14,14 @@ import { CategoryActions } from '../redux/actions';
 
 const { confirm } = Modal;
 
+const { Option } = Select;
+
 const dataTypes = ["", "Nhà đất bán", "Nhà đất cho thuê", "Cần thuê nhà đất", "Cần mua nhà đất", "Dự án"];
 
 const Category = (props) => {
     const { category } = props;
+
+    const [form] = Form.useForm();
 
     const [queryData, setQueryData] = useState({
         limit: 10,
@@ -43,7 +47,7 @@ const Category = (props) => {
 
     useEffect(() => {
         props.getAllCategories(queryData);
-    }, [queryData.page, queryData.limit])
+    }, [queryData])
 
     const columns = [
         {
@@ -116,6 +120,10 @@ const Category = (props) => {
         });
     }
 
+    const submitFilter = (values) => {
+        setQueryData({...queryData, ...values})
+    }
+
     return <Container>
         {category.isLoading && <Loading />}
         <Container.Col colSpan={12}>
@@ -130,6 +138,37 @@ const Category = (props) => {
                     </Button>
                 </Card.Header>
                 <Card.Body>
+                    {/* Filter */}
+                    <Form
+                        layout="vertical"
+                        name="category-filter"
+                        form={form}
+                        onFinish={submitFilter}
+                        className="filter-table"
+                    >
+                        <Form.Item
+                            name="name"
+                        >
+                            <Input placeholder="Tên danh mục" />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="type"
+                        >
+                            <Select placeholder="Chọn loại danh mục">
+                                <Option value={1}>{dataTypes[1]}</Option>
+                                <Option value={2}>{dataTypes[2]}</Option>
+                                <Option value={5}>{dataTypes[5]}</Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">
+                                Tìm kiếm
+                            </Button>
+                        </Form.Item>
+                    </Form>
+
                     {category.listCategories?.length !== 0 ?
                         <Table
                             columns={columns}

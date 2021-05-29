@@ -25,9 +25,15 @@ exports.register = async (data, portal) => {
 }
 
 exports.getAllUsers = async (query, portal) => {
-    let { page, limit } = query;
+    let { page, limit, name, email, phone, role } = query;
     let option = {};
 
+    //Set query data
+    if (name) option.name = new RegExp(name, "i")
+    if (email) option.email = new RegExp(email, "i")
+    if (phone) option.phone = new RegExp(phone, "i")
+    if (role) option.role = role
+    
     let User = initConnection(portal).model("User");
 
     if (!page || !limit) {

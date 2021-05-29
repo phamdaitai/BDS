@@ -103,6 +103,7 @@ const PostListManage = (props) => {
             dataIndex: 'createdAt',
             title: 'Ngày đăng',
             width: 'auto',
+            sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
             render: (data, record) => {
                 return (
                     <span>{moment(new Date(data)).format("hh:mm - DD/MM/YYYY")}</span>

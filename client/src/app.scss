@@ -8,4 +8,16 @@
 .ck-editor__editable {
     min-height: 200px !important;
     max-height: 500px !important;
- }
+}
+
+.filter-table {
+    display: flex;
+    div {
+        margin-right: 10px;
+        min-width: 150px !important;
+    }
+
+    div:last-child {
+        margin-right: 0px !important;
+    }
+}
