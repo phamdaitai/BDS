@@ -51,11 +51,31 @@ const Interaction = (props) => {
         }
     }
 
+    const isDisableRate = () => {
+        if (!isAuth) return true;
+        for (let i = 0; i < postDetail.rates?.length; ++i) {
+            if (postDetail.rates[i].user === user._id) return true;
+        }
+        return false;
+    }
+
+    const changeRate = (value) => {
+        let data = {
+            rates: [...postDetail.rates, ...[{
+                rate: value,
+                user: user._id
+            }]],
+            follows: postDetail.follows,
+            comments: postDetail.comments
+        }
+        _interaction(data)
+    }
+
     return <div style={{ marginTop: "1.5rem" }}>
         <hr />
         <h3 style={{color: "#0f78da"}}>Tương tác bài đăng</h3>
         <div className="post-rate-and-follow">
-            <Rate className="sale-item-rate" value={ratesAverage(postDetail?.rates)} />
+            <Rate className="sale-item-rate" onChange={changeRate} disabled={isDisableRate()} value={ratesAverage(postDetail?.rates)} />
             {isAuth && !hasFollow() && <Button type="dashed" onClick={followChange}>Theo dõi</Button>}
             {isAuth && hasFollow() && <Button type="primary" onClick={followChange}>Đang theo dõi</Button>}
         </div>
