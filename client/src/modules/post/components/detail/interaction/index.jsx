@@ -20,6 +20,10 @@ const Interaction = (props) => {
 
     const [commentText, setCommentText] = useState("");
 
+    const [isEditing, setIsEditing] = useState(false);
+
+    const [commentEditId, setCommentEditId] = useState("");
+
     const _interaction = async (data) => {
         let dataFormat = {
             rates: await data.rates,
@@ -92,7 +96,51 @@ const Interaction = (props) => {
             follows: postDetail.follows,
             comments: [...[newComment], ...postDetail.comments]
         }
-        console.log("data", data);
+        _interaction(data)
+    }
+
+    const deleteComment = (_id) => {
+        let data = {
+            rates: postDetail.rates,
+            follows: postDetail.follows,
+            comments:  postDetail.comments.filter(c => c._id !== _id)
+        }
+        _interaction(data)
+    }
+
+    //Đưa data cần sửa vào ô input, chuyển trạng thành đang chỉnh sửa
+    const setEditInfo = (com) => {
+        console.log("com", com);
+        if (!isEditing) {
+            setIsEditing(true);
+            setCommentText(com.comment);
+            setCommentEditId(com._id)
+            document.getElementById(`post-comment-input`)?.focus();
+        } else {
+            setIsEditing(false);
+            setCommentText("");
+        }
+    }
+
+    const updateComment = () => {
+        let data = {
+            rates: postDetail.rates,
+            follows: postDetail.follows,
+            comments: postDetail.comments.map(c => {
+                if (c._id !== commentEditId) {
+                    return c;
+                } else {
+                    return {
+                        ...c,
+                        comment: commentText
+                    }
+                }
+            })
+        }
+
+        setCommentEditId("")
+        setCommentText("")
+        setIsEditing(false)
         _interaction(data)
     }
 
@@ -122,8 +170,8 @@ const Interaction = (props) => {
                         src={user.avatar ? user.avatar : ""}
                         size={40}
                     />
-                    <TextArea rows={2} value={commentText} onChange={onChangeCommnent} placeholder="Viết bình luận..." />
-                    <div onClick={addComment}>
+                    <TextArea rows={2} value={commentText} onChange={onChangeCommnent} id="post-comment-input" placeholder="Viết bình luận..." />
+                    <div onClick={isEditing ? updateComment : addComment}>
                         <SendOutlined style={{ fontSize: "2rem", color: "green" }} />
                     </div>
                 </div>)
@@ -132,7 +180,13 @@ const Interaction = (props) => {
             
             <div className="post-list-comment">
                 {Array.isArray(postDetail.comments) && postDetail.comments.map((c, index) => {
-                    return <CommentItem item={c} key={createItemKey()}/>
+                    return <CommentItem
+                        key={createItemKey()}
+                        item={c}
+                        deleteComment={deleteComment}
+                        setEditInfo={setEditInfo}
+                        updateComment={updateComment}
+                    />
                 })}
             </div>
         </div>

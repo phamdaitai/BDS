@@ -14,7 +14,7 @@ const CommentItem = (props) => {
     const { auth } = props;
     const { isAuth, user } = auth;
 
-    const { item } = props;
+    const { item, deleteComment, setEditInfo } = props;
 
     //Kiểm tra xem có phải comment của người này không để cho phép sửa, xóa
     const isOwner = () => {
@@ -39,8 +39,8 @@ const CommentItem = (props) => {
             </div>
 
             {isOwner() && <div className="post-comment-item-action">
-                <EditOutlined title="Chỉnh sửa" />
-                <DeleteOutlined title="Xóa bình luận" />
+                <EditOutlined title="Chỉnh sửa" onClick={() => setEditInfo(item)}/>
+                <DeleteOutlined title="Xóa bình luận" onClick={() => deleteComment(item._id)}/>
             </div>}
 
             <div className="post-comment-item-content">
