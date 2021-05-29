@@ -1,6 +1,7 @@
 import React from 'react';
-import { Rate, Button, Input, Avatar } from 'antd';
+import { Avatar } from 'antd';
 import { UserOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { connect } from "react-redux";
 
 import 'moment/locale/vi';
 import moment from 'moment';
@@ -10,7 +11,17 @@ import './styles.scss';
 moment.locale('vi');
 
 const CommentItem = (props) => {
+    const { auth } = props;
+    const { isAuth, user } = auth;
+
     const { item } = props;
+
+    //Kiểm tra xem có phải comment của người này không để cho phép sửa, xóa
+    const isOwner = () => {
+        if (!isAuth) return false;
+        if (item.user._id === user._id) return true;
+        return false;
+    }
 
     return (
         <div className="post-comment-item">
@@ -27,10 +38,10 @@ const CommentItem = (props) => {
                 <span>{moment(item.date).fromNow()}</span>
             </div>
 
-            <div className="post-comment-item-action">
-                <EditOutlined title="Chỉnh sửa"/>
-                <DeleteOutlined title="Xóa bình luận"/>
-            </div>
+            {isOwner() && <div className="post-comment-item-action">
+                <EditOutlined title="Chỉnh sửa" />
+                <DeleteOutlined title="Xóa bình luận" />
+            </div>}
 
             <div className="post-comment-item-content">
                 <p>{item.comment}</p>
@@ -39,4 +50,12 @@ const CommentItem = (props) => {
     );
 };
 
-export default CommentItem;
+const mapStateToProps = state => {
+    const { auth } = state;
+    return { auth };
+}
+
+const mapDispatchToProps = {
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentItem);

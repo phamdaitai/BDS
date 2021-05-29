@@ -18,7 +18,7 @@ export function post(state = initState, action) {
         case PostConstants.GET_POST_FOR_UPDATE_REQUEST:
         case PostConstants.UPDATE_POST_REQUEST:
         case PostConstants.DELETE_POST_REQUEST:
-        case PostConstants.INTERACTION_REQUEST:   
+        // case PostConstants.INTERACTION_REQUEST:   
             return {
                 ...state,
                 isLoading: true,

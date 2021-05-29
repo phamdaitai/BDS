@@ -4,6 +4,7 @@ import { Rate, Button, Input, Avatar } from 'antd';
 import { UserOutlined, SendOutlined } from "@ant-design/icons";
 
 import { ratesAverage } from '../../../../../helpers/ratesAverage';
+import { createItemKey } from '../../../../../helpers/createItemKey';
 import { PostActions } from '../../../redux/actions';
 
 import CommentItem from './commentItem';
@@ -51,7 +52,7 @@ const Interaction = (props) => {
         } else {
             let data = {
                 rates: postDetail.rates,
-                follows: [[...postDetail.follows],[...[user._id]]] ,
+                follows: [...postDetail.follows,...[user._id]],
                 comments: postDetail.comments
             }
             _interaction(data)
@@ -85,7 +86,7 @@ const Interaction = (props) => {
             user: { _id: user._id },
             date: new Date()
         };
-        
+
         let data = {
             rates: postDetail.rates,
             follows: postDetail.follows,
@@ -131,7 +132,7 @@ const Interaction = (props) => {
             
             <div className="post-list-comment">
                 {Array.isArray(postDetail.comments) && postDetail.comments.map((c, index) => {
-                    return <CommentItem item={c} key={index}/>
+                    return <CommentItem item={c} key={createItemKey()}/>
                 })}
             </div>
         </div>
