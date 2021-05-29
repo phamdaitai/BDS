@@ -96,7 +96,9 @@ const Interaction = (props) => {
             follows: postDetail.follows,
             comments: [...[newComment], ...postDetail.comments]
         }
-        _interaction(data)
+        _interaction(data);
+        
+        setCommentText("");
     }
 
     const deleteComment = (_id) => {
@@ -137,11 +139,11 @@ const Interaction = (props) => {
                 }
             })
         }
+        _interaction(data)
 
         setCommentEditId("")
         setCommentText("")
         setIsEditing(false)
-        _interaction(data)
     }
 
     const onChangeCommnent = (e) => {

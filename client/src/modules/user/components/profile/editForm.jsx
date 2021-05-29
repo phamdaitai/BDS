@@ -39,6 +39,9 @@ const EditForm = (props) => {
     const updateUser = async (values) => {
         let avatarLink = await uploadImage();
         values.avatar = avatarLink;
+        if (avatar.length && !avatar[0].originFileObj) {
+            values.avatar = avatar[0].url;
+        }
         console.log("v", values);
         props.updateUser(auth.user._id, values);
     }
