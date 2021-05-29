@@ -89,7 +89,7 @@ const Fee = (props) => {
                         type="primary" style={{ float: "right" }}
                         onClick={() => setVisible(true)}
                     >
-                        Thêm mức phí
+                        Thêm gói
                     </Button>
                 </Card.Header>
                 <Card.Body>
