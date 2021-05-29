@@ -18,6 +18,7 @@ export function post(state = initState, action) {
         case PostConstants.GET_POST_FOR_UPDATE_REQUEST:
         case PostConstants.UPDATE_POST_REQUEST:
         case PostConstants.DELETE_POST_REQUEST:
+        case PostConstants.INTERACTION_REQUEST:   
             return {
                 ...state,
                 isLoading: true,
@@ -29,6 +30,7 @@ export function post(state = initState, action) {
         case PostConstants.GET_POST_FOR_UPDATE_FAIL:
         case PostConstants.UPDATE_POST_FAIL:
         case PostConstants.DELETE_POST_FAIL:
+        case PostConstants.INTERACTION_FAIL:   
             return {
                 ...state,
                 isLoading: false,
@@ -83,6 +85,13 @@ export function post(state = initState, action) {
             return {
                 ...state,
                 postDeleted: action.payload.post,
+                isLoading: false,
+            }
+        
+        case PostConstants.INTERACTION_SUCCESS:
+            return {
+                ...state,
+                postDetail: action.payload.post,
                 isLoading: false,
             }
         

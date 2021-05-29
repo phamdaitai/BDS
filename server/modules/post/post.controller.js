@@ -146,7 +146,7 @@ exports.interaction = async ( req, res ) => {
         await LogInfo(req.user.email, "INTERACTION_POST", req.portal);
         res.status(200).json({
             success: true,
-            messages: ["Cập nhật bài đăng thành công"],
+            messages: ["Tương tác bài viết thành công"],
             content: post
         });
     } catch (error) {
@@ -154,7 +154,7 @@ exports.interaction = async ( req, res ) => {
         console.log("eee", error.message);
         res.status(400).json({
             success: false,
-            messages: ["Cập nhật bài đăng không thành công"],
+            messages: ["Tương tác bài viết không thành công"],
             content: error.message
         });
     }

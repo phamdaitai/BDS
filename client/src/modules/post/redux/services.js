@@ -8,7 +8,8 @@ export const PostServices = {
     getPostDetail,
     getPostForUpdate,
     updatePost,
-    deletePost
+    deletePost,
+    interaction
 };
 
 async function createPost(data) {
@@ -54,4 +55,12 @@ async function deletePost(id) {
         url: `${ process.env.REACT_APP_SERVER }/post/${id}`,
         method: 'DELETE'
     }, true, true)
+}
+
+async function interaction(id, data) {
+    return sendRequest({
+        url: `${ process.env.REACT_APP_SERVER }/post/interaction/${id}`,
+        method: 'PATCH',
+        data
+    }, false, true)
 }

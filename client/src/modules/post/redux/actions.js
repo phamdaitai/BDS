@@ -10,7 +10,8 @@ export const PostActions = {
     getPostDetail,
     getPostForUpdate,
     updatePost,
-    deletePost
+    deletePost,
+    interaction
 }
 
 function createPost(data) {
@@ -162,6 +163,28 @@ function deletePost(id){
         .catch((error) => {
             dispatch({
                 type: PostConstants.DELETE_POST_FAIL,
+                error
+            })
+        })
+    }
+}
+
+function interaction(id, data){
+    return (dispatch) => {
+        dispatch({
+            type: PostConstants.INTERACTION_REQUEST
+        })
+
+        PostServices.interaction(id, data)
+        .then((res) => {
+            dispatch({
+                type: PostConstants.INTERACTION_SUCCESS,
+                payload: res.data.content
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: PostConstants.INTERACTION_FAIL,
                 error
             })
         })
