@@ -1,4 +1,5 @@
 import { PostConstants } from "./constants";
+import { findIndex } from '../../../helpers/findIndex';
 
 var initState = {
     postDetail: {},
@@ -10,6 +11,8 @@ var initState = {
 }
 
 export function post(state = initState, action) {
+    let index = -1;
+
     switch (action.type) {
         case PostConstants.UPLOAD_AVATAR_AND_IMAGE_REQUEST:
         case PostConstants.POST_ADD_REQUEST:
@@ -75,6 +78,10 @@ export function post(state = initState, action) {
             }
         
         case PostConstants.UPDATE_POST_SUCCESS:
+            index = findIndex(state.listPosts, action.payload.post._id);
+            if(index !== -1){
+                state.listPosts[index] = action.payload.post
+            }
             return {
                 ...state,
                 postForUpdate: action.payload.post,

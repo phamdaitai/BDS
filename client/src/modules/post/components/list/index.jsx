@@ -18,7 +18,8 @@ const ListPostByCategory = (props) => {
     const [queryData, setQueryData] = useState({
         limit: 10,
         page: 1,
-        categories: catId
+        categories: catId,
+        status: 2
     })
 
 

@@ -15,7 +15,8 @@ const Home = (props) => {
 
     const [queryData, setQueryData] = useState({
         limit: 10,
-        page: 1
+        page: 1,
+        status: 2
     })
 
     const [loaded, setLoaded] = useState(false);

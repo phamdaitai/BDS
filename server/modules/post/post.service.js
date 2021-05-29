@@ -165,7 +165,6 @@ exports.updatePost = async (id, data, portal) => {
         data.bedroomNumber = undefined;
     }
 
-
     let post = await Post.findByIdAndUpdate(id, {
         $set: data
     }, { new: true })

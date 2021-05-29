@@ -30,6 +30,11 @@ const UserSchema = new Schema({
     }],
     avatar: {
         type: String
+    },
+    //Số dư tài khoản
+    balance: {
+        type: Number,
+        default: 0
     }
 },{
     timestamps: true,
