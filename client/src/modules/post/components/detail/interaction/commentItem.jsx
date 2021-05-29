@@ -2,7 +2,12 @@ import React from 'react';
 import { Rate, Button, Input, Avatar } from 'antd';
 import { UserOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
+import 'moment/locale/vi';
+import moment from 'moment';
+
 import './styles.scss';
+
+moment.locale('vi');
 
 const CommentItem = (props) => {
     const { item } = props;
@@ -19,7 +24,7 @@ const CommentItem = (props) => {
                     size={30}
                 />
                 <span>{item?.user?.name || "Nguời dùng ẩn danh"}</span>
-                <span>11 giờ trước</span>
+                <span>{moment(item.date).fromNow()}</span>
             </div>
 
             <div className="post-comment-item-action">
