@@ -42,7 +42,7 @@ const Info = (props) => {
                             <td><span>Chiều ngang</span></td>
                             <td><span>{postDetail.width ? postDetail.width + " m" : "--"}</span></td>
                             <td><span>Chiều dài</span></td>
-                            <td><span>{postDetail.length ? postDetail.width + " m" : "--"}</span></td>
+                            <td><span>{postDetail.length ? postDetail.length + " m" : "--"}</span></td>
                             <td><span>Hướng</span></td>
                             <td><span>{postDetail.direction ? dataDirection[postDetail.direction] : "--"}</span></td>
                         </tr>
