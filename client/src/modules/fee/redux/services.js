@@ -4,7 +4,8 @@ import {
 
 export const FeeServices = {
     createFee,
-    getAllFees
+    getAllFees,
+    deleteFee
 };
 
 async function createFee(data) {
@@ -21,4 +22,11 @@ async function getAllFees(queryData) {
         method: 'GET',
         params: queryData
     }, false, false)
+}
+
+async function deleteFee(id) {
+    return sendRequest({
+        url: `${ process.env.REACT_APP_SERVER }/fee/${id}`,
+        method: 'DELETE'
+    }, true, true)
 }

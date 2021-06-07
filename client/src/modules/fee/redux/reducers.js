@@ -12,6 +12,7 @@ export function fee(state = initState, action) {
     switch (action.type) {
         case FeeConstants.CREATE_FEE_REQUEST:
         case FeeConstants.GET_ALL_FEES_REQUEST:
+        case FeeConstants.DELETE_FEE_REQUEST:
             return {
                 ...state,
                 isLoading: true,
@@ -19,6 +20,7 @@ export function fee(state = initState, action) {
         
         case FeeConstants.CREATE_FEE_FAIL:
         case FeeConstants.GET_ALL_FEES_FAIL:
+        case FeeConstants.DELETE_FEE_FAIL:
             return {
                 ...state,
                 isLoading: false,
@@ -47,6 +49,13 @@ export function fee(state = initState, action) {
                 hasNextPage: action.payload.allFees.hasNextPage,
                 prevPage: action.payload.allFees.prevPage,
                 nextPage: action.payload.allFees.nextPage
+            }
+        
+        case FeeConstants.DELETE_FEE_SUCCESS:
+            return {
+                ...state,
+                listFees: state.listFees.filter(u => u._id !== action.payload.fee._id),
+                isLoading: false,
             }
     
         default:

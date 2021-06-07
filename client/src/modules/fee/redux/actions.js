@@ -4,7 +4,8 @@ import { FeeServices } from "./services";
 
 export const FeeActions = {
     createFee,
-    getAllFees
+    getAllFees,
+    deleteFee
 }
 
 function createFee(data) {
@@ -23,7 +24,6 @@ function createFee(data) {
     }
 }
 
-
 function getAllFees (queryData) {
     return (dispatch) => {
         dispatch({
@@ -40,6 +40,28 @@ function getAllFees (queryData) {
         .catch((error) => {
             dispatch({
                 type: FeeConstants.GET_ALL_FEES_FAIL,
+                error
+            })
+        })
+    }
+}
+
+function deleteFee (id) {
+    return (dispatch) => {
+        dispatch({
+            type: FeeConstants.DELETE_FEE_REQUEST
+        })
+
+        FeeServices.deleteFee(id)
+        .then((res) => {
+            dispatch({
+                type: FeeConstants.DELETE_FEE_SUCCESS,
+                payload: res.data.content
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: FeeConstants.DELETE_FEE_FAIL,
                 error
             })
         })
