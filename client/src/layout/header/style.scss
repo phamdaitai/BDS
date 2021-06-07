@@ -35,7 +35,7 @@
   
 /* CENTER */
 .header-center {
-    grid-column: 3/11;
+    grid-column: 3/10;
     height: 100%;
     display: flex;
     justify-items: left;
@@ -69,7 +69,7 @@
   
 /* RIGHT */
 .header-right {
-    grid-column: 11/13;
+    grid-column: 10/13;
     height: 100%;
     text-align: right !important;
 }

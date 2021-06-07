@@ -1,6 +1,6 @@
 const { initConnection } = require('../../helpers/dbHelpers');
 const bcrypt = require('bcryptjs');
-const { sendEmailRegisterUser } = require('../../helpers/emailHelpers');
+const { sendEmailRegisterUser, sendEmailActived } = require('../../helpers/emailHelpers');
 
 exports.register = async (data, portal) => {
     let User = initConnection(portal).model("User");
@@ -70,6 +70,18 @@ exports.updateUser = async (id, data, portal) => {
 
     if (!data.avatar) {
         data.avatar = undefined;
+    }
+
+    const currentInfo = await User.findById(id);
+
+    if (!currentInfo) {
+        throw Error('user_is_not_existed');
+    }
+
+    console.log("role", data.role, currentInfo?.role);
+
+    if (data.role === 2 && currentInfo?.role === 1) {
+        await sendEmailActived(currentInfo.email, currentInfo.name);
     }
 
     let user = await User.findByIdAndUpdate(id, {
