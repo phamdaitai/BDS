@@ -21,14 +21,14 @@ exports.getAllFees = async (query, portal) => {
     if (!page || !limit) {
         let allFees = await Fee
             .find(option)
-            .sort({ createdAt: 'desc' })
+            .sort({ point: 1 })
         
         return {allFees}
     } else {
         let allFees = await Fee.paginate(option, {
             page,
             limit,
-            sort: { 'createdAt': 'desc' }
+            sort: { point: 1 }
         })
 
         return {allFees}

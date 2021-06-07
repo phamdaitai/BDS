@@ -3,6 +3,18 @@ const { initConnection } = require('../../helpers/dbHelpers');
 exports.createPost = async (data, user, portal) => {
     let Post = initConnection(portal).model("Post");
     let User = initConnection(portal).model("User");
+    
+    if (data.vipType && data.vipPoint) {
+        let date = new Date();
+        if (data.vipType === 1) {
+            data.vipExpirationDate = date.setDate(date.getDate() + 1)
+        } else {
+            data.vipExpirationDate = date.setDate(date.getDate() + 30)
+        }
+        data.status === 2;
+    } else if (!data.vipType && data.vipPoint) {
+        data.vipPoint = 0;
+    }
 
     let newPost = await Post.create({ ...data, userName: user.name, userPhone: user.phone });
     let post = await Post.findById({ _id: newPost._id });
@@ -51,7 +63,7 @@ exports.getAllPosts = async (query, portal) => {
             {
                 path: "ward"
             }])
-            .sort({ createdAt: 'desc' })
+            .sort({ createdAt: 'desc', vipPoint: -1 })
         
         return {allPosts}
     } else {
@@ -67,7 +79,7 @@ exports.getAllPosts = async (query, portal) => {
             {
                 path: "ward"
             }],
-            sort: { 'createdAt': 'desc' }
+            sort: { 'vipPoint': -1, 'createdAt': -1 }
         })
 
         return {allPosts}

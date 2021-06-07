@@ -32,7 +32,7 @@ const Home = (props) => {
     useEffect(() => {
         props.getAllPosts(queryData);
     }, [queryData])
-    
+
     return <Container>
         {post.isLoading && <Loading />}
         <Container.Col colSpan={9}>

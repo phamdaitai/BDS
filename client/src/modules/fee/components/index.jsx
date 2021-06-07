@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
-import { Pagination, Empty, Button, Table, Form } from 'antd';
+import { Pagination, Empty, Button, Table, Modal } from 'antd';
+import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import { FormatMoney } from '../../../helpers/formatCurrency';
 
@@ -12,6 +13,7 @@ import AddForm from './addForm';
 
 import { FeeActions } from '../redux/actions';
 
+const { confirm } = Modal;
 const dataTypes = ["", "Gói 01 ngày", "Gói 30 ngày" ];
 
 const Fee = (props) => {
@@ -50,7 +52,7 @@ const Fee = (props) => {
             key: 'type',
             dataIndex: 'type',
             title: 'Loại',
-            width: '30%',
+            width: '20%',
             render: (data) => {
                 return (<span>{dataTypes[data]}</span>)
             }
@@ -72,11 +74,45 @@ const Fee = (props) => {
                 return (<span>{FormatMoney(data)}</span>)
             }
         },
+        {
+            key: 'actions',
+            title: 'Hành động',
+            width: 'auto',
+            align: 'center',
+            render: (data, record) => {
+                return (
+                    <div >
+                        <Button
+                            icon={<DeleteOutlined />}
+                            danger
+                            size='small'
+                            onClick={() => { showConfirmDelete(record) }}
+                        >
+                        </Button>
+                    </div>
+                );
+            },
+        },
     ];
 
     const submitAddForm = async (values) => {
         await props.createFee(values);
         setVisible(false)
+    }
+
+    const showConfirmDelete = (f) => {
+        confirm({
+            title: `Bạn có chắc chắn muốn xóa gói "${f.name}" hay không?`,
+            icon: <ExclamationCircleOutlined />,
+            content: 'Vui lòng xác nhận',
+            okText: "Xóa",
+            cancelText: "Hủy",
+            
+            onOk() {
+                props.deleteFee(f._id)
+            },
+            onCancel() {},
+        });
     }
 
     return <Container>
@@ -137,6 +173,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     getAllFees: FeeActions.getAllFees,
     createFee: FeeActions.createFee,
+    deleteFee: FeeActions.deleteFee
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Fee);

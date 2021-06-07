@@ -13,6 +13,7 @@ import OtherInfo from '../common/add/otherInfo';
 import Map from '../common/add/map';
 import AvatarUpload from '../common/add/avatarUpload';
 import ImageUpload from '../common/add/imagesUpload';
+import VIP from '../common/add/vip';
 
 const PostSaleAdd = (props) => {
 
@@ -41,7 +42,7 @@ const PostSaleAdd = (props) => {
         console.log("v", values)
         await props.createPost(values);
 
-        if (post.postDetail._id) props.history.push("/");
+        if (post.postDetail?._id) props.history.push("/");
     };
 
     const uploadImage = async (values) => {
@@ -102,6 +103,8 @@ const PostSaleAdd = (props) => {
                         onChangeLocation={setLocation}
                         location={location}
                     />
+                        
+                    <VIP />
 
                 </Card.Body>
                 <Card.Footer styles={{textAlign: "right"}}>

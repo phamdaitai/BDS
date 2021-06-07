@@ -94,7 +94,7 @@ const AddForm = (props) => {
                 ]}
             >
                 <InputNumber
-                    placeholder="Ví dụ: 1"
+                    placeholder="Trọng số cao thì gói càng chất lượng"
                     style={{ width: "100%" }}
                 />
             </Form.Item>

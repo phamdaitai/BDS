@@ -135,7 +135,7 @@ const PostSchema = new Schema({
     }],
     //Hệ số thẻ VIP
     vipPoint: {
-        Type: Number,
+        type: Number,
         default: 0
     },
     //Ngày hết hạn của thẻ VIP

@@ -218,5 +218,4 @@ const mapDispatchToProps = {
     getWards: CountryActions.getWards
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Info);
