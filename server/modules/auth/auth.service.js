@@ -13,6 +13,10 @@ exports.login = async (data) => {
         throw Error("Account is not existing");
     }
 
+    if (user.role === 1) {
+        throw Error("account_pending");
+    }
+
     let checkPassword = bcrypt.compareSync(data.password, user.password);
     if (!checkPassword) {
         throw Error("Password is invalid");

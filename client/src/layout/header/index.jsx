@@ -120,11 +120,7 @@ const Headers = (props) => {
                         icon={<UserOutlined />}
                         src={user.avatar ? user.avatar : ""}
                     />
-                    {(user.role === 2 || user.role === 3) ? (
-                        <Link to={`/profile`} style={{ color: "white", marginLeft: '0.25rem', fontWeight: "600", cursor: "pointer" }}>{user.name}</Link>
-                    ) : (
-                        <b style={{color: "white"}}>{user.name}</b>
-                    )}
+                    <Link to={`/profile`} style={{ color: "white", marginLeft: '0.25rem', fontWeight: "600", cursor: "pointer" }}>{user.name}</Link>
                     <span style={{color: "#1890ff", cursor: "pointer"}} onClick={() => AuthActions.logOut()}> (đăng xuất)</span>
                 </div>
             ) : (

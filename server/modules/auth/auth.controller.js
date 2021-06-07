@@ -16,7 +16,9 @@ exports.login = async (req, res) => {
 
         res.status(400).json({
             success: false,
-            messages: ["Email hoặc mật khẩu không đúng"],
+            messages: error.message === "account_pending" ?
+                ["Tài khoản của bạn chưa được kích hoạt, vui lòng đợi và kiểm tra email"] :
+                ["Email hoặc mật khẩu không đúng"],
             content: error.message
         });
     }
