@@ -62,6 +62,8 @@ const Headers = (props) => {
             }
         }, [isnewRegister])
     
+    console.log("user", user);
+    
     return <Header className="header" style={{ lineHeight: "55px", height: "55px" }}>
         <div className="header-left">
             <Link to="/" >
@@ -86,21 +88,23 @@ const Headers = (props) => {
                     items={listCategoriesNoPagination.filter(c => c.type === 5)}
                 />
                 
-                <Link to="/post-sale-add">
+                {(user.role === 2 || user.role === 3) && <Link to="/post-sale-add">
                     <div className="header-center-item">Đăng tin nhà đất</div>
-                </Link>
-                <Link to="/post-project-add">
+                </Link>}
+                {(user.role === 2 || user.role === 3) && <Link to="/post-project-add">
                     <div className="header-center-item">Đăng tin dự án</div>
-                </Link>
+                </Link>}
                 <Link to="/dashboard">
                     <div className="header-center-item">Thống kê</div>
                 </Link>
-                <Dropdown
+
+                {user.role === 3 && <Dropdown
                     title="Quản lý"
                     items={dataManagerDropdown}
                     columns={1}
                     isManage
-                />
+                />}
+                
                 {/* <Link to="/category">
                     <div className="header-center-item">Danh mục</div>
                 </Link> */}
@@ -116,7 +120,11 @@ const Headers = (props) => {
                         icon={<UserOutlined />}
                         src={user.avatar ? user.avatar : ""}
                     />
-                    <Link to={`/profile`} style={{ color: "white", marginLeft: '0.25rem', fontWeight: "600", cursor: "pointer" }}>{user.name}</Link>
+                    {(user.role === 2 || user.role === 3) ? (
+                        <Link to={`/profile`} style={{ color: "white", marginLeft: '0.25rem', fontWeight: "600", cursor: "pointer" }}>{user.name}</Link>
+                    ) : (
+                        <b style={{color: "white"}}>{user.name}</b>
+                    )}
                     <span style={{color: "#1890ff", cursor: "pointer"}} onClick={() => AuthActions.logOut()}> (đăng xuất)</span>
                 </div>
             ) : (

@@ -77,7 +77,7 @@ export const routes = [
   {
     path: "/manage-category",
     exact: true,
-    roles: [2, 3],
+    roles: [3],
     component: ({ match }) => <Category match={match} />
   },
   {
@@ -88,13 +88,13 @@ export const routes = [
   {
     path: "/manage-user",
     exact: true,
-    roles: [2, 3],
+    roles: [3],
     component: ({ match }) => <UserListManage match={match} />
   },
   {
     path: "/manage-post",
     exact: true,
-    roles: [2, 3],
+    roles: [3],
     component: ({ match }) => <PostListManage match={match} />
   },
   {
@@ -118,7 +118,7 @@ export const routes = [
   {
     path: "/manage-fee",
     exact: true,
-    roles: [2, 3],
+    roles: [3],
     component: ({ match }) => <Fee match={match} />
   },
   {

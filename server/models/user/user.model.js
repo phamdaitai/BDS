@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     role: {//Role: 1. Chưa kích hoạt, 2. Người dùng, 3: Admin
         type: Number,
         enum: [1, 2, 3],
-        default: 2 //actived
+        default: 1 
     },
     posts: [{
         type: Schema.Types.ObjectId,
