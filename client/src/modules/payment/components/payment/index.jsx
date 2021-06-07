@@ -61,7 +61,7 @@ const Payment = (props) => {
         {
             key: 'createdAt',
             dataIndex: 'createdAt',
-            title: 'Ngày nạp tiền',
+            title: 'Ngày thanh toán',
             width: '20%',
             sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
             render: (data, record) => {
