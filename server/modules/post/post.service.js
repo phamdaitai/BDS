@@ -25,13 +25,8 @@ exports.createPost = async (data, user, portal) => {
 
     let userInfo = await User.findById(user._id);
 
+    //Them vao danh sach bai post cua nguoi dang
     if (userInfo) {
-        //Tru tien trong tai khoan cua user neu dang bai VIP
-        if (data.vipType && data.vipPoint) {
-            userInfo.balance -= data.vipFee
-        }
-
-        //Them vao danh sach bai post cua nguoi dang
         userInfo.posts.push(newPost._id);
         await userInfo.save();
     }

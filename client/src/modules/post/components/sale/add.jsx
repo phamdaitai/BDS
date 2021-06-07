@@ -1,12 +1,19 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import Container from '../../../../components/container';
 import Card from '../../../../components/card';
-import { Form, Button } from 'antd';
+import { Form, Button, Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
+//helpers
+import { FormatMoney } from '../../../../helpers/formatCurrency';
+
+//Actions
 import { PostActions } from '../../redux/actions';
+import { UserActions } from '../../../user/redux/actions';
 
+//Components
 import Detail from '../common/add/detail';
 import Info from '../common/add/info';
 import OtherInfo from '../common/add/otherInfo';
@@ -15,9 +22,15 @@ import AvatarUpload from '../common/add/avatarUpload';
 import ImageUpload from '../common/add/imagesUpload';
 import VIP from '../common/add/vip';
 
+const { confirm } = Modal;
+
 const PostSaleAdd = (props) => {
 
-    const { post } = props;
+    const { post, auth, user, fee } = props;
+    const { listFees = [] } = fee;
+    const { userDetail = { balance: 0 } } = user;
+    
+    const [loaded, setLoaded] = useState(false);
 
     const [location, setLocation] = useState(null);
 
@@ -26,6 +39,13 @@ const PostSaleAdd = (props) => {
     const [images, setImages] = useState([]);
 
     const [type, setType] = useState(0);
+
+    useEffect(() => {
+        if (!loaded) {
+            setLoaded(true)
+            props.getDetailUser(auth?.user?._id)
+        }
+    })
     
     const onSubmit = async (values) => {
         let imagesUploaded = await uploadImage();
@@ -78,6 +98,54 @@ const PostSaleAdd = (props) => {
 
         return undefined;
     }
+
+    const checkPayment = (values) => {
+        if (!values.feeId) {
+            onSubmit(values)
+        } else {
+            const vipInfo = listFees.find(f => values.feeId === f._id)
+            if (vipInfo) {
+                values.vipFee = vipInfo.fee;
+                values.vipPoint = vipInfo.point;
+
+                if (vipInfo.fee <= userDetail.balance) {
+                    confirmPayment(values)
+                } else {
+                    confirmRecharge(values)
+                }
+            }
+        }
+    }
+
+    const confirmPayment = (values) => {
+        confirm({
+            title: `Xác nhận thanh toán ${FormatMoney(values.vipFee)} (vnđ) cho bài đăng`,
+            icon: <ExclamationCircleOutlined />,
+            content: 'Vui lòng xác nhận',
+            okText: "Thanh toán",
+            cancelText: "Hủy",
+            
+            onOk() {
+                onSubmit(values)
+            },
+            onCancel() {},
+        });
+    }
+
+    const confirmRecharge = (values) => {
+        confirm({
+            title: `Số dư tài khoản của bạn không đủ, vui lòng nạp thêm tiền vào tài khoản!`,
+            icon: <ExclamationCircleOutlined />,
+            content: 'Vui lòng xác nhận',
+            okText: "Nạp tiền",
+            cancelText: "Hủy",
+            
+            onOk() {
+                props.history.push("/recharge")
+            },
+            onCancel() {},
+        });
+    }
     
     return <Container>
     <Container.Col colSpan={9}>
@@ -87,7 +155,7 @@ const PostSaleAdd = (props) => {
             <Form
                 layout="vertical"
                 name="post"
-                onFinish={onSubmit}
+                onFinish={checkPayment}
             >
                 <Card.Body>
                     <Detail
@@ -139,13 +207,14 @@ const PostSaleAdd = (props) => {
 };
 
 const mapStateToProps = state => {
-    const { post } = state
-    return { post };
+    const { post, auth, user, fee } = state
+    return { post, auth, user, fee };
 }
 
 const mapDispatchToProps = {
     createPost: PostActions.createPost,
-    requestUploading: PostActions.requestUploading
+    requestUploading: PostActions.requestUploading,
+    getDetailUser: UserActions.getDetailUser
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostSaleAdd));

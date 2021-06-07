@@ -35,11 +35,11 @@ const VIP = (props) => {
         </Form.Item>
 
         <Form.Item
-            name="vipPoint"
+            name="feeId"
         >
             <Radio.Group>
                 {listFees.map(f => (
-                    <Radio value={f.point} key={f._id}>
+                    <Radio value={f._id} key={f._id}>
                         <b>{f.name}</b> &ensp;
                         <span style={{color: "red"}}>{FormatMoney(f.fee)}</span>
                     </Radio>
