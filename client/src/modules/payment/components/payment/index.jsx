@@ -76,7 +76,7 @@ const Payment = (props) => {
         {payment.isLoading && <Loading />}
         <Container.Col colSpan={9}>
             <Card >
-                <Card.Header>Lịch sử nạp tiền</Card.Header>
+                <Card.Header>Lịch sử thanh toán</Card.Header>
                     
                 <Card.Body>
                     {listPayments?.length !== 0 ?

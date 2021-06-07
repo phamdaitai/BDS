@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+const http = require('http');
 
 // import de su dung process.env va bien global
 require('dotenv').config();
@@ -47,4 +48,18 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log("Server is running at localhost:" + port);
 });
+// -----------------------START SERVER SUCCESSFULLY---------------------------
+
+// Kiem tra outdated cua the VIP, 1 gio kiem tra 1 lan
+const options = {
+    port,
+    path: '/post/check-outdated-vip',
+    method: 'PATCH'
+};
+
+setInterval(() => {
+    http.request(options, function(res) {
+        res.on('data', function () {});
+      }).end();
+}, 10000);
 

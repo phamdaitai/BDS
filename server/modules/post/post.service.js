@@ -225,3 +225,20 @@ exports.interaction = async (id, data, portal) => {
 
     return { post: postDetail }
 }
+
+//Check outdated vip
+exports.checkOutDatedVip = async (portal) => {
+    let option = { vipExpirationDate: { $lt: new Date() }};
+
+    let Post = initConnection(portal).model("Post");
+
+    await Post.updateMany(option, {
+        $set: {
+            vipPoint: 0,
+            vipExpirationDate: null
+        }
+    })
+
+    return "Kiểm tra và cập nhật thành công"
+}
+

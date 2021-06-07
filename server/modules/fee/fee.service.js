@@ -34,3 +34,11 @@ exports.getAllFees = async (query, portal) => {
         return {allFees}
     }
 }
+
+exports.deleteFee = async (id, portal) => {
+    let Fee = initConnection(portal).model("Fee");
+
+    let fee = await Fee.findByIdAndDelete(id)
+
+    return { fee }
+}

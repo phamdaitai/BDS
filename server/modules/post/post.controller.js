@@ -159,3 +159,24 @@ exports.interaction = async ( req, res ) => {
         });
     }
 }
+
+exports.checkOutDatedVip = async ( req, res ) => {
+    try {
+        let info = await postService.checkOutDatedVip(req.portal)
+
+        await LogInfo("system", "CHECK_OUTDATED_VIP", req.portal);
+        res.status(200).json({
+            success: true,
+            messages: ["Đã kiểm tra"],
+            content: info
+        });
+    } catch (error) {
+        await LogError("system", "CHECK_OUTDATED_VIP", req.portal);
+
+        res.status(400).json({
+            success: false,
+            messages: ["Đã xảy ra lỗi trong quá trình kiểm tra"],
+            content: error.message
+        });
+    }
+}

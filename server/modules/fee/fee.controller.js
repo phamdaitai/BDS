@@ -45,3 +45,26 @@ exports.getAllFees = async (req, res) => {
         });
     }
 }
+
+exports.deleteFee = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let portal = req.portal;
+        let fee = await feeService.deleteFee(id, portal);
+
+        await LogInfo(req.user.email, "DELETE_FEE", req.portal);
+
+        res.status(201).json({
+            success: true,
+            messages: ["Xóa gói VIP thành công!"],
+            content: fee
+        });
+    } catch (error) {
+        await LogError(req.user.email, "DELETE_FEE", req.portal);
+        res.status(400).json({
+            success: false,
+            messages: ["Xóa gói VIP không thành công!"],
+            content: error.message
+        });
+    }
+}
