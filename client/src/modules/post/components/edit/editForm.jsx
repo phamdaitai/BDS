@@ -53,14 +53,14 @@ const EditForm = (props) => {
         if (provinceInfo) {
             props.getDistricts({ provinceId: provinceInfo.id })
         }
-    }, provincesData);
+    }, [provincesData]);
 
     useEffect(() => {
         let districtInfo = districtsData.find(d => d._id === postForUpdate.district)
         if (districtInfo) {
             props.getWards({ districtId: districtInfo.id })
             }
-    }, districtsData)
+    }, [districtsData])
     
     const onSubmit = async (values) => {
         let imagesUploaded = await uploadImage();

@@ -5,6 +5,7 @@ var initState = {
     postDetail: {},
     postForUpdate: {},
     postDeleted: {},
+    postCreated: {},
     listPosts: [],
     isLoading: false,
     error: null,
@@ -41,9 +42,10 @@ export function post(state = initState, action) {
             };
         
         case PostConstants.POST_ADD_SUCCESS:
+            console.log("action.payload.post", action.payload.post);
             return {
                 ...state,
-                postDetail: action.payload.post,
+                postCreated: action.payload.post,
                 isLoading: false,
             }
         

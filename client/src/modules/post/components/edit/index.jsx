@@ -6,7 +6,7 @@ import { Empty } from 'antd';
 import Loading from '../../../../components/loading';
 
 import { PostActions } from '../../redux/actions';
-import { post } from "../../redux/reducers";
+
 import EditForm from './editForm';
 
 const EditPost = (props) => {

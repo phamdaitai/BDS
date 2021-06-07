@@ -56,7 +56,6 @@ const Home = (props) => {
                         pageSize={queryData.limit}
                         onChange={(page, pageSize) => {
                             setQueryData({ ...queryData, page, limit: pageSize })
-                            console.log("page, pageSize", page, pageSize );
                         }}
                         showSizeChanger
                         showQuickJumper

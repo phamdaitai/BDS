@@ -21,7 +21,7 @@ function createPost(data) {
             .then(res => {
                 dispatch({
                     type: PostConstants.POST_ADD_SUCCESS,
-                    payload: res.data?.content?.post
+                    payload: res.data?.content
                 })
             })
             .catch(err => {

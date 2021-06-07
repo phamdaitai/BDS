@@ -29,6 +29,7 @@ const PostSaleAdd = (props) => {
     const { post, auth, user, fee } = props;
     const { listFees = [] } = fee;
     const { userDetail = { balance: 0 } } = user;
+    const { postCreated = {}} = post;
     
     const [loaded, setLoaded] = useState(false);
 
@@ -61,8 +62,6 @@ const PostSaleAdd = (props) => {
 
         console.log("v", values)
         await props.createPost(values);
-
-        if (post.postDetail?._id) props.history.push("/");
     };
 
     const uploadImage = async (values) => {
@@ -146,6 +145,8 @@ const PostSaleAdd = (props) => {
             onCancel() {},
         });
     }
+
+    if (postCreated?._id) window.location.href = `/post-edit/${postCreated._id}`;
     
     return <Container>
     <Container.Col colSpan={9}>
