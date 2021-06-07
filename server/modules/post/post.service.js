@@ -1,28 +1,50 @@
 const { initConnection } = require('../../helpers/dbHelpers');
+const paymentService = require('../payment/payment.service');
 
 exports.createPost = async (data, user, portal) => {
     let Post = initConnection(portal).model("Post");
     let User = initConnection(portal).model("User");
     
+    //Kiem tra bai dang VIP
     if (data.vipType && data.vipPoint) {
         let date = new Date();
-        if (data.vipType === 1) {
+
+        if (data.vipType === 1) {//Goi 1 ngay
             data.vipExpirationDate = date.setDate(date.getDate() + 1)
-        } else {
+        } else {//Goi 30 ngay
             data.vipExpirationDate = date.setDate(date.getDate() + 30)
         }
-        data.status === 2;
+        data.status = 2;
     } else if (!data.vipType && data.vipPoint) {
         data.vipPoint = 0;
     }
 
+    //Them bai viet vao db
     let newPost = await Post.create({ ...data, userName: user.name, userPhone: user.phone });
     let post = await Post.findById({ _id: newPost._id });
 
     let userInfo = await User.findById(user._id);
+
     if (userInfo) {
+        //Tru tien trong tai khoan cua user neu dang bai VIP
+        if (data.vipType && data.vipPoint) {
+            userInfo.balance -= data.vipFee
+        }
+
+        //Them vao danh sach bai post cua nguoi dang
         userInfo.posts.push(newPost._id);
-        userInfo.save();
+        await userInfo.save();
+    }
+
+    //Luu lich su giao dich
+    if (data.vipType && data.vipPoint) {
+        const transactionData = {
+            owner: user._id,
+            post: post._id,
+            transaction: data.vipFee,
+            type: 2
+        }
+        await paymentService.createPayment(transactionData, user, portal)
     }
 
     return { post }
