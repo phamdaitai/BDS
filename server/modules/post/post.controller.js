@@ -180,3 +180,24 @@ exports.checkOutDatedVip = async ( req, res ) => {
         });
     }
 }
+
+exports.getDashboardData = async ( req, res ) => {
+    try {
+        let data = await postService.getDashboardData(req.query, req.portal)
+
+        await LogInfo("all user", "GET_POST_DATA_DASHBOARD", req.portal);
+        res.status(200).json({
+            success: true,
+            messages: ["Lấy dữ liệu thành công"],
+            content: data
+        });
+    } catch (error) {
+        await LogError("all user", "GET_POST_DATA_DASHBOARD", req.portal);
+
+        res.status(400).json({
+            success: false,
+            messages: ["Lấy dữ liệu không thành công"],
+            content: error.message
+        });
+    }
+}

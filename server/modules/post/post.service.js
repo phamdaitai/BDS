@@ -271,3 +271,12 @@ exports.checkOutDatedVip = async (portal) => {
     return "Kiểm tra và cập nhật thành công"
 }
 
+exports.getDashboardData = async (query, portal) => {
+    let Post = initConnection(portal).model("Post");
+
+    return {
+        area: [],
+        date: []
+    }
+}
+

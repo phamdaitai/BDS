@@ -1,0 +1,853 @@
+{
+	"info": {
+		"_postman_id": "82eb33f1-19d3-4be8-90e6-6d3acb8a9150",
+		"name": "BDS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Nguyễn Văn B\",\r\n    \"email\": \"nvb@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"tp@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/post",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Provinces",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/country/province",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"country",
+						"province"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Districts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/country/district?provinceId=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"country",
+						"district"
+					],
+					"query": [
+						{
+							"key": "provinceId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Wards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/country/ward?districtId=7",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"country",
+						"ward"
+					],
+					"query": [
+						{
+							"key": "districtId",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload multi Images",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidHAiLCJlbWFpbCI6IjEyMzRAZ21haWwuY29tIiwicG9ydGFsIjoiYmRzIiwiaWF0IjoxNjIwMTQzMzgyLCJleHAiOjE3MjAxNDMzODF9.xBZcRqMhPPCTyFumxYXxaTyVBlTPrgmAZLEfa4PKi90",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/D:/Exercise/NodeJS/node_app_15_SendingEmail/api/public/pictures/2.jpg"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/D:/Exercise/NodeJS/node_app_15_SendingEmail/api/public/pictures/cho-nhat.jpg"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/D:/Exercise/NodeJS/node_app_15_SendingEmail/api/public/pictures/2.jpg"
+						},
+						{
+							"key": "folder",
+							"value": "bds",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/upload/multi-images",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"upload",
+						"multi-images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Posts",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidHAiLCJlbWFpbCI6IjEyMzRAZ21haWwuY29tIiwicG9ydGFsIjoiYmRzIiwiaWF0IjoxNjIwMTQzMzgyLCJleHAiOjE3MjAxNDMzODF9.xBZcRqMhPPCTyFumxYXxaTyVBlTPrgmAZLEfa4PKi90",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/post?limit=10&page=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Detail Post",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidHAiLCJlbWFpbCI6IjEyMzRAZ21haWwuY29tIiwicG9ydGFsIjoiYmRzIiwiaWF0IjoxNjIwMTQzMzgyLCJleHAiOjE3MjAxNDMzODF9.xBZcRqMhPPCTyFumxYXxaTyVBlTPrgmAZLEfa4PKi90",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/post/609f88a5064f143a8839ebd4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post",
+						"609f88a5064f143a8839ebd4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Alls User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Detail",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidHAiLCJlbWFpbCI6IjEyMzRAZ21haWwuY29tIiwicG9ydGFsIjoiYmRzIiwiaWF0IjoxNjIwMTQzMzgyLCJleHAiOjE3MjAxNDMzODF9.xBZcRqMhPPCTyFumxYXxaTyVBlTPrgmAZLEfa4PKi90",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/user/60965d92a97a3818f8f6f7e8",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"60965d92a97a3818f8f6f7e8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidHAiLCJlbWFpbCI6IjEyMzRAZ21haWwuY29tIiwicG9ydGFsIjoiYmRzIiwiaWF0IjoxNjIwMTQzMzgyLCJleHAiOjE3MjAxNDMzODF9.xBZcRqMhPPCTyFumxYXxaTyVBlTPrgmAZLEfa4PKi90",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Tài Phạm\",\r\n    \"phone\": \"09123123849\",\r\n    \"role\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user/60965d92a97a3818f8f6f7e8",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"60965d92a97a3818f8f6f7e8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChangePassword",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidHAiLCJlbWFpbCI6IjEyMzRAZ21haWwuY29tIiwicG9ydGFsIjoiYmRzIiwiaWF0IjoxNjIwMTQzMzgyLCJleHAiOjE3MjAxNDMzODF9.xBZcRqMhPPCTyFumxYXxaTyVBlTPrgmAZLEfa4PKi90",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"oldPassword\": \"123456789\",\r\n    \"newPassword\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user/change-password/60965d92a97a3818f8f6f7e8",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"change-password",
+						"60965d92a97a3818f8f6f7e8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Posts Of User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidHAiLCJlbWFpbCI6IjEyMzRAZ21haWwuY29tIiwicG9ydGFsIjoiYmRzIiwiaWF0IjoxNjIwMTQzMzgyLCJleHAiOjE3MjAxNDMzODF9.xBZcRqMhPPCTyFumxYXxaTyVBlTPrgmAZLEfa4PKi90",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/user/posts-of-user/60965d92a97a3818f8f6f7e8?page=1&limit=2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"posts-of-user",
+						"60965d92a97a3818f8f6f7e8"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post For Update",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/post/get-for-update/60a0b67407303532749048fd",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post",
+						"get-for-update",
+						"60a0b67407303532749048fd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Post",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Bán khu đất tại khu công nghiệp Tân Bình\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/post/60a09904aa02534698087197",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post",
+						"60a09904aa02534698087197"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Post",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/post/60a09904aa02534698087197",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post",
+						"60a09904aa02534698087197"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Category",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Đất thổ cư\",\r\n    \"type\":  1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/category",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Categories",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/category?limit=2&page=1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"category"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Detail Category",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/category/60a67381ebe7323138782422",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"category",
+						"60a67381ebe7323138782422"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Category",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Căn hộ trả góp\",\r\n    \"type\":  2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/category/60a673af74d934173c4faac5",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"category",
+						"60a673af74d934173c4faac5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Category",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/category/60a67554f359e3374027b205",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"category",
+						"60a67554f359e3374027b205"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Interaction Post",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"follows\": [\"60a8bd44c4d4ff35fce78a7d\", \"60965d92a97a3818f8f6f7e8\"],\r\n    \"comments\": [{\r\n        \"user\": \"60965d92a97a3818f8f6f7e8\",\r\n        \"comment\": \"Bài đăng hay\"\r\n    }],\r\n    \"rates\": [{\r\n        \"user\": \"60a8bd44c4d4ff35fce78a7d\",\r\n        \"rate\": 5\r\n    }]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/post/interaction/60a7f6591bb48428c4038413",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post",
+						"interaction",
+						"60a7f6591bb48428c4038413"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Payment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": 2,\r\n    \"transaction\": 1000000,\r\n    \"bankName\": \"SHB\",\r\n    \"bankAccount\": \"0921802931023\",\r\n    \"bankOwer\": \"Nguyen Van An\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/payment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Payments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/payment?page=1&limit=10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"payment"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Fee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"point\": 1,\r\n    \"fee\": 1000000,\r\n    \"name\": \"Phí VIP 1\",\r\n    \"type\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/fee",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"fee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Fees",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/fee",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"fee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Fee",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDk2NWQ5MmE5N2EzODE4ZjhmNmY3ZTgiLCJwaG9uZSI6IjA5MTIzMTIzODQ5IiwibmFtZSI6IlTDoGkgUGjhuqFtIiwiZW1haWwiOiJ0cEBnbWFpbC5jb20iLCJhdmF0YXIiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9iZHMvaW1hZ2UvdXBsb2FkL3YxNjIxMzQ0ODc0L2NvbW1vbi9mZGNkZHl1dnVyYnZoN2lyc2cwby5qcGciLCJwb3J0YWwiOiJiZHMiLCJyb2xlIjoyLCJpYXQiOjE2MjE0MzYwNDksImV4cCI6MTcyMTQzNjA0OH0.Ooie3Tj0bvULRaC5wHx9L2dHhIWaSmyd_g-lkonjsfQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/fee/60b299f2a8b5c03c8039d5d5",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"fee",
+						"60b299f2a8b5c03c8039d5d5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Dashboard Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/post/dashboard",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
