@@ -272,11 +272,58 @@ exports.checkOutDatedVip = async (portal) => {
 }
 
 exports.getDashboardData = async (query, portal) => {
+    let { startDate, endDate, province, district } = query;
+    let option = {};
+    
+    if (!startDate || !endDate) {
+        date = new Date();
+        startDate = new Date(date.setDate(date.getDate() - 7));
+        endDate = new Date();
+    }
+    
+    if (startDate && endDate) {
+        option = {
+            ...option,
+            createdAt: {
+                $gte: startDate,
+                $lte: endDate
+            }
+        }
+    }
+
     let Post = initConnection(portal).model("Post");
+
+    let posts = await Post.find(option);
+
+    //Format date from start to end
+    const dateTime = new Date();
+    let groupForDate = {};
+    let dateOfStart = startDate.getDate();
+    let dateOfEnd = endDate.getDate();
+    for (let i = dateOfStart; i <= dateOfEnd; i++) {
+        let dateNew = new Date(dateTime.setDate(i))
+        const date = `${dateNew.getDate()}-${dateNew.getMonth() + 1}-${dateNew.getFullYear()}`;
+        groupForDate[date] = [];
+    }
+    
+    //Dữ liệu có cùng ngày gom vào 1 object theo 1 key là date
+    posts.forEach(post => {
+        const {createdAt} = post;
+        const date = `${createdAt.getDate()}-${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`;
+        groupForDate[date].push(post.price);
+    });
+  
+    //Dữ liệu theo ngày trong 1 ngày gom vào 1 object
+    const groupForDateArrays = Object.keys(groupForDate).map((date) => {
+        return {
+            date,
+            post: groupForDate[date]
+        };
+    });
 
     return {
         area: [],
-        date: []
+        date: groupForDateArrays
     }
 }
 
