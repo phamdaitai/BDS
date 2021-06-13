@@ -1,6 +1,6 @@
 
 export const FormatMoney = (value) => {
-    if (!value) return null;
+    if (!value) return '0';
 
     if (typeof value === "string" || "String") value = parseInt(value);
 

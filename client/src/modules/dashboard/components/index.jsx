@@ -2,19 +2,53 @@ import React, {useState, useEffect} from 'react';
 import { connect } from "react-redux";
 import {Button, Select, Form, DatePicker } from 'antd';
 import moment from 'moment';
+import {
+    BarChart, Bar, XAxis, YAxis, Tooltip, LineChart, CartesianGrid, Line
+} from 'recharts';
+
+import { FormatMoney } from '../../../helpers/formatCurrency';
 
 import { PostActions } from '../../post/redux/actions';
 import { CountryActions } from '../../country/redux/actions';
 
 import Container from '../../../components/container';
 import Card from '../../../components/card';
-import { Bar, MiniArea } from 'ant-design-pro/lib/Charts';
 
 import './styles.scss';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const dateFormat = 'DD/MM/YYYY';
+
+const BarchartTooltip = (data) => {
+    if (!data?.payload?.length)
+        return 0
+    if (data.active) {
+        return (
+            <div className="chart-tooltip">
+                <p className="label">{`Khu vực: `} <b>{data?.payload[0]?.payload?.x}</b></p>
+                <p className="label">{`Giá nhà đất trung bình: `} <b style={{color: "red"}}>{FormatMoney(data?.payload[0]?.payload?.y)}</b></p>
+            </div>
+        );
+    }
+
+    return null;
+};
+
+const LineChartTooltip = (data) => {
+    if (!data?.payload?.length)
+        return 0
+    if (data.active) {
+        return (
+            <div className="chart-tooltip">
+                <p className="label">{`Ngày: `} <b>{data?.payload[0]?.payload?.x}</b></p>
+                <p className="label">{`Giá nhà đất trung bình: `} <b style={{color: "red"}}>{FormatMoney(data?.payload[0]?.payload?.y)}</b></p>
+            </div>
+        );
+    }
+
+    return null;
+};
 
 const DashBoard = (props) => {
     const {dateDashboard = [], areaDashboard = []} = props.post;
@@ -48,7 +82,6 @@ const DashBoard = (props) => {
             values.startDate = new Date(values.date[0]._d)
             values.endDate = new Date(values.date[1]._d)
         }
-        console.log("values", values);
         setQueryData({...queryData, ...values})
     }
 
@@ -126,9 +159,24 @@ const DashBoard = (props) => {
                             </Form.Item>
                         </Form>
 
+                        <h2>Biểu đồ giá nhà đất trung bình theo khu vực</h2>
+                        <BarChart width={1200} height={400} data={areaDashboard} style={{width: "100% !important"}}>
+                        <CartesianGrid stroke="none" />
+                            <XAxis dataKey="x" />
+                            <YAxis dataKey="y" tickFormatter={(data) => FormatMoney(data)} />
+                            <Tooltip content={<BarchartTooltip />}/>
+                            <Bar dataKey="y" fill="#413ea0" name="Biểu đồ giá nhà đất trung bình theo khu vực" />
+                        </BarChart>
+                        <br />
 
-                        <Bar height={400} title="Biểu đồ giá nhà đất trung bình theo khu vực" data={areaDashboard} />
-                        <MiniArea line title="Biến động theo thời gian" color="#cceafe" height={400} data={dateDashboard} />
+                        <h2>Biểu đồ biến động giá nhà đất theo thời gian</h2>
+                        <LineChart width={1200} height={400} data={dateDashboard} style={{width: "100% !important"}}>
+                            <CartesianGrid stroke="none" />
+                            <XAxis dataKey="x" />
+                            <YAxis dataKey="y" tickFormatter={(data) => FormatMoney(data)} />
+                            <Tooltip content={<LineChartTooltip />}/>
+                            <Line type="monotone" dataKey="y" stroke="#82ca9d" />
+                        </LineChart>
                     </Card.Body>
                     
                     <Card.Footer>

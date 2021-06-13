@@ -325,7 +325,7 @@ exports.getDashboardData = async (query, portal) => {
         return {
             x: item.date,
             y: item.post?.length ? 
-            totalPrice / item.post?.length : 
+            (totalPrice / item.post?.length) : 
             0
         }
     }) 
