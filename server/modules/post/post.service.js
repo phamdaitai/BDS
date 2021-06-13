@@ -299,13 +299,40 @@ exports.getDashboardData = async (query, portal) => {
     let posts = await Post.find(option);
 
     //Lấy dữ liệu theo ngày 
-    const groupForDate = groupDataForDate(posts, startDate, endDate);
+    const groupForDate = groupDataForDate(posts, new Date(startDate), new Date(endDate));
     //Lấy dữ liệu theo khu vực
     const groupForArea =  await groupDateForArea(posts, province, district, portal);
 
+    //Map data để hiển thị trên biểu đồ
+    let groupForAreaMap = groupForArea.map(item => {
+        let totalPrice = item.data.reduce((a, b) => {
+            return a + b.price;
+        }, 0)
+
+        return {
+            x: item.area?.name,
+            y: item.data?.length ? 
+            totalPrice / item.data?.length : 
+            0
+        }
+    })
+
+    let groupForDateMap = groupForDate.map(item => {
+        let totalPrice = item.post.reduce((a, b) => {
+            return a + b.price;
+        }, 0)
+
+        return {
+            x: item.date,
+            y: item.post?.length ? 
+            totalPrice / item.post?.length : 
+            0
+        }
+    }) 
+
     return {
-        area: groupForArea,
-        date: groupForDate
+        dataForArea: groupForAreaMap,
+        dataForDate: groupForDateMap
     }
 }
 
@@ -423,7 +450,7 @@ const groupDataForDate = (posts, startDate, endDate) => {
     posts.forEach(post => {
         const {createdAt} = post;
         const date = `${createdAt.getDate()}-${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`;
-        groupForDate[date].push(post.price);
+        groupForDate[date].push(post);
     });
   
     //Dữ liệu theo ngày trong 1 ngày gom vào 1 object
