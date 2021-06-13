@@ -291,10 +291,123 @@ exports.getDashboardData = async (query, portal) => {
         }
     }
 
+    if (province) option.province === province;
+    if (district) option.district === district;
+
     let Post = initConnection(portal).model("Post");
 
     let posts = await Post.find(option);
 
+    //Lấy dữ liệu theo ngày 
+    const groupForDate = groupDataForDate(posts, startDate, endDate);
+    //Lấy dữ liệu theo khu vực
+    const groupForArea =  await groupDateForArea(posts, province, district, portal);
+
+    return {
+        area: groupForArea,
+        date: groupForDate
+    }
+}
+
+const groupDateForArea = async (posts, province, district, portal) => {
+    //Nếu không query tỉnh thì lấy dữ liệu từng tỉnh trong cả nước
+    if (!province) {
+        let Province = initConnection(portal).model("Province");
+        let provinces = await Province.find({});
+        let groups = [];
+
+        if (!provinces){
+            throw Error("Data is null!")
+        }
+
+        provinces.forEach(pro => {
+            let postsInfo = posts.filter(post => {
+                return JSON.stringify(post.province) === JSON.stringify(pro._id);
+            });
+
+            if (!postsInfo) {
+                groups.push({
+                    data: [],
+                    area: pro
+                })
+            } else {
+                groups.push({
+                    data: postsInfo,
+                    area: pro
+                })
+            }
+        })
+        
+        return groups;
+    }
+
+    //Nếu không query tỉnh và không query huyện, thì lấy dữ liệu theo các huyện trong tỉnh đó
+    if (province && !district) {
+        let Province = initConnection(portal).model("Province");
+        let District = initConnection(portal).model("District");
+        let provinceInfo = await Province.findById(province);
+        let districts = await District.find({provinceId: provinceInfo.id});
+        let groups = [];
+
+        if (!districts){
+            throw Error("Data is null!")
+        }
+
+        districts.forEach(dis => {
+            let postsInfo = posts.filter(post => {
+                return JSON.stringify(post.district) === JSON.stringify(dis._id);
+            });
+
+            if (!postsInfo) {
+                groups.push({
+                    data: [],
+                    area: dis
+                })
+            } else {
+                groups.push({
+                    data: postsInfo,
+                    area: dis
+                })
+            }
+        })
+        
+        return groups;
+    }
+
+    //Ngược lại, query dữ liệu các xã trong 1 huyện
+    let District = initConnection(portal).model("District");
+    let ward = initConnection(portal).model("Ward");
+    console.log("district", district);
+    let districtInfo = await District.findById(district);
+    let wards = await ward.find({districtId: districtInfo.id});
+    let groups = [];
+
+    if (!wards){
+        throw Error("Data is null!")
+    }
+
+    wards.forEach(ward => {
+        let postsInfo = posts.filter(post => {
+            return JSON.stringify(post.ward) === JSON.stringify(ward._id);
+        });
+
+        if (!postsInfo) {
+            groups.push({
+                data: [],
+                area: ward
+            })
+        } else {
+            groups.push({
+                data: postsInfo,
+                area: ward
+            })
+        }
+    })
+    
+    return groups;
+}
+
+const groupDataForDate = (posts, startDate, endDate) => {
     //Format date from start to end
     const dateTime = new Date();
     let groupForDate = {};
@@ -321,9 +434,6 @@ exports.getDashboardData = async (query, portal) => {
         };
     });
 
-    return {
-        area: [],
-        date: groupForDateArrays
-    }
+    return groupForDateArrays;
 }
 
