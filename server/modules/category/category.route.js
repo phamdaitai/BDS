@@ -7,6 +7,6 @@ router.get('/:id', auth, categoryController.getDetailCategory);
 router.patch('/:id', auth, categoryController.updateCategory);
 router.delete('/:id', auth, categoryController.deleteCategory);
 router.post('/', auth, categoryController.createCategory);
-router.get('/', auth, categoryController.getAllCategories);
+router.get('/', categoryController.getAllCategories);
 
 module.exports = router;

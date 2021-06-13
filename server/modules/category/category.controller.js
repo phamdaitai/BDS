@@ -30,7 +30,7 @@ exports.getAllCategories = async (req, res) => {
         let portal = req.portal;
         let allCategories = await categoryService.getAllCategories(query, portal);
 
-        await LogInfo(req.user.email, "GET_ALL_CATEGORIES", req.portal);
+        await LogInfo("All users", "GET_ALL_CATEGORIES", req.portal);
 
         res.status(201).json({
             success: true,
@@ -38,7 +38,7 @@ exports.getAllCategories = async (req, res) => {
             content: allCategories
         });
     } catch (error) {
-        await LogError(req.user.email, "GET_ALL_CATEGORIES", req.portal);
+        await LogError("All users", "GET_ALL_CATEGORIES", req.portal);
         res.status(400).json({
             success: false,
             messages: ["Lấy danh sách danh mục không thành công!"],
