@@ -430,7 +430,6 @@ const groupDataForArea = async (posts, province, district, portal) => {
 
 const groupDataForDate = (posts, startDate, endDate) => {
     //Format date from start to end
-    // const dateTime = new Date();
     let groupForDate = {};
     let dateOfStart = startDate.getDate();
     let monthOfStart = startDate.getMonth();
@@ -450,16 +449,10 @@ const groupDataForDate = (posts, startDate, endDate) => {
             for (let d = dStart; d <= dEnd; ++d) {
                 let dateNew = new Date(y, m, d);
                 const date = `${dateNew.getDate()}-${dateNew.getMonth() + 1}-${dateNew.getFullYear()}`;
-                console.log("Date", date);
                 groupForDate[date] = [];
             }
         }
     }
-    // for (let i = dateOfStart; i <= dateOfEnd; i++) {
-    //     let dateNew = new Date(dateTime.setDate(i))
-    //     const date = `${dateNew.getDate()}-${dateNew.getMonth() + 1}-${dateNew.getFullYear()}`;
-    //     groupForDate[date] = [];
-    // }
     
     //Dữ liệu có cùng ngày gom vào 1 object theo 1 key là date
     posts.forEach(post => {
