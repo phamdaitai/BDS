@@ -9,7 +9,8 @@ export const PostServices = {
     getPostForUpdate,
     updatePost,
     deletePost,
-    interaction
+    interaction,
+    getDashboardData
 };
 
 async function createPost(data) {
@@ -62,5 +63,13 @@ async function interaction(id, data) {
         url: `${ process.env.REACT_APP_SERVER }/post/interaction/${id}`,
         method: 'PATCH',
         data
+    }, false, true)
+}
+
+async function getDashboardData(queryData) {
+    return sendRequest({
+        url: `${ process.env.REACT_APP_SERVER }/post/dashboard`,
+        method: 'GET',
+        params: queryData
     }, false, true)
 }

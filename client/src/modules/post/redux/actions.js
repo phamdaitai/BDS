@@ -11,7 +11,8 @@ export const PostActions = {
     getPostForUpdate,
     updatePost,
     deletePost,
-    interaction
+    interaction,
+    getDashboardData
 }
 
 function createPost(data) {
@@ -185,6 +186,28 @@ function interaction(id, data){
         .catch((error) => {
             dispatch({
                 type: PostConstants.INTERACTION_FAIL,
+                error
+            })
+        })
+    }
+}
+
+function getDashboardData(queryData){
+    return (dispatch) => {
+        dispatch({
+            type: PostConstants.GET_DASHBOARD_DATA_REQUEST
+        })
+
+        PostServices.getDashboardData(queryData)
+        .then((res) => {
+            dispatch({
+                type: PostConstants.GET_DASHBOARD_DATA_SUCCESS,
+                payload: res.data.content
+            })
+        })
+        .catch((error) => {
+            dispatch({
+                type: PostConstants.GET_DASHBOARD_DATA_FAIL,
                 error
             })
         })

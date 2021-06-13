@@ -7,6 +7,10 @@ var initState = {
     postDeleted: {},
     postCreated: {},
     listPosts: [],
+    //Dữ liệu dashboard theo khu vực
+    areaDashboard: [],
+    //Dữ liệu dashboard theo ngày
+    dateDashboard: [],
     isLoading: false,
     error: null,
 }
@@ -22,6 +26,7 @@ export function post(state = initState, action) {
         case PostConstants.GET_POST_FOR_UPDATE_REQUEST:
         case PostConstants.UPDATE_POST_REQUEST:
         case PostConstants.DELETE_POST_REQUEST:
+        case PostConstants.GET_DASHBOARD_DATA_REQUEST:
         // case PostConstants.INTERACTION_REQUEST:   
             return {
                 ...state,
@@ -34,7 +39,8 @@ export function post(state = initState, action) {
         case PostConstants.GET_POST_FOR_UPDATE_FAIL:
         case PostConstants.UPDATE_POST_FAIL:
         case PostConstants.DELETE_POST_FAIL:
-        case PostConstants.INTERACTION_FAIL:   
+        case PostConstants.INTERACTION_FAIL:  
+        case PostConstants.GET_DASHBOARD_DATA_FAIL:
             return {
                 ...state,
                 isLoading: false,
@@ -101,6 +107,14 @@ export function post(state = initState, action) {
             return {
                 ...state,
                 postDetail: action.payload.post,
+                isLoading: false,
+            }
+
+        case PostConstants.GET_DASHBOARD_DATA_SUCCESS:
+            return {
+                ...state,
+                dateDashboard: action.payload.dataForDate,
+                areaDashboard: action.payload.dataForArea,
                 isLoading: false,
             }
         
