@@ -430,16 +430,36 @@ const groupDataForArea = async (posts, province, district, portal) => {
 
 const groupDataForDate = (posts, startDate, endDate) => {
     //Format date from start to end
-    const dateTime = new Date();
+    // const dateTime = new Date();
     let groupForDate = {};
     let dateOfStart = startDate.getDate();
+    let monthOfStart = startDate.getMonth();
+    let yearOfStart = startDate.getFullYear();
     let dateOfEnd = endDate.getDate();
+    let monthOfEnd = endDate.getMonth();
+    let yearOfEnd = endDate.getFullYear();
 
-    for (let i = dateOfStart; i <= dateOfEnd; i++) {
-        let dateNew = new Date(dateTime.setDate(i))
-        const date = `${dateNew.getDate()}-${dateNew.getMonth() + 1}-${dateNew.getFullYear()}`;
-        groupForDate[date] = [];
+    for (let y = yearOfStart; y <= yearOfEnd; ++y) {
+        let mStart = y === yearOfStart ? monthOfStart : 0;
+        let mEnd = y < yearOfEnd ? 11 : monthOfEnd;
+
+        for (let m = mStart; m <= mEnd; ++m){
+            let dStart = m === mStart && y === yearOfStart ? dateOfStart : 1;
+            let dEnd =  m < mEnd && y === yearOfStart ? 31 : dateOfEnd ;
+
+            for (let d = dStart; d <= dEnd; ++d) {
+                let dateNew = new Date(y, m, d);
+                const date = `${dateNew.getDate()}-${dateNew.getMonth() + 1}-${dateNew.getFullYear()}`;
+                console.log("Date", date);
+                groupForDate[date] = [];
+            }
+        }
     }
+    // for (let i = dateOfStart; i <= dateOfEnd; i++) {
+    //     let dateNew = new Date(dateTime.setDate(i))
+    //     const date = `${dateNew.getDate()}-${dateNew.getMonth() + 1}-${dateNew.getFullYear()}`;
+    //     groupForDate[date] = [];
+    // }
     
     //Dữ liệu có cùng ngày gom vào 1 object theo 1 key là date
     posts.forEach(post => {
