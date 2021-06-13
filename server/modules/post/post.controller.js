@@ -193,7 +193,7 @@ exports.getDashboardData = async ( req, res ) => {
         });
     } catch (error) {
         await LogError("all user", "GET_POST_DATA_DASHBOARD", req.portal);
-
+        console.log(error.message);
         res.status(400).json({
             success: false,
             messages: ["Lấy dữ liệu không thành công"],

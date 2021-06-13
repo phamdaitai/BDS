@@ -19,6 +19,11 @@ import './styles.scss';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const dateFormat = 'DD/MM/YYYY';
+//Mặc định lấy 7 ngày gần nhất
+const date = new Date();
+date.setDate(date.getDate() - 7)
+
+const dataTypes = ["", "Nhà đất bán", "Nhà đất cho thuê", "Cần thuê nhà đất", "Cần mua nhà đất", "Dự án"];
 
 const BarchartTooltip = (data) => {
     if (!data?.payload?.length)
@@ -58,7 +63,10 @@ const DashBoard = (props) => {
 
     const [loaded, setLoaded] = useState(false);
     
-    const [queryData, setQueryData] = useState({});
+    const [queryData, setQueryData] = useState({
+        startDate: date,
+        endDate: new Date()
+    });
 
     useEffect(() => {
         if (!loaded) {
@@ -105,9 +113,19 @@ const DashBoard = (props) => {
                                 name="date"
                             >
                                 <RangePicker
-                                    defaultValue={[moment('2015/01/01', dateFormat), moment('2015/01/01', dateFormat)]}
+                                    defaultValue={[moment(date, dateFormat), moment(new Date(), dateFormat)]}
                                     format={dateFormat}
                                 />
+                            </Form.Item>
+                            <Form.Item
+                                name="type"
+                            >
+                                <Select placeholder="Loại nhà đất">
+                                    <Option value={null}>Tất cả</Option>
+                                    <Option value={1}>{dataTypes[1]}</Option>
+                                    <Option value={2}>{dataTypes[2]}</Option>
+                                    <Option value={5}>{dataTypes[5]}</Option>
+                                </Select>
                             </Form.Item>
                             <Form.Item
                                 name="province"

@@ -272,14 +272,8 @@ exports.checkOutDatedVip = async (portal) => {
 }
 
 exports.getDashboardData = async (query, portal) => {
-    let { startDate, endDate, province, district } = query;
+    let { startDate, endDate, province, district, type } = query;
     let option = {};
-    
-    if (!startDate || !endDate) {
-        date = new Date();
-        startDate = new Date(date.setDate(date.getDate() - 7));
-        endDate = new Date();
-    }
     
     if (startDate && endDate) {
         option = {
@@ -291,17 +285,18 @@ exports.getDashboardData = async (query, portal) => {
         }
     }
 
-    if (province) option.province === province;
-    if (district) option.district === district;
+    if (province) option.province = province;
+    if (district) option.district = district;
+    if (type) option.type = type;
 
     let Post = initConnection(portal).model("Post");
 
     let posts = await Post.find(option);
 
     //Lấy dữ liệu theo ngày 
-    const groupForDate = groupDataForDate(posts, new Date(startDate), new Date(endDate));
+    const groupForDate = await groupDataForDate(posts, new Date(startDate), new Date(endDate));
     //Lấy dữ liệu theo khu vực
-    const groupForArea =  await groupDateForArea(posts, province, district, portal);
+    const groupForArea =  await groupDataForArea(posts, province, district, portal);
 
     //Map data để hiển thị trên biểu đồ
     let groupForAreaMap = groupForArea.map(item => {
@@ -336,7 +331,7 @@ exports.getDashboardData = async (query, portal) => {
     }
 }
 
-const groupDateForArea = async (posts, province, district, portal) => {
+const groupDataForArea = async (posts, province, district, portal) => {
     //Nếu không query tỉnh thì lấy dữ liệu từng tỉnh trong cả nước
     if (!province) {
         let Province = initConnection(portal).model("Province");
@@ -404,7 +399,6 @@ const groupDateForArea = async (posts, province, district, portal) => {
     //Ngược lại, query dữ liệu các xã trong 1 huyện
     let District = initConnection(portal).model("District");
     let ward = initConnection(portal).model("Ward");
-    console.log("district", district);
     let districtInfo = await District.findById(district);
     let wards = await ward.find({districtId: districtInfo.id});
     let groups = [];
@@ -440,6 +434,7 @@ const groupDataForDate = (posts, startDate, endDate) => {
     let groupForDate = {};
     let dateOfStart = startDate.getDate();
     let dateOfEnd = endDate.getDate();
+
     for (let i = dateOfStart; i <= dateOfEnd; i++) {
         let dateNew = new Date(dateTime.setDate(i))
         const date = `${dateNew.getDate()}-${dateNew.getMonth() + 1}-${dateNew.getFullYear()}`;
