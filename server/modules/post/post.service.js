@@ -444,7 +444,7 @@ const groupDataForDate = (posts, startDate, endDate) => {
 
         for (let m = mStart; m <= mEnd; ++m){
             let dStart = m === mStart && y === yearOfStart ? dateOfStart : 1;
-            let dEnd =  m < mEnd && y === yearOfStart ? 31 : dateOfEnd ;
+            let dEnd =  m === mEnd && y === yearOfStart ? dateOfEnd : 31 ;
 
             for (let d = dStart; d <= dEnd; ++d) {
                 let dateNew = new Date(y, m, d);
@@ -458,7 +458,7 @@ const groupDataForDate = (posts, startDate, endDate) => {
     posts.forEach(post => {
         const {createdAt} = post;
         const date = `${createdAt.getDate()}-${createdAt.getMonth() + 1}-${createdAt.getFullYear()}`;
-        groupForDate[date].push(post);
+        Array.isArray(groupForDate[date]) && groupForDate[date].push(post);
     });
   
     //Dữ liệu theo ngày trong 1 ngày gom vào 1 object
