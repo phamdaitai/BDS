@@ -123,7 +123,6 @@ const EditForm = (props) => {
             const data = await PostActions.uploadAvatarAndImage(avatarUpload, imagesUpload);
             return data;
         }
-
         return undefined;
     }
     
